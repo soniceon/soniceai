@@ -140,8 +140,8 @@ export default function ToolGrid() {
                   <span className="text-3xl mb-2">
                     <span className="relative w-10 h-10 flex items-center justify-center">
                       <img
-                        src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website)}`}
-                        alt={tool.name[lang]}
+                        src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website || '')}`}
+                        alt={String(tool.name?.[lang] ?? '')}
                         className="w-8 h-8"
                         onError={e => { e.currentTarget.style.display = 'none'; }}
                       />
@@ -150,12 +150,12 @@ export default function ToolGrid() {
                       </span>
                     </span>
                   </span>
-                  <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name[lang]}</div>
+                  <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{String(tool.name?.[lang] ?? '')}</div>
                   <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{typeLabels[tool.type]?.[lang] || tool.type}</div>
-                  <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc[lang]}</div>
+                  <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{String(tool.desc?.[lang] ?? '')}</div>
                   <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
-                    <span>⭐ {tool.rating}</span>
-                    <span>👥 {tool.users}</span>
+                    <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>
+                    <span>�� {String(tool.users ?? '')}</span>
                   </div>
                   <div className="flex flex-wrap gap-1 mt-auto">
                     {tool.tags.map(tag => (
@@ -180,8 +180,8 @@ export default function ToolGrid() {
               <Link key={tool.id} href={`/tools/${tool.id}`} className="flex items-center gap-3 group relative">
                 <span className="relative w-8 h-8 flex items-center justify-center">
                   <img
-                    src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website)}`}
-                    alt={tool.name[lang]}
+                    src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website || '')}`}
+                    alt={String(tool.name?.[lang] ?? '')}
                     className="w-8 h-8"
                     onError={e => { e.currentTarget.style.display = 'none'; }}
                   />
