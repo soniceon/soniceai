@@ -100,8 +100,8 @@ export default function ToolDetailPage() {
           <div className="flex items-center gap-4 flex-1">
             <div className="w-16 h-16 rounded-xl bg-purple-200 flex items-center justify-center text-3xl font-bold text-purple-700 overflow-hidden relative">
               <img
-                src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website)}`}
-                alt={tool.name[lang]}
+                src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website ?? '')}`}
+                alt={tool.name && tool.name[lang] ? tool.name[lang] : ''}
                 className="w-12 h-12"
                 onError={e => { e.currentTarget.style.display = 'none'; }}
               />
