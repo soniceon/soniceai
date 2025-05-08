@@ -150,12 +150,12 @@ export default function ToolGrid() {
                       </span>
                     </span>
                   </span>
-                  <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{String(tool.name?.[lang] ?? '')}</div>
+                  <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name && tool.name[lang] ? tool.name[lang] : ''}</div>
                   <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{typeLabels[tool.type]?.[lang] || tool.type}</div>
-                  <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{String(tool.desc?.[lang] ?? '')}</div>
+                  <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc && tool.desc[lang] ? tool.desc[lang] : ''}</div>
                   <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
                     <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>
-                    <span>�� {String(tool.users ?? '')}</span>
+                    <span>👥 {tool.users ?? ''}</span>
                   </div>
                   <div className="flex flex-wrap gap-1 mt-auto">
                     {tool.tags.map(tag => (
