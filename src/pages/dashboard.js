@@ -7,7 +7,10 @@ export default function Dashboard() {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const { user } = useAuth();
+
+  // 关键：先获取 context，再判断
+  const auth = useAuth();
+  const user = auth ? auth.user : undefined;
 
   useEffect(() => {
     setMounted(true);
