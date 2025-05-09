@@ -22,6 +22,10 @@ function Dashboard() {
     }
   }, [user, mounted, router]);
 
+  useEffect(() => {
+    console.log('user:', user);
+  }, [user]);
+
   if (!mounted || user === undefined) return null;
   if (!user) return null;
 
