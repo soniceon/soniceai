@@ -1,14 +1,14 @@
+import dynamic from 'next/dynamic';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-export default function Dashboard() {
+function Dashboard() {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
-  // 关键：先获取 context，再判断
   const auth = useAuth();
   const user = auth ? auth.user : undefined;
 
@@ -25,7 +25,6 @@ export default function Dashboard() {
   if (!mounted || user === undefined) return null;
   if (!user) return null;
 
-  // 语言切换
   const handleLangChange = (e) => {
     i18n.changeLanguage(e.target.value);
   };
@@ -78,4 +77,6 @@ export default function Dashboard() {
       </main>
     </div>
   );
-} 
+}
+
+export default dynamic(() => Promise.resolve(Dashboard), { ssr: false }); 
