@@ -48,6 +48,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-[#181c2a]">
       <div className="w-full max-w-md p-8 bg-[#23283b] rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-white mb-8">{t('login')}</h2>
+        <div style={{color: 'red', fontSize: 32}}>THIS IS NEW VERSION</div>
         <form onSubmit={handleLogin} className="space-y-6">
           <input
             type="email"
