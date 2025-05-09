@@ -7,20 +7,19 @@ export default function Dashboard() {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const { user } = useAuth?.() || {};
+  const { user } = useAuth();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (mounted && !user) {
+    if (mounted && user === null) {
       router.replace('/login');
     }
-  }, [user, router, mounted]);
+  }, [user, mounted, router]);
 
-  // 只在客户端渲染
-  if (!mounted) return null;
+  if (!mounted || user === undefined) return null;
   if (!user) return null;
 
   // 语言切换

@@ -4,7 +4,7 @@ import { supabase } from '../utils/supabaseClient';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
