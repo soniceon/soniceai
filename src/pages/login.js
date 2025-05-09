@@ -23,7 +23,7 @@ export default function Login() {
       setMessage(t('invalid_email_or_password'));
     } else {
       setMessage(t('login_successful'));
-      setTimeout(() => router.push('/dashboard'), 1000);
+      setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
     }
     setLoading(false);
   };
