@@ -1,26 +1,32 @@
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
-  const { user } = useAuth();
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const { user } = useAuth?.() || {};
 
-  // 未登录自动跳转到登录页
   useEffect(() => {
-    if (!user) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && !user) {
       router.replace('/login');
     }
-  }, [user, router]);
+  }, [user, router, mounted]);
+
+  // 只在客户端渲染
+  if (!mounted) return null;
+  if (!user) return null;
 
   // 语言切换
   const handleLangChange = (e) => {
     i18n.changeLanguage(e.target.value);
   };
-
-  if (!user) return null;
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-[#181825]">
