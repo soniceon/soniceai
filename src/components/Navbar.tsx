@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSearch } from '@/contexts/SearchContext';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 const SIDEBAR_WIDTH = 80; // 侧边栏展开宽度(px)
 
@@ -119,6 +119,24 @@ export default function Navbar() {
   const [categoryDropdown, setCategoryDropdown] = useState(false);
   const rankingTimeout = useRef<NodeJS.Timeout | null>(null);
   const categoryTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [user, setUser] = useState<{ email: string, username: string } | null>(null);
+  const [profileDropdown, setProfileDropdown] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const email = localStorage.getItem('userEmail');
+      const username = localStorage.getItem('username');
+      if (email) setUser({ email, username: username || email });
+      else setUser(null);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('username');
+    setUser(null);
+    router.push('/login');
+  };
 
   // 搜索并跳转首页
   const handleSearch = () => {
@@ -248,9 +266,31 @@ export default function Navbar() {
         </div>
         <ThemeToggle />
         <LanguageSwitcher />
-        {/* 登录/注册入口 */}
-        <Link href="/login" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{authLabels.login[langKey]}</Link>
-        <Link href="/register" className="ml-2 px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">{authLabels.register[langKey]}</Link>
+        {/* 用户中心/登录注册 */}
+        {user ? (
+          <div className="relative ml-2">
+            <button
+              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+              onClick={() => setProfileDropdown(v => !v)}
+            >
+              Hi, {user.username}
+            </button>
+            {profileDropdown && (
+              <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
+                <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">个人中心</Link>
+                <button
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-red-500"
+                  onClick={handleLogout}
+                >退出登录</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            <Link href="/login" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{authLabels.login[langKey]}</Link>
+            <Link href="/register" className="ml-2 px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">{authLabels.register[langKey]}</Link>
+          </>
+        )}
       </div>
     </nav>
   );

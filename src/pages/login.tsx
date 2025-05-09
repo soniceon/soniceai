@@ -17,12 +17,16 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showResend, setShowResend] = useState(false);
+  const [pendingToken, setPendingToken] = useState('');
   const router = useRouter();
   const { lang } = useLanguage();
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as LangKey;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setShowResend(false);
+    setPendingToken('');
     if (!email || !password) {
       setError(labels.errorEmpty[langKey] || '');
       return;
@@ -35,9 +39,29 @@ export default function Login() {
     const data = await res.json();
     if (!res.ok) {
       setError(data.message || '登录失败');
+      if (data.message === 'Email not verified' && data.token) {
+        setShowResend(true);
+        setPendingToken(data.token);
+      }
       return;
     }
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('username', data.nickname || email);
     router.push('/');
+  };
+
+  const handleResend = async () => {
+    if (!email || !pendingToken) return;
+    const res = await fetch('/api/send-verification-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, token: pendingToken })
+    });
+    if (res.ok) {
+      alert('验证邮件已重新发送，请查收邮箱');
+    } else {
+      alert('重发失败，请稍后再试');
+    }
   };
 
   return (
@@ -62,6 +86,15 @@ export default function Login() {
             required
           />
           {error && <div className="text-red-500 text-sm">{error}</div>}
+          {showResend && (
+            <button
+              type="button"
+              className="text-blue-600 underline mt-2"
+              onClick={handleResend}
+            >
+              重新发送验证邮件
+            </button>
+          )}
           <button type="submit" className="bg-purple-600 text-white py-2 rounded hover:bg-purple-700">{labels.login[langKey]}</button>
         </form>
         <div className="mt-4 text-center text-sm">

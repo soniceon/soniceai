@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { aiTools } from '@/data/aiTools';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { QRCodeCanvas } from 'qrcode.react';
 
 const chatgptDetail = {
   launchDate: 'November 2022',
@@ -48,7 +49,8 @@ const chatgptDetail = {
         es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe'],
         ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка']
       },
-      cta: 'Get Started'
+      cta: 'Get Started',
+      ctaUrl: 'https://chat.openai.com/'
     },
     {
       name: 'Pro',
@@ -63,7 +65,8 @@ const chatgptDetail = {
         es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe', 'Personalidad y tono personalizables'],
         ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка', 'Настраиваемая личность и тон']
       },
-      cta: 'Upgrade'
+      cta: 'Upgrade',
+      ctaUrl: 'https://chat.openai.com/pro'
     },
     {
       name: 'Enterprise',
@@ -78,7 +81,8 @@ const chatgptDetail = {
         es: ['Todas las funciones', 'Soporte premium', 'Integración personalizada'],
         ru: ['Все функции', 'Премиум поддержка', 'Индивидуальная интеграция']
       },
-      cta: 'Contact Sales'
+      cta: 'Contact Sales',
+      ctaUrl: 'mailto:sales@openai.com'
     }
   ]
 };
@@ -90,7 +94,67 @@ export default function ToolDetailPage() {
   const tool = aiTools.find(t => t.id === id) || aiTools[0];
   const [userRating, setUserRating] = useState(0);
   const [review, setReview] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [showQR, setShowQR] = useState(false);
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [reviewError, setReviewError] = useState('');
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof chatgptDetail.features;
+
+  // 拉取评论
+  useEffect(() => {
+    setLoadingReviews(true);
+    fetch(`/api/reviews?toolId=${tool.id}`)
+      .then(res => res.json())
+      .then(data => { setReviews(data); setLoadingReviews(false); })
+      .catch(() => setLoadingReviews(false));
+  }, [tool.id]);
+
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setReviewError('');
+    const userEmail = localStorage.getItem('userEmail');
+    const username = localStorage.getItem('username') || userEmail;
+    if (!userEmail) {
+      setShowLoginPrompt(true);
+      return;
+    }
+    if (!userRating) {
+      setReviewError('请先评分');
+      return;
+    }
+    const res = await fetch('/api/reviews', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ toolId: tool.id, userEmail, username, rating: userRating, comment: review })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setReviewError(data.message || '提交失败');
+      return;
+    }
+    setUserRating(0);
+    setReview('');
+    // 重新拉取评论
+    fetch(`/api/reviews?toolId=${tool.id}`)
+      .then(res => res.json())
+      .then(data => setReviews(data));
+  };
+
+  const handleDeleteReview = async (id: string) => {
+    const userEmail = localStorage.getItem('userEmail');
+    if (!userEmail) return;
+    if (!window.confirm('确定要删除这条评论吗？')) return;
+    const res = await fetch('/api/reviews', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, userEmail })
+    });
+    if (res.ok) {
+      setReviews(reviews.filter(r => r.id !== id));
+    }
+  };
 
   return (
     <div className="flex justify-center w-full">
@@ -148,9 +212,79 @@ export default function ToolDetailPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
               <div className="font-bold mb-2">Share</div>
-              <div className="flex gap-2">
-                <button className="px-3 py-1 bg-black text-white rounded">Twitter</button>
-                <button className="px-3 py-1 bg-black text-white rounded">Facebook</button>
+              <div className="flex gap-2 flex-wrap">
+                {/* Twitter */}
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 bg-black text-white rounded"
+                >
+                  Twitter
+                </a>
+                {/* Facebook */}
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 bg-black text-white rounded"
+                >
+                  Facebook
+                </a>
+                {/* 复制链接 */}
+                <button
+                  className="px-3 py-1 bg-gray-700 text-white rounded"
+                  onClick={() => {
+                    navigator.clipboard.writeText(typeof window !== 'undefined' ? window.location.href : '');
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                  }}
+                >
+                  复制链接
+                </button>
+                {copied && <span className="text-green-500 ml-2">已复制！</span>}
+                {/* 微信二维码 */}
+                <button
+                  className="px-3 py-1 bg-green-500 text-white rounded"
+                  onClick={() => setShowQR(!showQR)}
+                >
+                  微信
+                </button>
+                {showQR && (
+                  <div className="absolute z-50 bg-white p-2 rounded shadow">
+                    <QRCodeCanvas value={typeof window !== 'undefined' ? window.location.href : ''} size={120} />
+                    <div className="text-xs text-center mt-1">微信扫码分享</div>
+                  </div>
+                )}
+                {/* QQ分享 */}
+                <a
+                  href={`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&title=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 bg-blue-500 text-white rounded"
+                >
+                  QQ
+                </a>
+                {/* WhatsApp */}
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI! ' + (typeof window !== 'undefined' ? window.location.href : ''))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 bg-green-600 text-white rounded"
+                >
+                  WhatsApp
+                </a>
+                {/* Instagram（引导复制链接） */}
+                <button
+                  className="px-3 py-1 bg-pink-500 text-white rounded"
+                  onClick={() => {
+                    navigator.clipboard.writeText(typeof window !== 'undefined' ? window.location.href : '');
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                  }}
+                >
+                  Instagram
+                </button>
               </div>
             </div>
           </div>
@@ -167,7 +301,20 @@ export default function ToolDetailPage() {
                 <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 mb-4">
                   {plan.features[langKey]?.map((f, i) => <li key={i}>{f}</li>)}
                 </ul>
-                <button className="mt-auto px-4 py-2 bg-black text-white rounded">{plan.cta}</button>
+                {plan.ctaUrl ? (
+                  <a
+                    href={plan.ctaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto px-4 py-2 bg-black text-white rounded"
+                  >
+                    {plan.cta}
+                  </a>
+                ) : (
+                  <button className="mt-auto px-4 py-2 bg-black text-white rounded" disabled>
+                    {plan.cta}
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -199,6 +346,38 @@ export default function ToolDetailPage() {
           />
           <button className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">Submit Review</button>
         </div>
+
+        {/* 评论区展示 */}
+        <div className="mt-6">
+          {loadingReviews ? <div>加载中...</div> : (
+            reviews.length === 0 ? <div className="text-gray-400">暂无评论</div> :
+            <div className="space-y-4">
+              {reviews.map(r => (
+                <div key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-bold text-purple-700">{r.username}</span>
+                    <span className="text-yellow-500">{'★'.repeat(r.rating)}</span>
+                    <span className="text-xs text-gray-400 ml-auto">{new Date(r.createdAt).toLocaleString()}</span>
+                    {r.userEmail === (typeof window !== 'undefined' ? localStorage.getItem('userEmail') : '') && (
+                      <button className="ml-2 text-red-500 hover:underline text-xs" onClick={() => handleDeleteReview(r.id)}>删除</button>
+                    )}
+                  </div>
+                  <div className="text-gray-800 dark:text-gray-100 text-sm">{r.comment}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 未登录弹窗 */}
+        {showLoginPrompt && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded shadow text-center">
+              <div className="mb-4">请先登录后再评论</div>
+              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); window.location.href = '/login'; }}>去登录</button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
