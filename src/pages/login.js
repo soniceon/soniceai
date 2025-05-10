@@ -23,6 +23,8 @@ export default function Login() {
       setMessage(t('invalid_email_or_password'));
     } else {
       setMessage(t('login_successful'));
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('username', email);
       setTimeout(() => { window.location.reload(); }, 1000);
     }
     setLoading(false);
