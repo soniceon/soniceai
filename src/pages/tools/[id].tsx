@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { aiTools } from '@/data/aiTools';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { QRCodeCanvas } from 'qrcode.react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const chatgptDetail = {
   launchDate: 'November 2022',
@@ -90,8 +91,8 @@ const chatgptDetail = {
 export default function ToolDetailPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { lang } = useLanguage();
-  const tool = aiTools.find(t => t.id === id) || aiTools[0];
+  const { t, i18n } = useTranslation('common');
+  const tool = aiTools.find(tl => tl.id === id) || aiTools[0];
   const [userRating, setUserRating] = useState(0);
   const [review, setReview] = useState('');
   const [copied, setCopied] = useState(false);
@@ -100,7 +101,8 @@ export default function ToolDetailPage() {
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [reviewError, setReviewError] = useState('');
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof chatgptDetail.features;
+  const lang = i18n.language;
+  const langTyped = lang as keyof typeof chatgptDetail.features;
 
   // 拉取评论
   useEffect(() => {
@@ -175,7 +177,7 @@ export default function ToolDetailPage() {
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900 dark:text-white">{tool.name[lang]}</div>
-              <div className="text-gray-500 dark:text-gray-300 text-sm mt-1">Chatbots</div>
+              <div className="text-gray-500 dark:text-gray-300 text-sm mt-1">{t('tool_category_chatbot')}</div>
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-yellow-500">★</span>
                 <span className="font-bold">{tool.rating}</span>
@@ -185,9 +187,9 @@ export default function ToolDetailPage() {
           </div>
           <div className="flex flex-col gap-2 justify-center">
             {tool.website ? (
-              <Link href={tool.website} target="_blank" className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-center">Visit Website</Link>
+              <Link href={tool.website} target="_blank" className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-center">{t('visit_website')}</Link>
             ) : (
-              <button className="px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed" disabled>官网暂未提供</button>
+              <button className="px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed" disabled>{t('no_official_website')}</button>
             )}
           </div>
         </div>
@@ -195,15 +197,15 @@ export default function ToolDetailPage() {
         {/* 概览和侧栏 */}
         <div className="flex gap-6 mb-8 w-full">
           <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
-            <div className="font-bold text-lg mb-2">Overview</div>
+            <div className="font-bold text-lg mb-2">{t('overview')}</div>
             <div className="text-gray-700 dark:text-gray-200 mb-2">{tool.desc[lang]}</div>
             <ul className="list-disc pl-6 text-gray-600 dark:text-gray-300 text-sm space-y-1">
-              {chatgptDetail.features[langKey]?.map((f, i) => <li key={i}>{f}</li>)}
+              {chatgptDetail.features[langTyped]?.map((f: string, i: number) => <li key={i}>{f}</li>)}
             </ul>
           </div>
           <div className="w-64 flex-shrink-0 flex flex-col gap-4">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
-              <div className="font-bold mb-2">Quick Info</div>
+              <div className="font-bold mb-2">{t('quick_info')}</div>
               <div className="text-sm text-gray-500 dark:text-gray-300">Launched: {chatgptDetail.launchDate}</div>
               <div className="text-sm text-gray-500 dark:text-gray-300">Company: {chatgptDetail.company}</div>
               <div className="text-sm text-gray-500 dark:text-gray-300">Website: <a href={chatgptDetail.website} className="underline" target="_blank">{chatgptDetail.website}</a></div>
@@ -211,7 +213,7 @@ export default function ToolDetailPage() {
               <div className="text-sm text-gray-500 dark:text-gray-300">Response Time: {chatgptDetail.responseTime}</div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
-              <div className="font-bold mb-2">Share</div>
+              <div className="font-bold mb-2">{t('share')}</div>
               <div className="flex gap-2 flex-wrap">
                 {/* Twitter */}
                 <a
@@ -240,15 +242,15 @@ export default function ToolDetailPage() {
                     setTimeout(() => setCopied(false), 1500);
                   }}
                 >
-                  复制链接
+                  {t('copy_link')}
                 </button>
-                {copied && <span className="text-green-500 ml-2">已复制！</span>}
+                {copied && <span className="text-green-500 ml-2">{t('copied')}</span>}
                 {/* 微信二维码 */}
                 <button
                   className="px-3 py-1 bg-green-500 text-white rounded"
                   onClick={() => setShowQR(!showQR)}
                 >
-                  微信
+                  {t('wechat')}
                 </button>
                 {showQR && (
                   <div className="absolute z-50 bg-white p-2 rounded shadow">
@@ -263,7 +265,7 @@ export default function ToolDetailPage() {
                   rel="noopener noreferrer"
                   className="px-3 py-1 bg-blue-500 text-white rounded"
                 >
-                  QQ
+                  {t('qq')}
                 </a>
                 {/* WhatsApp */}
                 <a
@@ -272,7 +274,7 @@ export default function ToolDetailPage() {
                   rel="noopener noreferrer"
                   className="px-3 py-1 bg-green-600 text-white rounded"
                 >
-                  WhatsApp
+                  {t('whatsapp')}
                 </a>
                 {/* Instagram（引导复制链接） */}
                 <button
@@ -283,7 +285,7 @@ export default function ToolDetailPage() {
                     setTimeout(() => setCopied(false), 1500);
                   }}
                 >
-                  Instagram
+                  {t('instagram')}
                 </button>
               </div>
             </div>
@@ -292,14 +294,14 @@ export default function ToolDetailPage() {
 
         {/* 定价计划 */}
         <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-8">
-          <div className="font-bold text-lg mb-4">Pricing Plans</div>
+          <div className="font-bold text-lg mb-4">{t('pricing_plans')}</div>
           <div className="flex flex-col md:flex-row gap-4 w-full">
             {chatgptDetail.pricing.map((plan, idx) => (
               <div key={idx} className="flex-1 bg-gray-50 dark:bg-gray-900 rounded-xl p-4 flex flex-col items-start border border-gray-200 dark:border-gray-700">
-                <div className="font-bold text-lg mb-2">{plan.name}</div>
+                <div className="font-bold text-lg mb-2">{t(plan.name)}</div>
                 <div className="text-purple-700 dark:text-purple-300 font-bold mb-2">{plan.price}</div>
                 <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                  {plan.features[langKey]?.map((f, i) => <li key={i}>{f}</li>)}
+                  {plan.features[langTyped]?.map((f: string, i: number) => <li key={i}>{f}</li>)}
                 </ul>
                 {plan.ctaUrl ? (
                   <a
@@ -308,11 +310,11 @@ export default function ToolDetailPage() {
                     rel="noopener noreferrer"
                     className="mt-auto px-4 py-2 bg-black text-white rounded"
                   >
-                    {plan.cta}
+                    {t(plan.cta)}
                   </a>
                 ) : (
                   <button className="mt-auto px-4 py-2 bg-black text-white rounded" disabled>
-                    {plan.cta}
+                    {t(plan.cta)}
                   </button>
                 )}
               </div>
@@ -322,13 +324,13 @@ export default function ToolDetailPage() {
 
         {/* 评分与评论 */}
         <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-8">
-          <div className="font-bold text-lg mb-4">Ratings & Reviews</div>
+          <div className="font-bold text-lg mb-4">{t('ratings_reviews')}</div>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-yellow-500 text-2xl">★</span>
             <span className="text-xl font-bold">{tool.rating}</span>
             <span className="text-gray-400 text-sm">({tool.users} users)</span>
           </div>
-          <div className="mb-2">Rate this tool</div>
+          <div className="mb-2">{t('rate_this_tool')}</div>
           <div className="flex gap-1 mb-2">
             {[1,2,3,4,5].map(star => (
               <span
@@ -340,17 +342,17 @@ export default function ToolDetailPage() {
           </div>
           <textarea
             className="w-full border rounded p-2 mb-2 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-            placeholder="Share your experience with this tool (optional)"
+            placeholder={t('share_your_experience_with_this_tool_optional')}
             value={review}
             onChange={e => setReview(e.target.value)}
           />
-          <button className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">Submit Review</button>
+          <button className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">{t('submit_review')}</button>
         </div>
 
         {/* 评论区展示 */}
         <div className="mt-6">
-          {loadingReviews ? <div>加载中...</div> : (
-            reviews.length === 0 ? <div className="text-gray-400">暂无评论</div> :
+          {loadingReviews ? <div>{t('loading')}</div> : (
+            reviews.length === 0 ? <div className="text-gray-400">{t('no_comments')}</div> :
             <div className="space-y-4">
               {reviews.map(r => (
                 <div key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3">
@@ -359,7 +361,7 @@ export default function ToolDetailPage() {
                     <span className="text-yellow-500">{'★'.repeat(r.rating)}</span>
                     <span className="text-xs text-gray-400 ml-auto">{new Date(r.createdAt).toLocaleString()}</span>
                     {r.userEmail === (typeof window !== 'undefined' ? localStorage.getItem('userEmail') : '') && (
-                      <button className="ml-2 text-red-500 hover:underline text-xs" onClick={() => handleDeleteReview(r.id)}>删除</button>
+                      <button className="ml-2 text-red-500 hover:underline text-xs" onClick={() => handleDeleteReview(r.id)}>{t('delete')}</button>
                     )}
                   </div>
                   <div className="text-gray-800 dark:text-gray-100 text-sm">{r.comment}</div>
@@ -373,12 +375,35 @@ export default function ToolDetailPage() {
         {showLoginPrompt && (
           <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded shadow text-center">
-              <div className="mb-4">请先登录后再评论</div>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); window.location.href = '/login'; }}>去登录</button>
+              <div className="mb-4">{t('please_login_before_comment')}</div>
+              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); window.location.href = '/login'; }}>{t('go_to_login')}</button>
             </div>
           </div>
         )}
       </main>
     </div>
   );
+}
+
+export async function getStaticPaths() {
+  const paths = aiTools.map(tool => ({ params: { id: tool.id } }));
+  const locales = ['en', 'zh', 'ja', 'ko', 'de', 'fr', 'es', 'ru'];
+  const localizedPaths = [];
+  for (const locale of locales) {
+    for (const path of paths) {
+      localizedPaths.push({ params: path.params, locale });
+    }
+  }
+  return {
+    paths: localizedPaths,
+    fallback: false
+  };
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 } 

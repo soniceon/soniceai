@@ -28,7 +28,7 @@ export default function Login() {
       setMessage(t('login_successful'));
       localStorage.setItem('userEmail', email);
       localStorage.setItem('username', email);
-      setTimeout(() => { window.location.reload(); }, 1000);
+      router.push('/');
     }
     setLoading(false);
   };
@@ -76,8 +76,9 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded transition"
+            className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded transition flex items-center justify-center"
           >
+            {loading && <span className="loader mr-2"></span>}
             {loading ? t('logging_in') : t('login')}
           </button>
         </form>

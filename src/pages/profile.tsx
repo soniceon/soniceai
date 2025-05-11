@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 
 export default function Profile() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [user, setUser] = useState<{ email: string; username: string; createdAt?: number } | null>(null);
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
@@ -66,22 +68,22 @@ export default function Profile() {
 
   return (
     <div className="max-w-xl mx-auto mt-12 bg-white dark:bg-gray-800 rounded shadow p-8">
-      <h2 className="text-2xl font-bold mb-6">个人中心</h2>
-      <div className="mb-4">邮箱：{user.email}</div>
-      <div className="mb-4">注册时间：{user.createdAt ? new Date(user.createdAt).toLocaleString() : '未知'}</div>
+      <h2 className="text-2xl font-bold mb-6">{t('profile_title')}</h2>
+      <div className="mb-4">{t('profile_email')}: {user.email}</div>
+      <div className="mb-4">{t('profile_register_time')}: {user.createdAt ? new Date(user.createdAt).toLocaleString() : t('profile_unknown')}</div>
       <div className="mb-4 flex items-center gap-2">
-        <span>昵称：</span>
+        <span>{t('profile_nickname')}：</span>
         <input value={nickname} onChange={e => setNickname(e.target.value)} className="border rounded px-2 py-1" />
-        <button className="ml-2 px-3 py-1 bg-purple-600 text-white rounded" onClick={handleNicknameUpdate}>修改昵称</button>
+        <button className="ml-2 px-3 py-1 bg-purple-600 text-white rounded" onClick={handleNicknameUpdate}>{t('profile_update_nickname')}</button>
       </div>
       <div className="mb-4 flex items-center gap-2">
-        <span>新密码：</span>
+        <span>{t('profile_new_password')}：</span>
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="border rounded px-2 py-1" />
-        <button className="ml-2 px-3 py-1 bg-purple-600 text-white rounded" onClick={handlePasswordUpdate}>修改密码</button>
+        <button className="ml-2 px-3 py-1 bg-purple-600 text-white rounded" onClick={handlePasswordUpdate}>{t('profile_update_password')}</button>
       </div>
       {message && <div className="mb-4 text-green-600">{message}</div>}
-      <h3 className="text-xl font-bold mt-8 mb-2">我的评论</h3>
-      {reviews.length === 0 ? <div className="text-gray-400">暂无评论</div> : (
+      <h3 className="text-xl font-bold mt-8 mb-2">{t('profile_my_reviews')}</h3>
+      {reviews.length === 0 ? <div>{t('profile_no_reviews')}</div> : (
         <div className="space-y-2">
           {reviews.map(r => (
             <div key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3">
