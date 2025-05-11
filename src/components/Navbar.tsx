@@ -1,28 +1,12 @@
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import Link from 'next/link';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useSearch } from '@/contexts/SearchContext';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const SIDEBAR_WIDTH = 80; // 侧边栏展开宽度(px)
-
-const navLabels = {
-  home: { zh: '首页', en: 'Home', ja: 'ホーム', ko: '홈', de: 'Home', fr: 'Accueil', es: 'Inicio', ru: 'Главная' },
-  categories: { zh: '分类', en: 'Categories', ja: 'カテゴリ', ko: '카테고리', de: 'Kategorien', fr: 'Catégories', es: 'Categorías', ru: 'Категории' },
-  rankings: { zh: '排行', en: 'Rankings', ja: 'ランキング', ko: '랭킹', de: 'Ranglisten', fr: 'Classements', es: 'Clasificaciones', ru: 'Рейтинги' },
-  tools: { zh: 'AI工具', en: 'AI Tools', ja: 'AIツール', ko: 'AI 도구', de: 'AI Tools', fr: 'Outils IA', es: 'Herramientas IA', ru: 'AI Инструменты' },
-  featured: { zh: '精选', en: 'Featured', ja: '注目', ko: '추천', de: 'Empfohlen', fr: 'En vedette', es: 'Destacados', ru: 'Избранное' },
-  search: { zh: '搜索', en: 'search', ja: '検索', ko: '검색', de: 'suchen', fr: 'recherche', es: 'buscar', ru: 'поиск' },
-  placeholder: { zh: '搜索AI工具...', en: 'Search AI tools...', ja: 'AIツールを検索...', ko: 'AI 도구 검색...', de: 'AI Tools suchen...', fr: 'Rechercher des outils IA...', es: 'Buscar herramientas IA...', ru: 'Поиск AI инструментов...' }
-} as const;
-type LangKey = keyof typeof navLabels.home;
-
-const authLabels = {
-  login: { zh: '登录', en: 'Login', ja: 'ログイン', ko: '로그인', de: 'Anmelden', fr: 'Connexion', es: 'Iniciar sesión', ru: 'Войти' },
-  register: { zh: '注册', en: 'Register', ja: '登録', ko: '회원가입', de: 'Registrieren', fr: 'Inscription', es: 'Registrarse', ru: 'Регистрация' }
-};
 
 function Logo() {
   return (
@@ -110,8 +94,7 @@ const categoryMenu = [
 ];
 
 export default function Navbar() {
-  const { lang } = useLanguage();
-  const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as LangKey;
+  const { t } = useTranslation('common');
   const { keyword, setKeyword } = useSearch();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -187,7 +170,7 @@ export default function Navbar() {
             onMouseEnter={handleRankingEnter}
             onMouseLeave={handleRankingLeave}
           >
-            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📈</span>{navLabels.rankings[langKey]}</button>
+            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📈</span>{t('navbar_rankings')}</button>
             {rankingDropdown && (
               <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-30"
                 onMouseEnter={handleRankingEnter}
@@ -198,8 +181,8 @@ export default function Navbar() {
                     <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
-                        <div className="font-bold text-base">{item.title[langKey]}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc[langKey]}</div>
+                        <div className="font-bold text-base">{item.title.zh}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc.zh}</div>
                       </div>
                     </Link>
                   ))}
@@ -212,7 +195,7 @@ export default function Navbar() {
             onMouseEnter={handleCategoryEnter}
             onMouseLeave={handleCategoryLeave}
           >
-            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📂</span>{navLabels.categories[langKey]}</button>
+            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📂</span>{t('navbar_categories')}</button>
             {categoryDropdown && (
               <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-30"
                 onMouseEnter={handleCategoryEnter}
@@ -223,8 +206,8 @@ export default function Navbar() {
                     <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
-                        <div className="font-bold text-base">{item.title[langKey]}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc[langKey]}</div>
+                        <div className="font-bold text-base">{item.title.zh}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc.zh}</div>
                       </div>
                     </Link>
                   ))}
@@ -232,8 +215,8 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          <Link href="/tools" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">🛠️</span>{navLabels.tools[langKey]}</Link>
-          <Link href="/featured" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">⭐</span>{navLabels.featured[langKey]}</Link>
+          <Link href="/tools" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">🛠️</span>{t('navbar_tools')}</Link>
+          <Link href="/featured" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">⭐</span>{t('navbar_featured')}</Link>
         </div>
       </div>
       {/* 移动端汉堡菜单 */}
@@ -243,10 +226,10 @@ export default function Navbar() {
         </button>
         {mobileMenuOpen && (
           <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg z-50 flex flex-col gap-2 p-4">
-            <Link href="/categories" className={`flex items-center gap-2 py-2 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}>{navLabels.categories[langKey]}</Link>
-            <Link href="/rankings" className={`flex items-center gap-2 py-2 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}>{navLabels.rankings[langKey]}</Link>
-            <Link href="/tools" className={`flex items-center gap-2 py-2 ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}>{navLabels.tools[langKey]}</Link>
-            <Link href="/featured" className={`flex items-center gap-2 py-2 ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}>{navLabels.featured[langKey]}</Link>
+            <Link href="/categories" className={`flex items-center gap-2 py-2 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_categories')}</Link>
+            <Link href="/rankings" className={`flex items-center gap-2 py-2 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_rankings')}</Link>
+            <Link href="/tools" className={`flex items-center gap-2 py-2 ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_tools')}</Link>
+            <Link href="/featured" className={`flex items-center gap-2 py-2 ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_featured')}</Link>
           </div>
         )}
       </div>
@@ -255,13 +238,13 @@ export default function Navbar() {
         <div className="flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
           <input
             className="px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 outline-none"
-            placeholder={navLabels.placeholder[langKey]}
+            placeholder={t('navbar_search_placeholder')}
             value={keyword}
             onChange={e => setKeyword(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') handleSearch(); }}
           />
           <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 flex items-center" onClick={handleSearch}>
-            <span className="material-icons text-base">{navLabels.search[langKey]}</span>
+            <span className="material-icons text-base">{t('navbar_search')}</span>
           </button>
         </div>
         <ThemeToggle />
@@ -287,8 +270,8 @@ export default function Navbar() {
           </div>
         ) : (
           <>
-            <Link href="/login" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{authLabels.login[langKey]}</Link>
-            <Link href="/register" className="ml-2 px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">{authLabels.register[langKey]}</Link>
+            <Link href="/login" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{t('navbar_login')}</Link>
+            <Link href="/register" className="ml-2 px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">{t('navbar_register')}</Link>
           </>
         )}
       </div>

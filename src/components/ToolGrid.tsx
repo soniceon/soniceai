@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { aiTools, AiTool } from '../data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'next-i18next';
 import { messages } from '@/locales';
 import { useSearch } from '@/contexts/SearchContext';
 
@@ -70,10 +70,11 @@ const featured = [
 ];
 
 export default function ToolGrid() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation('common');
   const { keyword, setKeyword } = useSearch();
   const [type, setType] = useState('all');
   const types = Array.from(new Set(aiTools.map(t => t.type)));
+  const lang = i18n.language;
 
   const filtered = aiTools.filter(tool => {
     const matchType = type === 'all' || tool.type === type;

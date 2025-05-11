@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabaseClient';
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Login() {
   const router = useRouter();
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  console.log('当前 dont_have_account:', t('dont_have_account'));
+  console.log('当前语言:', i18n.language);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -47,14 +50,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#181c2a]">
-      <div className="w-full max-w-md p-8 bg-[#23283b] rounded-xl shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-white mb-8">{t('login')}</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">
+      <div className="w-full max-w-md p-8 bg-white dark:bg-[#23283b] rounded-xl shadow-lg">
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">{t('login')}</h2>
         <form onSubmit={handleLogin} className="space-y-6">
           <input
             type="email"
             placeholder={t('email')}
-            className="w-full px-4 py-2 bg-[#23283b] text-white border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full px-4 py-2 bg-gray-100 text-gray-900 dark:bg-[#23283b] dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
@@ -62,7 +65,7 @@ export default function Login() {
           <input
             type="password"
             placeholder={t('password')}
-            className="w-full px-4 py-2 bg-[#23283b] text-white border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full px-4 py-2 bg-gray-100 text-gray-900 dark:bg-[#23283b] dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
@@ -136,4 +139,12 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 } 

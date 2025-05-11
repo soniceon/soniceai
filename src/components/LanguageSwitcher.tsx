@@ -1,4 +1,4 @@
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useRouter } from 'next/router';
 
 const langs = [
   { code: 'zh', label: '中' },
@@ -12,12 +12,23 @@ const langs = [
 ];
 
 export default function LanguageSwitcher() {
-  const { lang, setLang } = useLanguage();
+  const router = useRouter();
+  const currentLang = router.locale || 'en';
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLang = e.target.value;
+    router.push(
+      { pathname: router.pathname, query: router.query },
+      undefined,
+      { locale: newLang }
+    );
+  };
+
   return (
     <select
-      value={lang}
-      onChange={e => setLang(e.target.value)}
-      className="w-16 h-9 rounded-full bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm font-bold text-center"
+      value={currentLang}
+      onChange={handleChange}
+      className="w-16 h-9 rounded-full bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm font-bold text-center text-gray-900 dark:text-white"
       title="切换语言"
     >
       {langs.map(l => (
