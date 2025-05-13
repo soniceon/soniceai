@@ -9,10 +9,13 @@ import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import { useRouter } from 'next/router';
 import { ThemeProvider } from 'next-themes';
+import { useTranslation } from 'next-i18next';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHome = router.pathname === '/';
+  const { ready } = useTranslation('common');
+  if (!ready) return null;
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <SearchProvider>

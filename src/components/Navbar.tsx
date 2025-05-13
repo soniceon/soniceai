@@ -41,8 +41,6 @@ const categoryMenu = [
 
 export default function Navbar() {
   const { t, i18n } = useTranslation('common');
-  type LangKey = 'zh' | 'en' | 'ja' | 'ko' | 'de' | 'fr' | 'es' | 'ru';
-  const lang = (i18n.language as LangKey) || 'zh';
   const { keyword, setKeyword } = useSearch();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

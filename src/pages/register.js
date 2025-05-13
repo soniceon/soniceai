@@ -6,7 +6,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Register() {
   const router = useRouter();
-  const { t } = useTranslation('common');
+  const { t, ready } = useTranslation('common');
+  if (!ready) return null;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
