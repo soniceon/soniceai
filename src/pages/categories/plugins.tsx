@@ -22,6 +22,9 @@ export default function Plugins() {
               </div>
               <div className="text-xs text-gray-500 mb-1">{tool.desc[langKey] || tool.desc.en}</div>
               <div className="text-xs text-gray-400">⭐ {tool.rating} | 👥 {tool.users}</div>
+              {tool.tags && tool.tags.map(tag => (
+                <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{t(`tag_${tag}`) === `tag_${tag}` ? tag : t(`tag_${tag}`)}</span>
+              ))}
             </div>
           ))}
       </div>

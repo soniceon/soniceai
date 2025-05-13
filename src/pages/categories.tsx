@@ -52,7 +52,7 @@ export default function CategoriesPage() {
                       </div>
                       <div className="flex flex-wrap gap-1 mt-auto">
                         {tool.tags.map(tag => (
-                          <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{t(`tag_${tag}`)}</span>
+                          <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{t(`tag_${tag}`) === `tag_${tag}` ? tag : t(`tag_${tag}`)}</span>
                         ))}
                       </div>
                     </div>
