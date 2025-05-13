@@ -86,5 +86,12 @@
   "profile_new_password": "新密码",
   "profile_update_password": "修改密码",
   "profile_my_reviews": "我的评论",
-  "profile_no_reviews": "暂无评论"
+  "profile_no_reviews": "暂无评论",
+  "all_categories": "全部分类",
+  "featured": "精选",
+  "featured_ai_tools": "精选AI工具",
+  "no_featured_tools": "暂无精选工具",
+  "ai_tool_rankings": "AI工具排行榜",
+  "no_ranking_data": "暂无排行榜数据",
+  "category_ranking": "AI分类榜"
 } 

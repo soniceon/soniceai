@@ -1,16 +1,18 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 export default function RankingsPage() {
   const { lang } = useLanguage();
+  const { t, i18n } = useTranslation('common');
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof aiTools[0]['name'];
   const sorted = [...aiTools].sort((a, b) => b.rating - a.rating).slice(0, 10);
   return (
     <div className="max-w-7xl mx-auto w-full px-4">
-      <h1 className="text-3xl font-bold mb-6 mt-8">{langKey === 'zh' ? 'AI工具排行榜' : langKey === 'en' ? 'AI Tool Rankings' : langKey === 'ja' ? 'AIツールランキング' : langKey === 'ko' ? 'AI 도구 순위' : langKey === 'de' ? 'KI-Tool-Ranglisten' : langKey === 'fr' ? 'Classement des outils IA' : langKey === 'es' ? 'Clasificación de herramientas IA' : langKey === 'ru' ? 'Рейтинг AI-инструментов' : 'AI Tool Rankings'}</h1>
+      <h1 className="text-3xl font-bold mb-6 mt-8">{t('ai_tool_rankings')}</h1>
       {sorted.length === 0 ? (
-        <div className="text-gray-400 mb-8">{langKey === 'zh' ? '暂无排行榜数据' : 'No ranking data yet.'}</div>
+        <div className="text-gray-400 mb-8">{t('no_ranking_data')}</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
           {sorted.map((tool, idx) => (

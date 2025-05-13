@@ -1,5 +1,6 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'next-i18next';
 const categories = [
   { type: 'chatbot', label: { zh: '聊天机器人', en: 'Chatbot', ja: 'チャットボット', ko: '챗봇', de: 'Chatbot', fr: 'Chatbot', es: 'Chatbot', ru: 'Чат-бот' }, icon: '💬' },
   { type: 'image', label: { zh: '图像生成', en: 'Image Generation', ja: '画像生成', ko: '이미지 생성', de: 'Bildgenerierung', fr: 'Génération d\'image', es: 'Generación de imágenes', ru: 'Генерация изображений' }, icon: '🖼️' },
@@ -14,10 +15,11 @@ type LangKey = keyof typeof categories[0]['label'];
 type Tool = typeof aiTools[number];
 export default function CategoryRanking() {
   const { lang } = useLanguage();
-  const langKey: LangKey = (Object.keys(categories[0].label).includes(lang) ? lang : 'en') as LangKey;
+  const { t, i18n } = useTranslation('common');
+  const langKey: LangKey = (Object.keys(categories[0].label).includes(i18n.language) ? i18n.language : 'en') as LangKey;
   return (
     <div className="py-8 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8 text-center">{lang === 'zh' ? 'AI分类榜' : 'Category Ranking'}</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">{t('category_ranking')}</h1>
       {categories.map(cat => {
         const tools = aiTools.filter((t: Tool) => t.type === cat.type);
         if (!tools.length) return null;

@@ -104,7 +104,7 @@ export default function ToolGrid() {
               `}
               onClick={() => setType('all')}
             >
-              {lang === 'zh' ? '全部分类' : lang === 'en' ? 'All Categories' : lang === 'ja' ? '全て' : lang === 'ko' ? '전체' : lang === 'de' ? 'Alle Kategorien' : lang === 'fr' ? 'Toutes' : lang === 'es' ? 'Todas' : lang === 'ru' ? 'Все' : 'All'}
+              {t('all_categories')}
             </button>
             {types.map(t => (
               <button
@@ -174,7 +174,7 @@ export default function ToolGrid() {
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 w-full border border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-yellow-500 text-xl">★</span>
-            <span className="font-bold text-lg">Featured</span>
+            <span className="font-bold text-lg">{t('featured')}</span>
           </div>
           <div className="flex flex-col gap-4">
             {featuredTools.map(tool => (

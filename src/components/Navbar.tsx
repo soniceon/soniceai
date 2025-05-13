@@ -96,7 +96,9 @@ const categoryMenu = [
 ];
 
 export default function Navbar() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  type LangKey = 'zh' | 'en' | 'ja' | 'ko' | 'de' | 'fr' | 'es' | 'ru';
+  const lang = (i18n.language as LangKey) || 'zh';
   const { keyword, setKeyword } = useSearch();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -174,8 +176,8 @@ export default function Navbar() {
                     <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
-                        <div className="font-bold text-base">{item.title.zh}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc.zh}</div>
+                        <div className="font-bold text-base">{item.title[lang] || t('menu_' + item.link.replace(/\//g, ''))}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc[lang] || ''}</div>
                       </div>
                     </Link>
                   ))}
@@ -199,8 +201,8 @@ export default function Navbar() {
                     <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
-                        <div className="font-bold text-base">{item.title.zh}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc.zh}</div>
+                        <div className="font-bold text-base">{item.title[lang] || t('menu_' + item.link.replace(/\//g, ''))}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc[lang] || ''}</div>
                       </div>
                     </Link>
                   ))}

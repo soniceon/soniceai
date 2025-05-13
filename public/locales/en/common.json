@@ -86,5 +86,12 @@
   "profile_new_password": "New Password",
   "profile_update_password": "Update Password",
   "profile_my_reviews": "My Reviews",
-  "profile_no_reviews": "No reviews yet"
+  "profile_no_reviews": "No reviews yet",
+  "all_categories": "All Categories",
+  "featured": "Featured",
+  "featured_ai_tools": "Featured AI Tools",
+  "no_featured_tools": "No featured tools yet.",
+  "ai_tool_rankings": "AI Tool Rankings",
+  "no_ranking_data": "No ranking data yet.",
+  "category_ranking": "Category Ranking"
 } 

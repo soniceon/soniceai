@@ -1,16 +1,18 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 export default function FeaturedPage() {
   const { lang } = useLanguage();
+  const { t, i18n } = useTranslation('common');
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof aiTools[0]['name'];
   const featured = aiTools.filter(t => t.featured);
   return (
     <div className="max-w-7xl mx-auto w-full px-4">
-      <h1 className="text-3xl font-bold mb-6 mt-8">{langKey === 'zh' ? '精选AI工具' : langKey === 'en' ? 'Featured AI Tools' : langKey === 'ja' ? '注目AIツール' : langKey === 'ko' ? '추천 AI 도구' : langKey === 'de' ? 'Empfohlene KI-Tools' : langKey === 'fr' ? 'Outils IA en vedette' : langKey === 'es' ? 'Herramientas IA destacadas' : langKey === 'ru' ? 'Избранные AI-инструменты' : 'Featured AI Tools'}</h1>
+      <h1 className="text-3xl font-bold mb-6 mt-8">{t('featured_ai_tools')}</h1>
       {featured.length === 0 ? (
-        <div className="text-gray-400 mb-8">{langKey === 'zh' ? '暂无精选工具' : 'No featured tools yet.'}</div>
+        <div className="text-gray-400 mb-8">{t('no_featured_tools')}</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
           {featured.map(tool => (
