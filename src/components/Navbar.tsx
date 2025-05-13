@@ -176,8 +176,8 @@ export default function Navbar() {
                     <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
-                        <div className="font-bold text-base">{item.title[lang] || t('menu_' + item.link.replace(/\//g, ''))}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc[lang] || ''}</div>
+                        <div className="font-bold text-base">{t(item.title[lang] || 'menu_' + item.link.replace(/\//g, ''))}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{t(item.desc[lang] || '')}</div>
                       </div>
                     </Link>
                   ))}
@@ -201,8 +201,8 @@ export default function Navbar() {
                     <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
-                        <div className="font-bold text-base">{item.title[lang] || t('menu_' + item.link.replace(/\//g, ''))}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc[lang] || ''}</div>
+                        <div className="font-bold text-base">{t(item.title[lang] || 'menu_' + item.link.replace(/\//g, ''))}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{t(item.desc[lang] || '')}</div>
                       </div>
                     </Link>
                   ))}
