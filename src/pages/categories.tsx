@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'next-i18next';
 
 const categories = [
   { type: 'chatbot', icon: '💬', label: { zh: '聊天机器人', en: 'Chatbot', ja: 'チャットボット', ko: '챗봇', de: 'Chatbot', fr: 'Chatbot', es: 'Chatbot', ru: 'Чат-бот' } },
@@ -13,12 +15,18 @@ const categories = [
 ];
 
 export default function CategoriesPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const { lang } = useLanguage();
+  const { t } = useTranslation('common');
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof categories[0]['label'];
+
+  const filteredTools = selectedCategory === 'all' 
+    ? aiTools 
+    : aiTools.filter(tool => tool.type === selectedCategory);
 
   return (
     <div className="max-w-7xl mx-auto w-full px-4">
-      <h1 className="text-3xl font-bold mb-6 mt-8">{langKey === 'zh' ? 'AI工具分类' : langKey === 'en' ? 'AI Tool Categories' : langKey === 'ja' ? 'AIツールカテゴリ' : langKey === 'ko' ? 'AI 도구 분류' : langKey === 'de' ? 'KI-Tool-Kategorien' : langKey === 'fr' ? 'Catégories d\'outils IA' : langKey === 'es' ? 'Categorías de herramientas IA' : langKey === 'ru' ? 'Категории AI-инструментов' : 'AI Tool Categories'}</h1>
+      <h1 className="text-3xl font-bold mb-6 mt-8">{t('ai_tool_categories')}</h1>
       <div className="space-y-16">
         {categories.map(cat => {
           const tools = aiTools.filter(t => t.type === cat.type);
@@ -29,7 +37,7 @@ export default function CategoriesPage() {
                 {cat.label[langKey]}
               </h2>
               {tools.length === 0 ? (
-                <div className="text-gray-400 mb-8">{langKey === 'zh' ? '暂无该分类工具' : 'No tools in this category yet.'}</div>
+                <div className="col-span-4 text-center text-gray-400">{t('no_category_tools')}</div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
                   {tools.map(tool => (
@@ -39,12 +47,12 @@ export default function CategoriesPage() {
                       <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{cat.label[langKey]}</div>
                       <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc[langKey]}</div>
                       <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
-                        <span>⭐ {tool.rating}</span>
-                        <span>👥 {tool.users}</span>
+                        <span>{t('rating')}: {tool.rating}</span>
+                        <span>{t('users')}: {tool.users}</span>
                       </div>
                       <div className="flex flex-wrap gap-1 mt-auto">
                         {tool.tags.map(tag => (
-                          <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{tag}</span>
+                          <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{t(`tag_${tag}`)}</span>
                         ))}
                       </div>
                     </div>

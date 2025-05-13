@@ -1,5 +1,6 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'next-i18next';
 const channels = [
   { key: 'official', label: { zh: '官网', en: 'Official', ja: '公式', ko: '공식', de: 'Offiziell', fr: 'Officiel', es: 'Oficial', ru: 'Официальный' }, icon: '🌐' },
   { key: 'plugin', label: { zh: '插件', en: 'Plugin', ja: 'プラグイン', ko: '플러그인', de: 'Plugin', fr: 'Plugin', es: 'Plugin', ru: 'Плагин' }, icon: '🧩' },
@@ -21,10 +22,11 @@ function getChannelTools(channelKey: string, allTools: Tool[]): Tool[] {
 }
 export default function ChannelRanking() {
   const { lang } = useLanguage();
+  const { t } = useTranslation('common');
   const langKey: LangKey = (Object.keys(channels[0].label).includes(lang) ? lang : 'en') as LangKey;
   return (
     <div className="py-8 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8 text-center">{lang === 'zh' ? 'AI渠道榜' : 'Channel Ranking'}</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">{t('channel_ranking')}</h1>
       {channels.map(channel => {
         const tools = getChannelTools(channel.key, aiTools);
         if (!tools.length) return null;

@@ -1,5 +1,6 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'next-i18next';
 const regions = [
   { key: 'america', label: { zh: '美洲', en: 'America', ja: 'アメリカ', ko: '아메리카', de: 'Amerika', fr: 'Amérique', es: 'América', ru: 'Америка' }, icon: '🌎' },
   { key: 'europe', label: { zh: '欧洲', en: 'Europe', ja: 'ヨーロッパ', ko: '유럽', de: 'Europa', fr: 'Europe', es: 'Europa', ru: 'Европа' }, icon: '🌍' },
@@ -18,10 +19,11 @@ function getRegionTools(regionKey: string, allTools: Tool[]): Tool[] {
 }
 export default function RegionRanking() {
   const { lang } = useLanguage();
+  const { t } = useTranslation('common');
   const langKey: LangKey = (Object.keys(regions[0].label).includes(lang) ? lang : 'en') as LangKey;
   return (
     <div className="py-8 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8 text-center">{lang === 'zh' ? 'AI地区榜' : 'Region Ranking'}</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">{t('region_ranking')}</h1>
       {regions.map(region => {
         const tools = getRegionTools(region.key, aiTools);
         if (!tools.length) return null;
