@@ -93,5 +93,17 @@
   "no_featured_tools": "No featured tools yet.",
   "ai_tool_rankings": "AI Tool Rankings",
   "no_ranking_data": "No ranking data yet.",
-  "category_ranking": "Category Ranking"
+  "category_ranking": "Category Ranking",
+  "region_ranking": "Region Ranking",
+  "channel_ranking": "Channel Ranking",
+  "revenue_ranking": "Revenue Ranking",
+  "most_saved": "Most Saved",
+  "top_traffic": "Top Traffic",
+  "ai_plugins": "AI Plugins",
+  "no_plugins": "No plugins yet.",
+  "ai_apps": "AI Apps",
+  "no_apps": "No apps yet.",
+  "gpts": "GPTs",
+  "no_gpts": "No GPTs yet.",
+  "new_arrivals": "New Arrivals"
 } 

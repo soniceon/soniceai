@@ -93,5 +93,17 @@
   "no_featured_tools": "暂无精选工具",
   "ai_tool_rankings": "AI工具排行榜",
   "no_ranking_data": "暂无排行榜数据",
-  "category_ranking": "AI分类榜"
+  "category_ranking": "AI分类榜",
+  "region_ranking": "AI地区榜",
+  "channel_ranking": "AI渠道榜",
+  "revenue_ranking": "AI收入榜",
+  "most_saved": "最多保存",
+  "top_traffic": "流量最高",
+  "ai_plugins": "AI插件",
+  "no_plugins": "暂无插件",
+  "ai_apps": "AI Apps",
+  "no_apps": "暂无App工具",
+  "gpts": "GPTs",
+  "no_gpts": "暂无GPT工具",
+  "new_arrivals": "最新推出"
 } 

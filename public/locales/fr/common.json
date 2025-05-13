@@ -83,5 +83,18 @@
   "profile_update_password": "Mettre à jour le mot de passe",
   "profile_my_reviews": "Mes avis",
   "profile_no_reviews": "Aucun avis pour le moment",
-  "logout_failed": "Échec de la déconnexion, veuillez réessayer"
+  "logout_failed": "Échec de la déconnexion, veuillez réessayer",
+  "region_ranking": "Classement régional",
+  "category_ranking": "Classement par catégorie",
+  "channel_ranking": "Classement par canal",
+  "revenue_ranking": "Classement revenus",
+  "most_saved": "Les plus sauvegardés",
+  "top_traffic": "Plus visités",
+  "ai_plugins": "Plugins IA",
+  "no_plugins": "Aucun plugin IA",
+  "ai_apps": "Apps IA",
+  "no_apps": "Aucune app IA",
+  "gpts": "GPTs",
+  "no_gpts": "Aucun GPT IA",
+  "new_arrivals": "Nouveautés"
 } 
