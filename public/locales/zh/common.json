@@ -105,5 +105,12 @@
   "no_apps": "暂无App工具",
   "gpts": "GPTs",
   "no_gpts": "暂无GPT工具",
-  "new_arrivals": "最新推出"
+  "new_arrivals": "最新推出",
+  "all_ai_tools": "全部AI工具",
+  "no_tools": "暂无工具",
+  "rating": "评分",
+  "users": "用户数",
+  "tool_category_chatbot": "聊天机器人",
+  "ai_tool_categories": "AI工具分类",
+  "no_category_tools": "暂无该分类工具"
 } 

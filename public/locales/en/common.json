@@ -105,5 +105,12 @@
   "no_apps": "No apps yet.",
   "gpts": "GPTs",
   "no_gpts": "No GPTs yet.",
-  "new_arrivals": "New Arrivals"
+  "new_arrivals": "New Arrivals",
+  "all_ai_tools": "All AI Tools",
+  "no_tools": "No tools yet.",
+  "rating": "Rating",
+  "users": "Users",
+  "tool_category_chatbot": "Chatbot",
+  "ai_tool_categories": "AI Tool Categories",
+  "no_category_tools": "No tools in this category"
 } 
