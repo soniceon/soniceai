@@ -24,7 +24,7 @@ export default withTranslationReady(function Hero() {
             placeholder={t('hero_placeholder')}
             value={keyword}
             onChange={e => setKeyword(e.target.value)}
-            onKeyDown={e => { if (e.key === {t('auto_enter_f1851d')}) handleSearch(); }}
+            onKeyDown={e => { if (e.key === t('auto_enter_f1851d')) handleSearch(); }}
           />
           <button
             className="rounded-r-lg bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 font-semibold transition shadow"
