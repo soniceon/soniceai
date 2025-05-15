@@ -18,7 +18,7 @@ export default function CategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const { lang } = useLanguage();
   const { t } = useTranslation('common');
-  const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof categories[0]['label'];
+  const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en');
 
   const filteredTools = selectedCategory === 'all' 
     ? aiTools 
