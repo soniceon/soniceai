@@ -7,9 +7,14 @@
     "dev:watch": "nodemon --watch . --ext js,jsx,ts,tsx,json --exec \"npm run dev\"",
     "build": "next build",
     "start": "next start -p 8080",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-i18n": "node scripts/check-i18n.js"
   },
   "dependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/generator": "^7.27.1",
+    "@babel/parser": "^7.27.2",
+    "@babel/traverse": "^7.27.1",
     "@supabase/supabase-js": "^2.49.4",
     "autoprefixer": "^10.4.21",
     "chokidar": "^4.0.3",
@@ -32,6 +37,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
+    "glob": "^11.0.2",
     "nodemon": "^3.1.10",
     "typescript": "^5.3.3"
   }
