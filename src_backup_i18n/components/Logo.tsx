@@ -6,7 +6,7 @@ export default function Logo({ size = 40 }: { size?: number }) {
           <feGaussianBlur stdDeviation="8" result="blur"/>
           <feFlood floodColor="#06b6d4" floodOpacity="0.5"/>
           <feComposite in2="blur" operator="in" result="glow"/>
-          <feComposite in={t('auto_sourcegraphic_4fcf92')} in2="glow" operator="over"/>
+          <feComposite in="SourceGraphic" in2="glow" operator="over"/>
         </filter>
         <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#06b6d4" />
