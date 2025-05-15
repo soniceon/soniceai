@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 interface LanguageSwitcherProps {
   onClose: () => void;
@@ -11,6 +12,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ onClose }) => {
   const { pathname, asPath, query } = router;
   const menuRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation('common');
   
   // Handle click outside to close the menu
   useEffect(() => {
@@ -28,11 +30,11 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ onClose }) => {
   }, [onClose]);
   
   const languages = [
-    { code: 'en', name: {t('auto_english_78463a')}, flag: '🇺🇸' },
+    { code: 'en', name: t('auto_english_78463a'), flag: '🇺🇸' },
     { code: 'zh', name: '中文', flag: '🇨🇳' },
     { code: 'ja', name: '日本語', flag: '🇯🇵' },
     { code: 'ko', name: '한국어', flag: '🇰🇷' },
-    { code: 'de', name: {t('auto_deutsch_8f0ca2')}, flag: '🇩🇪' },
+    { code: 'de', name: t('auto_deutsch_8f0ca2'), flag: '🇩🇪' },
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'es', name: 'Español', flag: '🇪🇸' },
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
@@ -51,7 +53,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ onClose }) => {
         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#232136] text-white hover:bg-[#393552] shadow transition"
       >
         <span>{router.locale ? languages.find(l => l.code === router.locale)?.flag : '🌐'}</span>
-        <span className="font-semibold">{router.locale ? languages.find(l => l.code === router.locale)?.name : {t('auto_language_4994a8')}}</span>
+        <span className="font-semibold">{router.locale ? languages.find(l => l.code === router.locale)?.name : t('auto_language_4994a8')}</span>
         <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
       </button>
       {isOpen && (
