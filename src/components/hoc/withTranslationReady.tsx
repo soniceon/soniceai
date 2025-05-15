@@ -5,7 +5,7 @@ export function withTranslationReady<P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) {
   return function WithTranslationReady(props: P) {
-    const { ready } = useTranslation();
+    const { t, ready } = useTranslation();
 
     if (!ready) {
       return <div>{t('auto_loading_translations_a20f34')}</div>;
