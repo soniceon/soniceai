@@ -179,7 +179,7 @@ export default withTranslationReady(function Navbar() {
             placeholder={t('navbar_search_placeholder')}
             value={keyword}
             onChange={e => setKeyword(e.target.value)}
-            onKeyDown={e => { if (e.key === {t('auto_enter_f1851d')}) handleSearch(); }}
+            onKeyDown={e => { if (e.key === t('auto_enter_f1851d')) handleSearch(); }}
           />
           <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 flex items-center" onClick={handleSearch}>
             <span className="material-icons text-base">{t('navbar_search')}</span>
