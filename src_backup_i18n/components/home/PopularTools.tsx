@@ -1,59 +1,60 @@
 import React from 'react';
 import Link from 'next/link';
 import { FiStar, FiArrowRight } from 'react-icons/fi';
-
-const popularTools = [
-  {
-    id: 'chatgpt',
-    name: {t('auto_chatgpt_62239e')},
-    description: t('auto_advanced_ai_chatbot_that_can_u_4ca867'),
-    rating: 4.9,
-    category: 'chatbots',
-    image: '/images/chatgpt.png'
-  },
-  {
-    id: 'midjourney',
-    name: {t('auto_midjourney_91d803')},
-    description: t('auto_ai_art_generator_that_creates__4ab3bf'),
-    rating: 4.8,
-    category: 'image-generation',
-    image: '/images/midjourney.png'
-  },
-  {
-    id: 'github-copilot',
-    name: {t('auto_github_copilot_28ca71')},
-    description: t('auto_ai_pair_programmer_that_helps__dfd7f4'),
-    rating: 4.7,
-    category: 'code-assistants',
-    image: '/images/github-copilot.png'
-  },
-  {
-    id: 'dall-e',
-    name: {t('auto_dall_e_5075e2')},
-    description: 'OpenAI\'s image generation system that creates realistic images and art from text descriptions.',
-    rating: 4.6,
-    category: 'image-generation',
-    image: '/images/dall-e.png'
-  },
-  {
-    id: 'jasper',
-    name: {t('auto_jasper_dc0cc2')},
-    description: 'AI content assistant that helps create marketing copy, blog posts, and other written content.',
-    rating: 4.5,
-    category: 'content-writing',
-    image: '/images/jasper.png'
-  },
-  {
-    id: 'runwayml',
-    name: {t('auto_runwayml_13144c')},
-    description: t('auto_creative_suite_for_ai_generate_6ed1c9'),
-    rating: 4.4,
-    category: 'video-generation',
-    image: '/images/runwayml.png'
-  }
-];
+import { useTranslation } from 'next-i18next';
 
 const PopularTools = () => {
+  const { t } = useTranslation('common');
+  const popularTools = [
+    {
+      id: 'chatgpt',
+      name: t('auto_chatgpt_62239e'),
+      description: t('auto_advanced_ai_chatbot_that_can_u_4ca867'),
+      rating: 4.9,
+      category: 'chatbots',
+      image: '/images/chatgpt.png'
+    },
+    {
+      id: 'midjourney',
+      name: t('auto_midjourney_91d803'),
+      description: t('auto_ai_art_generator_that_creates__4ab3bf'),
+      rating: 4.8,
+      category: 'image-generation',
+      image: '/images/midjourney.png'
+    },
+    {
+      id: 'github-copilot',
+      name: t('auto_github_copilot_28ca71'),
+      description: t('auto_ai_pair_programmer_that_helps__dfd7f4'),
+      rating: 4.7,
+      category: 'code-assistants',
+      image: '/images/github-copilot.png'
+    },
+    {
+      id: 'dall-e',
+      name: t('auto_dall_e_5075e2'),
+      description: "OpenAI's image generation system that creates realistic images and art from text descriptions.",
+      rating: 4.6,
+      category: 'image-generation',
+      image: '/images/dall-e.png'
+    },
+    {
+      id: 'jasper',
+      name: t('auto_jasper_dc0cc2'),
+      description: 'AI content assistant that helps create marketing copy, blog posts, and other written content.',
+      rating: 4.5,
+      category: 'content-writing',
+      image: '/images/jasper.png'
+    },
+    {
+      id: 'runwayml',
+      name: t('auto_runwayml_13144c'),
+      description: t('auto_creative_suite_for_ai_generate_6ed1c9'),
+      rating: 4.4,
+      category: 'video-generation',
+      image: '/images/runwayml.png'
+    }
+  ];
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
