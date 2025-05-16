@@ -65,7 +65,14 @@ const PopularTools = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {popularTools.map((tool) => (
+        {popularTools.map((tool: {
+          id: string;
+          name: string;
+          description: string;
+          rating: number;
+          category: string;
+          image: string;
+        }) => (
           <Link key={tool.id} href={`/tool/${tool.id}`}>
             <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
               <div className="flex items-start justify-between">
@@ -97,4 +104,4 @@ const PopularTools = () => {
   );
 };
 
-export default PopularTools;
+export default PopularTools; 
