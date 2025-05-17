@@ -11,19 +11,19 @@ const FeaturedSection: React.FC = () => {
   const featuredTools = [
     {
       id: 'chatgpt',
-      name: {t('auto_chatgpt_62239e')},
+      name: t('auto_chatgpt_62239e'),
       rating: 4.9,
       category: 'chatbots'
     },
     {
       id: 'midjourney',
-      name: {t('auto_midjourney_91d803')},
+      name: t('auto_midjourney_91d803'),
       rating: 4.8,
       category: 'image-generation'
     },
     {
       id: 'github-copilot',
-      name: {t('auto_github_copilot_28ca71')},
+      name: t('auto_github_copilot_28ca71'),
       rating: 4.7,
       category: 'code-assistants'
     }
@@ -43,7 +43,7 @@ const FeaturedSection: React.FC = () => {
       </div>
       
       <div className="space-y-4">
-        {featuredTools.map((tool) => (
+        {featuredTools.map((tool: { id: string; name: string; rating: number; category: string; }) => (
           <motion.div
             key={tool.id}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden card border border-gray-200 dark:border-gray-700"
