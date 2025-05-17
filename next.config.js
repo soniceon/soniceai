@@ -7,6 +7,15 @@ const nextConfig = {
     domains: ['www.apple.com'],
   },
   i18n,
+  webpack: (config, { isServer }) => {
+    // Exclude src_backup_i18n_temp directory from compilation
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/src_backup_i18n_temp/**']
+    };
+    
+    return config;
+  }
 }
 
 module.exports = nextConfig 
