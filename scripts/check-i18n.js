@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
+const axios = require('axios');
+const { translate } = require('./baiduTranslate');
 
 // 配置
 const config = {
@@ -57,6 +59,12 @@ const duplicateKeys = new Map();
 const missingTranslations = new Map();
 // 新增：存储所有值为对象的 key
 const objectValueKeys = new Map();
+
+// 使用百度翻译API翻译文本
+async function translateText(text, targetLang) {
+  if (!text || !targetLang || targetLang === 'en') return text;
+  return await translate(text, targetLang);
+}
 
 // 读取语言文件
 function loadTranslations() {
@@ -677,6 +685,29 @@ async function main() {
   if (keyUsageFrequency.size === 0) {
     warnings.push('No translation key usage found');
   }
+
+  // 新增：自动翻译所有非主语言 value 为空的 key
+  await Promise.all(Object.entries(translations).map(async ([lang, namespaces]) => {
+    if (lang === baseLang) return;
+    await Promise.all(Object.entries(namespaces).map(async ([namespace, content]) => {
+      const fillEmpty = async (obj, path = '') => {
+        await Promise.all(Object.entries(obj).map(async ([key, value]) => {
+          const currentPath = path ? `${path}.${key}` : key;
+          if (typeof value === 'string' && value.trim() === '') {
+            const enValue = getValueFromJson(translations[baseLang][namespace], currentPath);
+            if (enValue && typeof enValue === 'string') {
+              const translated = await translateText(enValue, lang);
+              obj[key] = translated;
+              console.log(`[AutoTranslate] ${lang}/${namespace}: ${currentPath} value 为空，已自动翻译`);
+            }
+          } else if (typeof value === 'object' && value !== null) {
+            await fillEmpty(value, currentPath);
+          }
+        }));
+      };
+      await fillEmpty(content);
+    }));
+  }));
 
   // 生成报告
   console.log('\n=== i18n Check Report ===\n');

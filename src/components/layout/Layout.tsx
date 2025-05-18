@@ -27,14 +27,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className={`flex min-h-screen ${theme === 'dark' ? 'dark' : ''}`}>
       {/* Sidebar - Hidden on mobile, shown on larger screens */}
       <div className="hidden md:block">
-        <Sidebar isOpen={true} />
+        <Sidebar />
       </div>
       
       {/* Mobile Sidebar - Shown only when toggled */}
       {sidebarOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-black bg-opacity-50">
           <div className="w-64 h-full bg-white dark:bg-gray-900 animate-slide-in-left">
-            <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+            <Sidebar isMobile={true} onClose={() => setSidebarOpen(false)} />
           </div>
         </div>
       )}

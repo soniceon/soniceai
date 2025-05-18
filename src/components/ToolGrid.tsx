@@ -126,7 +126,7 @@ export default function ToolGrid() {
           <div key={typeKey}>
             <h2 id={typeKey} className="text-2xl font-bold mb-6 text-purple-700 dark:text-purple-300 flex items-center gap-2">
               <span className="text-lg">#</span>
-              {typeLabels[typeKey]?.[lang] || typeKey}
+              {t(typeKey) !== typeKey ? t(typeKey) : (typeLabels[typeKey]?.[lang] || typeKey)}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
               {filtered.filter(t => t.type === typeKey).map(tool => (
@@ -136,7 +136,7 @@ export default function ToolGrid() {
                   className="bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-xl transition p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800 relative"
                 >
                   {tool.featured && (
-                    <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">★ Featured</span>
+                    <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">★ {t('featured_label')}</span>
                   )}
                   <span className="text-3xl mb-2">
                     <span className="relative w-10 h-10 flex items-center justify-center">
@@ -152,7 +152,7 @@ export default function ToolGrid() {
                     </span>
                   </span>
                   <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name && tool.name[lang] ? tool.name[lang] : ''}</div>
-                  <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{typeLabels[tool.type]?.[lang] || tool.type}</div>
+                  <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{t(tool.type) !== tool.type ? t(tool.type) : (typeLabels[tool.type]?.[lang] || tool.type)}</div>
                   <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc && tool.desc[lang] ? tool.desc[lang] : ''}</div>
                   <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
                     <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>
@@ -174,7 +174,7 @@ export default function ToolGrid() {
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 w-full border border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-yellow-500 text-xl">★</span>
-            <span className="font-bold text-lg">{t('featured')}</span>
+            <span className="font-bold text-lg">{t('featured_ai_tools')}</span>
           </div>
           <div className="flex flex-col gap-4">
             {featuredTools.map(tool => (

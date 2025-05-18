@@ -32,18 +32,23 @@ const FeaturedSection: React.FC = () => {
   return (
     <div className="h-full">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('featured.title')}</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('featured_ai_tools')}</h2>
         <Link
           href="/featured"
           className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center"
         >
-          {t('featured.viewAll')}
+          {t('view_all')}
           <FiArrowUpRight className="ml-1 h-4 w-4" />
         </Link>
       </div>
       
       <div className="space-y-4">
-        {featuredTools.map((tool) => (
+        {featuredTools.map((tool: {
+          id: string;
+          name: string;
+          rating: number;
+          category: string;
+        }) => (
           <motion.div
             key={tool.id}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden card border border-gray-200 dark:border-gray-700"
@@ -77,7 +82,7 @@ const FeaturedSection: React.FC = () => {
                   href={`/tool/${tool.id}`}
                   className="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
                 >
-                  {t('featured.viewDetails')}
+                  {t('view_details')}
                 </Link>
               </div>
             </div>
@@ -86,13 +91,13 @@ const FeaturedSection: React.FC = () => {
       </div>
       
       <div className="mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-lg p-4 text-white">
-        <h3 className="font-bold mb-2">{t('featured.submitYourTool')}</h3>
-        <p className="text-sm mb-3 text-white/90">{t('featured.submitDescription')}</p>
+        <h3 className="font-bold mb-2">{t('submit_your_tool')}</h3>
+        <p className="text-sm mb-3 text-white/90">{t('submit_description')}</p>
         <Link 
           href="/submit"
           className="inline-block text-sm font-medium bg-white text-primary-600 px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
         >
-          {t('featured.submitButton')}
+          {t('submit_button')}
         </Link>
       </div>
     </div>

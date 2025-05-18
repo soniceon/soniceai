@@ -1,138 +1,152 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FiGrid, FiMessageSquare, FiImage, FiCode, FiFileText, FiVideo, FiMusic, FiDatabase, FiHome, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FiX, FiHome, FiImage, FiMessageSquare, FiCode, FiFileText, FiVideo, FiMusic, FiDatabase, FiGrid, FiMoreHorizontal } from 'react-icons/fi';
-import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
-
-interface SidebarProps {
-  isOpen: boolean;
-  onClose?: () => void;
-}
+import { useSearch } from '@/contexts/SearchContext';
 
 interface CategoryItem {
   id: string;
   name: string;
-  icon: React.ReactNode;
-  count?: number;
+  icon: JSX.Element;
+  count: number;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+interface SidebarProps {
+  isMobile?: boolean;
+  onClose?: () => void;
+}
+
+export default function Sidebar({ isMobile = false, onClose }: SidebarProps) {
   const router = useRouter();
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const { setKeyword } = useSearch();
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [forceUpdate, setForceUpdate] = useState(0);
 
-  const categories: CategoryItem[] = [
-    { id: 'all', name: t('categories.all'), icon: <FiGrid />, count: 1250 },
-    { id: 'chatbots', name: t('categories.chatbots'), icon: <FiMessageSquare />, count: 235 },
-    { id: 'image-generation', name: t('categories.imageGeneration'), icon: <FiImage />, count: 182 },
-    { id: 'code-assistants', name: t('categories.codeAssistants'), icon: <FiCode />, count: 147 },
-    { id: 'content-writing', name: t('categories.contentWriting'), icon: <FiFileText />, count: 168 },
-    { id: 'video-generation', name: t('categories.videoGeneration'), icon: <FiVideo />, count: 93 },
-    { id: 'music-generation', name: t('categories.musicGeneration'), icon: <FiMusic />, count: 51 },
-    { id: 'data-analysis', name: t('categories.dataAnalysis'), icon: <FiDatabase />, count: 79 },
-  ];
+  // Monitor language changes and force re-render
+  useEffect(() => {
+    setForceUpdate(prev => prev + 1);
+  }, [i18n.language]);
 
+  // 添加语言变化监听，确保在语言切换时重新生成分类列表
+  useEffect(() => {
+    setCategories([
+      { id: 'all', name: t('categories_all'), icon: <FiGrid />, count: 1250 },
+      { id: 'chatbots', name: t('categories_chatbots'), icon: <FiMessageSquare />, count: 235 },
+      { id: 'image-generation', name: t('categories_imageGeneration'), icon: <FiImage />, count: 182 },
+      { id: 'code-assistants', name: t('categories_codeAssistants'), icon: <FiCode />, count: 147 },
+      { id: 'content-writing', name: t('categories_contentWriting'), icon: <FiFileText />, count: 168 },
+      { id: 'video-generation', name: t('categories_videoGeneration'), icon: <FiVideo />, count: 93 },
+      { id: 'music-generation', name: t('categories_musicGeneration'), icon: <FiMusic />, count: 51 },
+      { id: 'data-analysis', name: t('categories_dataAnalysis'), icon: <FiDatabase />, count: 79 },
+    ]);
+  }, [t, i18n.language]); // 添加i18n.language作为依赖项
+
+  // Check if current route is active
   const isActive = (path: string) => {
-    return router.pathname === path || router.pathname.startsWith(`${path}/`);
+    return router.pathname === path || router.asPath === path;
   };
 
+  // Animation variants for mobile sidebar
   const sidebarVariants = {
     open: { x: 0, opacity: 1 },
     closed: { x: '-100%', opacity: 0 },
   };
 
-  return (
-    <motion.div
-      className="h-screen overflow-y-auto w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm fixed md:relative"
-      initial={isOpen ? 'open' : 'closed'}
-      animate={isOpen ? 'open' : 'closed'}
-      variants={sidebarVariants}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="p-4">
-        {/* Mobile close button */}
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="md:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white"
-          >
-            <FiX className="h-5 w-5" />
-          </button>
-        )}
-        
-        {/* Sidebar header */}
-        <div className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('sidebar.categories')}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('sidebar.browseTools')}</p>
-        </div>
-        
-        {/* Navigation Items */}
-        <nav>
-          <div className="mb-4">
-            <Link
-              href="/"
-              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                isActive('/') 
-                  ? 'bg-primary-50 dark:bg-gray-800 text-primary-600 dark:text-primary-400' 
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            >
-              <FiHome className="mr-3 h-5 w-5" />
-              <span>{t('sidebar.home')}</span>
-            </Link>
-          </div>
-          
-          <div className="space-y-1">
-            <h3 className="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              {t('sidebar.toolCategories')}
-            </h3>
-            
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/category/${category.id}`}
-                className={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium relative ${
-                  isActive(`/category/${category.id}`)
-                    ? 'bg-primary-50 dark:bg-gray-800 text-primary-600 dark:text-primary-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                } sidebar-item ${isActive(`/category/${category.id}`) ? 'active' : ''}`}
-                onMouseEnter={() => setHoveredCategory(category.id)}
-                onMouseLeave={() => setHoveredCategory(null)}
-              >
-                <div className="flex items-center">
-                  <span className="mr-3 h-5 w-5">{category.icon}</span>
-                  <span>{category.name}</span>
-                </div>
-                {category.count !== undefined && (
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {category.count}
-                  </span>
-                )}
-                
-                {hoveredCategory === category.id && (
-                  <motion.div
-                    className="absolute -right-2 -mt-2 w-1 h-full bg-primary-500 dark:bg-primary-400 rounded"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: '100%' }}
-                    transition={{ duration: 0.2 }}
-                  />
-                )}
-              </Link>
-            ))}
-            
-            <Link
-              href="/categories"
-              className="flex items-center px-3 py-2 mt-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <FiMoreHorizontal className="mr-3 h-5 w-5" />
-              <span>{t('sidebar.allCategories')}</span>
-            </Link>
-          </div>
-        </nav>
-      </div>
-    </motion.div>
-  );
-};
+  const handleCategoryClick = (categoryId: string) => {
+    if (categoryId === 'all') {
+      setKeyword('');
+    } else {
+      setKeyword(categoryId);
+      if (router.pathname !== '/') {
+        router.push('/');
+      }
+    }
+  };
 
-export default Sidebar;
+  return (
+    <AnimatePresence>
+      <motion.div
+        className={`fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40 overflow-y-auto ${
+          isMobile ? 'w-64' : 'w-16 md:w-64'
+        } pt-20`}
+        initial={isMobile ? 'closed' : false}
+        animate="open"
+        exit="closed"
+        variants={sidebarVariants}
+        key={`sidebar-${i18n.language}-${forceUpdate}`} // 添加forceUpdate确保在语言变化时重新渲染
+      >
+        <div className="p-4">
+          {/* Sidebar header */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('sidebar_categories')}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('sidebar_browseTools')}</p>
+          </div>
+
+          {/* Main navigation */}
+          <div className="space-y-6">
+            <div>
+              <Link
+                href="/"
+                className={`flex items-center px-3 py-2 rounded-md transition-colors ${
+                  isActive('/') ? 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+              >
+                <FiHome className="mr-3 h-5 w-5" />
+                <span>{t('sidebar_home')}</span>
+              </Link>
+            </div>
+
+            <div>
+              <h3 className="px-3 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+                {t('sidebar_toolCategories')}
+              </h3>
+
+              <div className="space-y-1">
+                {categories.map((category) => (
+                  <div
+                    key={`${category.id}-${i18n.language}-${forceUpdate}`} // Add forceUpdate to ensure re-render
+                    className="relative"
+                    onMouseEnter={() => setHoveredCategory(category.id)}
+                    onMouseLeave={() => setHoveredCategory(null)}
+                  >
+                    <button
+                      onClick={() => {
+                        handleCategoryClick(category.id);
+                        if (onClose) onClose();
+                      }}
+                      className={`flex items-center justify-between w-full px-3 py-2 rounded-md transition-colors ${
+                        isActive(`/categories/${category.id}`)
+                          ? 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <span className="mr-3 text-lg">{category.icon}</span>
+                        <span className={isMobile ? '' : 'hidden md:inline'}>{category.name}</span>
+                      </div>
+                      <span className={`text-xs text-gray-500 dark:text-gray-400 ${isMobile ? '' : 'hidden md:inline'}`}>{category.count}</span>
+                    </button>
+                  </div>
+                ))}
+
+                <Link
+                  href="/categories"
+                  className={`flex items-center px-3 py-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors mt-4 ${
+                    isMobile ? '' : 'hidden md:flex'
+                  }`}
+                >
+                  <span>{t('sidebar_allCategories')}</span>
+                  <FiChevronDown className="ml-auto" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}

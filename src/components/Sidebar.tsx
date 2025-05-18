@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 
 const categories = [
@@ -16,18 +16,25 @@ const categories = [
 import Link from 'next/link';
 
 export default function Sidebar() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const [hover, setHover] = useState(false);
+  const [forceUpdate, setForceUpdate] = useState(0);
+  
+  // 监听语言变化，强制重新渲染
+  useEffect(() => {
+    setForceUpdate(prev => prev + 1);
+  }, [i18n.language]);
 
   return (
     <aside
       className="hidden md:flex fixed top-20 left-0 z-40 h-[calc(100vh-2rem)] w-24 hover:w-64 bg-white shadow-lg rounded-r-2xl flex-col py-2 gap-1 border-r border-gray-100 dark:bg-gray-900 dark:border-gray-800 group transition-all duration-200 overflow-y-auto"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      key={`sidebar-${i18n.language}-${forceUpdate}`}
     >
       {categories.map((cat, idx) => (
         <Link
-          key={cat.type}
+          key={`${cat.type}-${i18n.language}`}
           href={`/#${cat.type}`}
           className="flex items-center gap-2 px-5 py-1.5 font-medium transition rounded-l-full group"
         >

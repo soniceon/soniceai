@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 
 export default function FeaturedPage() {
   const { lang } = useLanguage();
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof aiTools[0]['name'];
   const featured = aiTools.filter(t => t.featured);
   return (
