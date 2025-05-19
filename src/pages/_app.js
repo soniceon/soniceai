@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import '../styles/globals.css';
 import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../../next-i18next.config.js';
@@ -12,6 +13,11 @@ import { useRouter } from 'next/router';
 import { ThemeProvider } from 'next-themes';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
+
+// 懒加载最重的组件
+const DynamicToolGrid = dynamic(() => import('../components/ToolGrid'));
+const DynamicNavbar = dynamic(() => import('../components/Navbar'));
+const DynamicFooter = dynamic(() => import('../components/Footer'));
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -34,7 +40,7 @@ function MyApp({ Component, pageProps }) {
         <SearchProvider>
           <AuthProvider>
             <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-[#181825] transition-colors" key={`app-${i18n.language}-${languageKey}`}>
-              <Navbar />
+              <DynamicNavbar />
               {isHome && <Hero />}
               <div className="flex flex-1">
                 <Sidebar />
@@ -44,7 +50,7 @@ function MyApp({ Component, pageProps }) {
                   </main>
                 </div>
               </div>
-              <Footer />
+              <DynamicFooter />
             </div>
           </AuthProvider>
         </SearchProvider>

@@ -7,24 +7,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { userId, updates } = req.body;
-    if (!userId || !updates) {
-      return res.status(400).json({ message: 'Missing userId or updates' });
+    const { token } = req.body;
+    if (!token) {
+      return res.status(400).json({ message: 'Missing token' });
     }
 
     const userService = UserService.getInstance();
-    const result = await userService.updateProfile(userId, updates);
+    const result = await userService.validateSession(token);
 
     if (!result.success) {
-      return res.status(400).json({ message: result.message });
+      return res.status(401).json({ message: result.message });
     }
 
-    return res.status(200).json({ 
+    return res.status(200).json({
       message: result.message,
       user: result.user
     });
   } catch (error) {
-    console.error('Profile update error:', error);
+    console.error('Session validation error:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 } 

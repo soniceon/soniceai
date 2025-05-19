@@ -7,24 +7,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { userId, updates } = req.body;
-    if (!userId || !updates) {
-      return res.status(400).json({ message: 'Missing userId or updates' });
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return res.status(400).json({ message: 'Missing token or new password' });
     }
 
     const userService = UserService.getInstance();
-    const result = await userService.updateProfile(userId, updates);
+    const result = await userService.updatePassword(token, newPassword);
 
     if (!result.success) {
       return res.status(400).json({ message: result.message });
     }
 
-    return res.status(200).json({ 
-      message: result.message,
-      user: result.user
-    });
+    return res.status(200).json({ message: result.message });
   } catch (error) {
-    console.error('Profile update error:', error);
+    console.error('Password update error:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 } 

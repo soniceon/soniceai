@@ -6,3 +6,5 @@ node_modules
 .DS_Store
 *.log
 out/
+public/uploads/avatars/*
+!public/uploads/avatars/.gitkeep
