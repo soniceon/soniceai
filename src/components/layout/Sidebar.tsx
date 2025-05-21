@@ -18,7 +18,7 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-export default function Sidebar() {
+export default function Sidebar({ isMobile, onClose }: SidebarProps) {
   const { t, i18n, ready } = useTranslation('common');
   if (!ready) return null;
   console.log('layout/Sidebar.tsx 当前语言:', i18n.language, 'sidebar_dashboard:', t('sidebar_dashboard'));
