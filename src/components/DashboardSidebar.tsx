@@ -23,15 +23,15 @@ export default function DashboardSidebar() {
   console.log('DashboardSidebar.tsx 当前语言:', i18n.language, 'sidebar_tools:', t('sidebar_tools'));
   const router = useRouter();
   return (
-    <aside key={i18n.language} className="flex flex-col w-56 min-h-screen bg-white border-r border-gray-100 shadow-sm py-6 px-2">
-      <nav className="flex flex-col gap-1">
+    <aside key={i18n.language} className="flex flex-col w-56 min-h-screen bg-[#232136] border-r border-gray-900 shadow-xl py-8 px-3">
+      <nav className="flex flex-col gap-2">
         {menu.map(item => (
           <Link
             key={item.key}
             href={item.path}
-            className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-purple-50 transition-all text-base ${router.asPath.startsWith(item.path) ? 'bg-purple-100 text-purple-700 font-bold' : ''}`}
+            className={`flex items-center gap-4 px-5 py-3 rounded-xl font-semibold text-gray-200 hover:bg-purple-800 hover:text-purple-200 transition-all text-lg duration-200 group ${router.asPath.startsWith(item.path) ? 'bg-gradient-to-r from-purple-900 to-purple-700 text-white shadow-lg' : ''}`}
           >
-            <span className="text-xl">{item.icon}</span>
+            <span className={`text-2xl transition ${router.asPath.startsWith(item.path) ? 'text-yellow-300 drop-shadow' : 'group-hover:text-purple-300'}`}>{item.icon}</span>
             <span>{t(item.tKey)}</span>
           </Link>
         ))}

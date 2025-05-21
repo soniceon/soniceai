@@ -44,14 +44,13 @@ export default function RankingsPage() {
               </div>
               {/* 标签 */}
               <div className="flex flex-wrap gap-2 mt-auto justify-center w-full">
-                {tool.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="px-3 py-0.5 rounded-full text-sm font-normal border border-transparent"
-                    style={{background:'#393E6A', color:'#fff'}}>
-                    {t(`tag_${tag}`) === `tag_${tag}` ? tag : t(`tag_${tag}`)}
-                  </span>
-                ))}
+                {tool.tags.map(tag => {
+                  const key = 'tag_' + tag.toLowerCase().replace(/[^a-z0-9]/g, '');
+                  const localized = t(key) !== key ? t(key) : tag;
+                  return (
+                    <span key={tag} className="px-3 py-0.5 rounded-full text-sm font-normal border border-transparent" style={{background:'#393E6A', color:'#fff'}}>{localized}</span>
+                  );
+                })}
               </div>
             </Link>
           ))}

@@ -2,8 +2,8 @@ import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 
 const mockTools = [
-  { name: 'ChatGPT', url: 'https://chat.openai.com', type: '聊天', date: '2024-05-01', status: '已上线' },
-  { name: 'Midjourney', url: 'https://midjourney.com', type: '绘画', date: '2024-05-02', status: '审核中' },
+  { name: 'tool_chatgpt', url: 'https://chat.openai.com', type: 'type_chat', date: '2024-05-01', status: 'status_online' },
+  { name: 'tool_midjourney', url: 'https://midjourney.com', type: 'type_image', date: '2024-05-02', status: 'status_reviewing' },
 ];
 
 export default function ToolsPage() {
@@ -34,11 +34,11 @@ export default function ToolsPage() {
                 <tr><td colSpan={6} className="text-center py-8 text-gray-400">{t('no_tools')}</td></tr>
               ) : tools.map((row, i) => (
                 <tr key={i} className="border-t border-gray-100 dark:border-gray-800">
-                  <td className="px-3 py-2 font-bold text-gray-900 dark:text-white">{row.name}</td>
+                  <td className="px-3 py-2 font-bold text-gray-900 dark:text-white">{t(row.name)}</td>
                   <td className="px-3 py-2"><a href={row.url} className="text-purple-600 underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td>
-                  <td className="px-3 py-2">{row.type}</td>
+                  <td className="px-3 py-2">{t(row.type)}</td>
                   <td className="px-3 py-2">{row.date}</td>
-                  <td className="px-3 py-2">{row.status}</td>
+                  <td className="px-3 py-2">{t(row.status)}</td>
                   <td className="px-3 py-2"><button className="text-xs text-purple-600 hover:underline">{t('edit')}</button></td>
                 </tr>
               ))}

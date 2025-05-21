@@ -27,7 +27,7 @@
     "users": "1M+",
     "tags": [
       "NLP",
-      "对话",
+      "dialogue",
       "OpenAI"
     ],
     "featured": true,
@@ -60,8 +60,8 @@
     "rating": 4.8,
     "users": "800k+",
     "tags": [
-      "图像生成",
-      "艺术"
+      "imagegeneration",
+      "art"
     ],
     "featured": true,
     "website": "https://www.midjourney.com/"
@@ -93,7 +93,7 @@
     "rating": 4.7,
     "users": "700k+",
     "tags": [
-      "图像生成",
+      "imagegeneration",
       "OpenAI"
     ],
     "featured": true,
@@ -126,8 +126,8 @@
     "rating": 4.7,
     "users": "600k+",
     "tags": [
-      "代码",
-      "开发",
+      "code",
+      "dev",
       "GitHub"
     ],
     "featured": true,
@@ -160,8 +160,8 @@
     "rating": 4.6,
     "users": "500k+",
     "tags": [
-      "对话",
-      "谷歌"
+      "dialogue",
+      "google"
     ],
     "featured": true,
     "website": "https://bard.google.com/"
@@ -193,7 +193,7 @@
     "rating": 4.6,
     "users": "400k+",
     "tags": [
-      "对话",
+      "dialogue",
       "Anthropic"
     ],
     "featured": true,
@@ -226,8 +226,8 @@
     "rating": 4.5,
     "users": "350k+",
     "tags": [
-      "写作",
-      "效率",
+      "writing",
+      "productivity",
       "Notion"
     ],
     "featured": true,
@@ -260,7 +260,7 @@
     "rating": 4.5,
     "users": "300k+",
     "tags": [
-      "设计",
+      "design",
       "Canva"
     ],
     "featured": true,
@@ -286,15 +286,15 @@
       "de": "KI-Schreib- und Content-Generierungsplattform.",
       "fr": "Plateforme d'écriture et de génération de contenu IA.",
       "es": "Plataforma de escritura y generación de contenido IA.",
-      "ru": "Платформа ИИ для письма и генерации контента."
+      "ru": "Платформа для создания контента и генерации на базе ИИ."
     },
     "type": "writing",
     "icon": "✍️",
     "rating": 4.4,
     "users": "250k+",
     "tags": [
-      "写作",
-      "内容"
+      "writing",
+      "content"
     ],
     "featured": true,
     "website": "https://www.jasper.ai/"
@@ -326,9 +326,9 @@
     "rating": 4.4,
     "users": "200k+",
     "tags": [
-      "音频",
-      "视频",
-      "编辑"
+      "audio",
+      "video",
+      "editing"
     ],
     "featured": true,
     "website": "https://www.descript.com/"
@@ -360,8 +360,8 @@
     "rating": 4.3,
     "users": "180k+",
     "tags": [
-      "文案",
-      "营销"
+      "copywriting",
+      "marketing"
     ],
     "featured": true,
     "website": "https://www.copy.ai/"

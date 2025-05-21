@@ -4,8 +4,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 
 const mockPosts = [
-  { title: 'AI工具推荐', url: 'https://blog.ai.com/post1', type: '帖子', date: '2024-05-01', status: '已发布' },
-  { title: '外链推广', url: 'https://blog.ai.com/link1', type: '外链', date: '2024-05-02', status: '审核中' },
+  { title: 'post_ai_tools_recommend', url: 'https://blog.ai.com/post1', type: 'type_post', date: '2024-05-01', status: 'status_published' },
+  { title: 'post_external_promotion', url: 'https://blog.ai.com/link1', type: 'type_link', date: '2024-05-02', status: 'status_reviewing' },
 ];
 
 export default function PostsPage() {
@@ -36,11 +36,11 @@ export default function PostsPage() {
                 <tr><td colSpan={6} className="text-center py-8 text-gray-400">{t('no_posts')}</td></tr>
               ) : posts.map((row, i) => (
                 <tr key={i} className="border-t border-gray-100 dark:border-gray-800">
-                  <td className="px-3 py-2 font-bold text-gray-900 dark:text-white">{row.title}</td>
+                  <td className="px-3 py-2 font-bold text-gray-900 dark:text-white">{t(row.title)}</td>
                   <td className="px-3 py-2"><a href={row.url} className="text-purple-600 underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td>
-                  <td className="px-3 py-2">{row.type}</td>
+                  <td className="px-3 py-2">{t(row.type)}</td>
                   <td className="px-3 py-2">{row.date}</td>
-                  <td className="px-3 py-2">{row.status}</td>
+                  <td className="px-3 py-2">{t(row.status)}</td>
                   <td className="px-3 py-2"><button className="text-xs text-purple-600 hover:underline">{t('edit')}</button></td>
                 </tr>
               ))}

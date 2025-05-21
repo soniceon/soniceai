@@ -57,39 +57,39 @@ export default function Dashboard() {
   const [stats] = useState(mockStats);
 
   return (
-    <div className="flex bg-white min-h-screen">
+    <div className="flex bg-[#181825] min-h-screen">
       <DashboardSidebar />
-      <main className="flex-1 p-8 bg-[#f7f8fa]">
+      <main className="flex-1 p-8 bg-transparent max-w-6xl mx-auto">
         {/* 个人信息卡片 */}
-        <div className="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-6 mb-8">
-          <img src={user.avatar} alt="avatar" className="w-16 h-16 rounded-full bg-gray-200" />
+        <div className="bg-[#232136] rounded-2xl shadow-xl border border-purple-900 p-6 flex items-center gap-6 mb-8 transition hover:shadow-2xl">
+          <img src={user.avatar} alt="avatar" className="w-16 h-16 rounded-full bg-gray-200 shadow-lg" />
           <div>
-            <div className="text-xl font-bold mb-1 text-gray-900">{user.nickname}</div>
-            <div className="text-gray-500 mb-2">{user.email}</div>
-            <button className="px-3 py-1 bg-purple-600 text-white rounded text-sm">{t('logout')}</button>
-            <div className="mt-2 text-sm text-gray-500"><span className="inline-block align-middle mr-1">🧾</span>{t('sidebar_orders')}</div>
+            <div className="text-lg font-bold mb-1 text-gray-100 flex items-center gap-2"><span className="text-purple-400">👤</span>{user.nickname}</div>
+            <div className="text-gray-400 mb-2">{user.email}</div>
+            <button className="px-4 py-1 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white rounded-lg text-sm shadow flex items-center gap-2 transition hover:scale-105"><span className="material-icons text-base">logout</span>{t('logout')}</button>
+            <div className="mt-2 text-sm text-gray-400 flex items-center gap-1"><span className="inline-block align-middle">🧾</span>{t('sidebar_orders')}</div>
           </div>
         </div>
         {/* 统计卡片区块 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {stats.map(s => (
-            <div key={s.label} className="bg-white rounded-2xl shadow-sm p-4 flex flex-col items-center">
-              <div className="text-2xl font-bold text-purple-600 mb-1">{s.value}</div>
-              <div className="text-xs text-gray-500">{t(s.label)}</div>
+            <div key={s.label} className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-4 flex flex-col items-center transition hover:shadow-2xl">
+              <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-purple-700 text-transparent bg-clip-text mb-1">{s.value}</div>
+              <div className="text-xs text-gray-400">{t(s.label)}</div>
             </div>
           ))}
         </div>
         {/* 业务分区卡片区块 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* 我的工具 */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
-            <div className="font-bold text-lg mb-2 text-gray-900 flex items-center justify-between">
+          <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-6 flex flex-col">
+            <div className="font-bold text-lg mb-2 text-gray-100 flex items-center justify-between">
               {t('my_tools')}
-              <button className="text-xs text-purple-600 hover:underline" onClick={()=>router.push('/dashboard/tools')}>{t('view_more')}</button>
+              <button className="text-xs text-purple-400 hover:underline" onClick={()=>router.push('/dashboard/tools')}>{t('view_more')}</button>
             </div>
             <table className="min-w-full text-sm mb-2">
               <thead>
-                <tr className="text-gray-500">
+                <tr className="text-purple-300 border-b border-gray-700">
                   <th>{t('tool')}</th><th>{t('website')}</th><th>{t('type')}</th><th>{t('date')}</th><th>{t('status')}</th>
                 </tr>
               </thead>
@@ -98,8 +98,8 @@ export default function Dashboard() {
                   <tr><td colSpan={5} className="text-center text-gray-400 py-4">{t('no_data')}</td></tr>
                 ) : (
                   mockTools.slice(0,3).map((row,i)=>(
-                    <tr key={i} className="border-t border-gray-100">
-                      <td>{row.name}</td><td><a href={row.url} className="text-purple-600 underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{t(row.type)}</td><td>{row.date}</td><td>{t(row.status)}</td>
+                    <tr key={i} className="border-t border-gray-700 text-gray-100">
+                      <td>{row.name}</td><td><a href={row.url} className="text-purple-400 font-semibold underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{t(row.type)}</td><td>{row.date}</td><td>{t(row.status)}</td>
                     </tr>
                   ))
                 )}
@@ -107,14 +107,14 @@ export default function Dashboard() {
             </table>
           </div>
           {/* 广告 */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
-            <div className="font-bold text-lg mb-2 text-gray-900 flex items-center justify-between">
+          <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-6 flex flex-col">
+            <div className="font-bold text-lg mb-2 text-gray-100 flex items-center justify-between">
               {t('my_ads')}
-              <button className="text-xs text-purple-600 hover:underline" onClick={()=>router.push('/dashboard/ads')}>{t('view_more')}</button>
+              <button className="text-xs text-purple-400 hover:underline" onClick={()=>router.push('/dashboard/ads')}>{t('view_more')}</button>
             </div>
             <table className="min-w-full text-sm mb-2">
               <thead>
-                <tr className="text-gray-500">
+                <tr className="text-purple-300 border-b border-gray-700">
                   <th>{t('tool')}</th><th>{t('ad_url')}</th><th>{t('ad_balance')}</th><th>{t('status')}</th>
                 </tr>
               </thead>
@@ -123,8 +123,8 @@ export default function Dashboard() {
                   <tr><td colSpan={4} className="text-center text-gray-400 py-4">{t('no_data')}</td></tr>
                 ) : (
                   mockAds.slice(0,3).map((row,i)=>(
-                    <tr key={i} className="border-t border-gray-100">
-                      <td>{row.tool}</td><td><a href={row.url} className="text-purple-600 underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{row.balance}</td><td>{t(row.status)}</td>
+                    <tr key={i} className="border-t border-gray-700 text-gray-100">
+                      <td>{row.tool}</td><td><a href={row.url} className="text-purple-400 font-semibold underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{row.balance}</td><td>{t(row.status)}</td>
                     </tr>
                   ))
                 )}
@@ -132,14 +132,14 @@ export default function Dashboard() {
             </table>
           </div>
           {/* 文章/外链 */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
-            <div className="font-bold text-lg mb-2 text-gray-900 flex items-center justify-between">
+          <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-6 flex flex-col">
+            <div className="font-bold text-lg mb-2 text-gray-100 flex items-center justify-between">
               {t('my_posts_links')}
-              <button className="text-xs text-purple-600 hover:underline" onClick={()=>router.push('/dashboard/posts')}>{t('view_more')}</button>
+              <button className="text-xs text-purple-400 hover:underline" onClick={()=>router.push('/dashboard/posts')}>{t('view_more')}</button>
             </div>
             <table className="min-w-full text-sm mb-2">
               <thead>
-                <tr className="text-gray-500">
+                <tr className="text-purple-300 border-b border-gray-700">
                   <th>{t('title')}</th><th>{t('url')}</th><th>{t('type')}</th><th>{t('date')}</th><th>{t('status')}</th>
                 </tr>
               </thead>
@@ -148,8 +148,8 @@ export default function Dashboard() {
                   <tr><td colSpan={5} className="text-center text-gray-400 py-4">{t('no_data')}</td></tr>
                 ) : (
                   mockPosts.slice(0,3).map((row,i)=>(
-                    <tr key={i} className="border-t border-gray-100">
-                      <td>{t(row.title)}</td><td><a href={row.url} className="text-purple-600 underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{t(row.type)}</td><td>{row.date}</td><td>{t(row.status)}</td>
+                    <tr key={i} className="border-t border-gray-700 text-gray-100">
+                      <td>{t(row.title)}</td><td><a href={row.url} className="text-purple-400 font-semibold underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{t(row.type)}</td><td>{row.date}</td><td>{t(row.status)}</td>
                     </tr>
                   ))
                 )}
@@ -157,14 +157,14 @@ export default function Dashboard() {
             </table>
           </div>
           {/* 我的GPTs */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
-            <div className="font-bold text-lg mb-2 text-gray-900 flex items-center justify-between">
+          <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-6 flex flex-col">
+            <div className="font-bold text-lg mb-2 text-gray-100 flex items-center justify-between">
               {t('my_gpts')}
-              <button className="text-xs text-purple-600 hover:underline" onClick={()=>router.push('/dashboard/gpts')}>{t('view_more')}</button>
+              <button className="text-xs text-purple-400 hover:underline" onClick={()=>router.push('/dashboard/gpts')}>{t('view_more')}</button>
             </div>
             <table className="min-w-full text-sm mb-2">
               <thead>
-                <tr className="text-gray-500">
+                <tr className="text-purple-300 border-b border-gray-700">
                   <th>{t('gpt_name')}</th><th>{t('date')}</th><th>{t('status')}</th>
                 </tr>
               </thead>
@@ -173,7 +173,7 @@ export default function Dashboard() {
                   <tr><td colSpan={3} className="text-center text-gray-400 py-4">{t('no_data')}</td></tr>
                 ) : (
                   mockGpts.slice(0,3).map((row,i)=>(
-                    <tr key={i} className="border-t border-gray-100">
+                    <tr key={i} className="border-t border-gray-700 text-gray-100">
                       <td>{row.name}</td><td>{row.date}</td><td>{t(row.status)}</td>
                     </tr>
                   ))
@@ -182,14 +182,14 @@ export default function Dashboard() {
             </table>
           </div>
           {/* 社交媒体聆听 */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
-            <div className="font-bold text-lg mb-2 text-gray-900 flex items-center justify-between">
+          <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-6 flex flex-col">
+            <div className="font-bold text-lg mb-2 text-gray-100 flex items-center justify-between">
               {t('listening_sites')}
-              <button className="text-xs text-purple-600 hover:underline" onClick={()=>router.push('/dashboard/listening')}>{t('view_more')}</button>
+              <button className="text-xs text-purple-400 hover:underline" onClick={()=>router.push('/dashboard/listening')}>{t('view_more')}</button>
             </div>
             <table className="min-w-full text-sm mb-2">
               <thead>
-                <tr className="text-gray-500">
+                <tr className="text-purple-300 border-b border-gray-700">
                   <th>{t('site')}</th><th>{t('search_status')}</th><th>{t('total_data')}</th><th>{t('unlocked')}</th>
                 </tr>
               </thead>
@@ -198,7 +198,7 @@ export default function Dashboard() {
                   <tr><td colSpan={4} className="text-center text-gray-400 py-4">{t('no_data')}</td></tr>
                 ) : (
                   mockSites.slice(0,3).map((row,i)=>(
-                    <tr key={i} className="border-t border-gray-100">
+                    <tr key={i} className="border-t border-gray-700 text-gray-100">
                       <td>{row.site}</td><td>{t(row.status)}</td><td>{row.total}</td><td>{row.unlocked}</td>
                     </tr>
                   ))
@@ -207,14 +207,14 @@ export default function Dashboard() {
             </table>
           </div>
           {/* 收藏 */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
-            <div className="font-bold text-lg mb-2 text-gray-900 flex items-center justify-between">
+          <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-6 flex flex-col">
+            <div className="font-bold text-lg mb-2 text-gray-100 flex items-center justify-between">
               {t('my_favorites')}
-              <button className="text-xs text-purple-600 hover:underline" onClick={()=>router.push('/dashboard/favorites')}>{t('view_more')}</button>
+              <button className="text-xs text-purple-400 hover:underline" onClick={()=>router.push('/dashboard/favorites')}>{t('view_more')}</button>
             </div>
             <table className="min-w-full text-sm mb-2">
               <thead>
-                <tr className="text-gray-500">
+                <tr className="text-purple-300 border-b border-gray-700">
                   <th>{t('tool')}</th><th>{t('website')}</th><th>{t('type')}</th><th>{t('date')}</th>
                 </tr>
               </thead>
@@ -223,8 +223,8 @@ export default function Dashboard() {
                   <tr><td colSpan={4} className="text-center text-gray-400 py-4">{t('no_data')}</td></tr>
                 ) : (
                   mockFavorites.slice(0,3).map((row,i)=>(
-                    <tr key={i} className="border-t border-gray-100">
-                      <td>{row.name}</td><td><a href={row.url} className="text-purple-600 underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{t(row.type)}</td><td>{row.date}</td>
+                    <tr key={i} className="border-t border-gray-700 text-gray-100">
+                      <td>{row.name}</td><td><a href={row.url} className="text-purple-400 font-semibold underline" target="_blank" rel="noopener noreferrer">{row.url}</a></td><td>{t(row.type)}</td><td>{row.date}</td>
                     </tr>
                   ))
                 )}
