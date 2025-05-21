@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
 interface LanguageSwitcherProps {
@@ -8,6 +9,7 @@ interface LanguageSwitcherProps {
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ onClose }) => {
   const router = useRouter();
+  const { i18n } = useTranslation();
   const { pathname, asPath, query } = router;
   const menuRef = useRef<HTMLDivElement>(null);
   
@@ -36,8 +38,9 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ onClose }) => {
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
   ];
   
-  const handleLanguageChange = (locale: string) => {
-    router.push({ pathname, query }, asPath, { locale });
+  const handleLanguageChange = async (locale: string) => {
+    await router.push({ pathname, query }, asPath, { locale });
+    i18n.changeLanguage(locale);
     onClose();
   };
   

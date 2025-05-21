@@ -16,21 +16,22 @@ const categories = [
 import Link from 'next/link';
 
 export default function Sidebar() {
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n, ready } = useTranslation('common');
+  if (!ready) return null;
   const [hover, setHover] = useState(false);
-  const [forceUpdate, setForceUpdate] = useState(0);
   
-  // 监听语言变化，强制重新渲染
   useEffect(() => {
-    setForceUpdate(prev => prev + 1);
-  }, [i18n.language]);
+    i18n.reloadResources(i18n.language, ['common']);
+    // 只在客户端调试输出
+    console.log('Sidebar.tsx 当前语言:', i18n.language, 'sidebar_tools:', t('sidebar_tools'));
+  }, [i18n.language, t]);
 
   return (
     <aside
+      key={i18n.language}
       className="hidden md:flex fixed top-20 left-0 z-40 h-[calc(100vh-2rem)] w-24 hover:w-64 bg-white shadow-lg rounded-r-2xl flex-col py-2 gap-1 border-r border-gray-100 dark:bg-gray-900 dark:border-gray-800 group transition-all duration-200 overflow-y-auto"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      key={`sidebar-${i18n.language}-${forceUpdate}`}
     >
       {categories.map((cat, idx) => (
         <Link

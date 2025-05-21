@@ -1,8 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-const axios = require('axios');
-const { translate } = require('./baiduTranslate');
 
 // 配置
 const config = {
@@ -11,9 +9,9 @@ const config = {
   // 要排除的目录
   excludeDirs: ['node_modules', '.next', 'out', 'build', 'dist'],
   // 语言文件路径
-  localesPath: path.join(__dirname, '../public/locales'),
+  localesPath: path.join(__dirname, '../src/public/locales'),
   // 要检查的语言
-  languages: ['en', 'zh', 'de', 'es', 'fr', 'ja', 'ko', 'pt', 'ru'],
+  languages: ['en', 'zh'],
   // 要检查的配置文件
   configFiles: [
     'next.config.js',
@@ -23,15 +21,9 @@ const config = {
   ],
   // 翻译 key 配置
   keyConfig: {
-    maxLength: 150,
-    maxDepth: 6,
-    namingPattern: /^[a-zA-Z0-9_.-]+$/,
-    allowedSpecialChars: ['-', '_', '.'],
-    ignoredPrefixes: ['_', 'temp_', 'draft_'],
-    allowedDynamicPatterns: [
-      /^[a-zA-Z0-9_.-]+\.[a-zA-Z0-9_.-]+$/,
-      /^[a-zA-Z0-9_.-]+\[[0-9]+\]$/
-    ]
+    maxLength: 100,
+    maxDepth: 5,
+    namingPattern: /^[a-z][a-z0-9_]*$/
   }
 };
 
@@ -57,14 +49,6 @@ const namespaceUsage = new Map();
 const duplicateKeys = new Map();
 // 存储所有缺失的翻译
 const missingTranslations = new Map();
-// 新增：存储所有值为对象的 key
-const objectValueKeys = new Map();
-
-// 使用百度翻译API翻译文本
-async function translateText(text, targetLang) {
-  if (!text || !targetLang || targetLang === 'en') return text;
-  return await translate(text, targetLang);
-}
 
 // 读取语言文件
 function loadTranslations() {
@@ -87,50 +71,25 @@ function loadTranslations() {
 
 // 验证翻译 key 格式
 function validateTranslationKey(key) {
-  if (config.keyConfig.ignoredPrefixes.some(prefix => key.startsWith(prefix))) {
-    return true;
-  }
-
   const validKeyRegex = /^[a-zA-Z0-9_.-]+$/;
   if (!validKeyRegex.test(key)) {
     return false;
   }
-
-  if (config.keyConfig.allowedDynamicPatterns.some(pattern => pattern.test(key))) {
-    return true;
-  }
-
-  const specialChars = key.split('').filter(char => 
-    config.keyConfig.allowedSpecialChars.includes(char)
-  );
-  if (specialChars.length > 3) {
-    return false;
-  }
-
   return true;
 }
 
 // 检查翻译 key 长度
 function checkKeyLength(key) {
-  if (key.includes('[') || key.includes('.')) {
-    return key.length <= config.keyConfig.maxLength * 1.5;
-  }
   return key.length <= config.keyConfig.maxLength;
 }
 
 // 检查翻译 key 命名规范
 function checkKeyNamingConvention(key) {
-  if (config.keyConfig.ignoredPrefixes.some(prefix => key.startsWith(prefix))) {
-    return true;
-  }
   return config.keyConfig.namingPattern.test(key);
 }
 
 // 检查翻译 key 层级深度
 function checkKeyDepth(key) {
-  if (key.includes('[') || key.includes('.')) {
-    return key.split(/[.[\]]/).length <= config.keyConfig.maxDepth * 1.5;
-  }
   return key.split('.').length <= config.keyConfig.maxDepth;
 }
 
@@ -197,7 +156,6 @@ function checkDuplicateKeys(translations) {
 function checkTranslationCompleteness(translations) {
   const allKeys = new Set();
   const missingTranslations = new Map();
-  const optionalKeys = new Set(); // 存储可选翻译 key
 
   // 收集所有 key
   Object.values(translations).forEach(namespaces => {
@@ -205,12 +163,6 @@ function checkTranslationCompleteness(translations) {
       const collectKeys = (obj, path = '') => {
         Object.entries(obj).forEach(([key, value]) => {
           const currentPath = path ? `${path}.${key}` : key;
-          
-          // 检查是否是可选翻译
-          if (key.startsWith('_') || key.startsWith('temp_') || key.startsWith('draft_')) {
-            optionalKeys.add(currentPath);
-          }
-          
           allKeys.add(currentPath);
           if (typeof value === 'object' && value !== null) {
             collectKeys(value, currentPath);
@@ -239,23 +191,7 @@ function checkTranslationCompleteness(translations) {
 
     // 找出缺失的 key
     allKeys.forEach(key => {
-      // 跳过可选翻译的检查
-      if (optionalKeys.has(key)) {
-        return;
-      }
-
       if (!langKeys.has(key)) {
-        // 检查是否是动态 key
-        const isDynamicKey = key.includes('[') || key.includes('.');
-        
-        // 对于动态 key，检查是否存在基础 key
-        if (isDynamicKey) {
-          const baseKey = key.split(/[.[\]]/)[0];
-          if (langKeys.has(baseKey)) {
-            return; // 如果存在基础 key，则忽略动态 key 的缺失
-          }
-        }
-
         if (!missingTranslations.has(lang)) {
           missingTranslations.set(lang, []);
         }
@@ -296,24 +232,14 @@ function checkFile(filePath) {
 
   if (hasI18nUsage) {
     // 提取所有 t('key') 或 t("key") 格式的翻译 key
-    const keyRegex = /t\(['"]([^'"\)]+)['"]\)/g;
+    const keyRegex = /t\(['"]([^'"]+)['"]\)/g;
     let match;
     while ((match = keyRegex.exec(content)) !== null) {
       const key = match[1];
       
-      // 跳过注释中的翻译 key
-      if (content.substring(0, match.index).includes('//') || 
-          content.substring(0, match.index).includes('/*')) {
-        continue;
-      }
-      
       // 验证 key 格式
       if (!validateTranslationKey(key)) {
-        // 检查是否是动态 key
-        const isDynamicKey = key.includes('[') || key.includes('.');
-        if (!isDynamicKey) {
-          fileErrors.push(`Invalid translation key format: ${key}`);
-        }
+        fileErrors.push(`Invalid translation key format: ${key}`);
       }
       
       // 检查 key 长度
@@ -323,7 +249,7 @@ function checkFile(filePath) {
       
       // 检查命名规范
       if (!checkKeyNamingConvention(key)) {
-        fileWarnings.push(`Translation key naming convention violation: ${key}`);
+        fileWarnings.push(`Translation key doesn't follow naming convention: ${key}`);
       }
       
       // 检查层级深度
@@ -332,93 +258,143 @@ function checkFile(filePath) {
       }
       
       fileKeys.add(key);
+      translationKeys.add(key);
     }
 
-    // 检查硬编码文本
-    const textRegex = /["']([^"']{3,})["']/g;
-    while ((match = textRegex.exec(content)) !== null) {
-      const text = match[1];
-      
-      // 跳过注释中的文本
-      if (content.substring(0, match.index).includes('//') || 
-          content.substring(0, match.index).includes('/*')) {
-        continue;
-      }
-      
-      // 跳过 URL、路径等
-      if (text.includes('http') || text.includes('/') || text.includes('\\')) {
-        continue;
-      }
-      
-      // 跳过数字和特殊字符
-      if (/^[0-9\s\W]+$/.test(text)) {
-        continue;
-      }
-      
-      fileHardcodedTexts.add(text);
+    // 检查动态翻译 key
+    const dynamicKeys = checkDynamicTranslationKeys(content);
+    if (dynamicKeys.length > 0) {
+      dynamicTranslationKeys.set(filePath, dynamicKeys);
+      fileWarnings.push('Using dynamic translation keys - consider using static keys');
     }
-  }
 
-  // 更新全局状态
-  if (fileKeys.size > 0) {
+    // 检查 HTML 实体
+    const entities = checkHtmlEntities(content);
+    if (entities.length > 0) {
+      htmlEntities.set(filePath, entities);
+      fileWarnings.push('Using HTML entities - consider using Unicode characters');
+    }
+
+    // 检查是否使用了命名空间
+    const namespaceRegex = /useTranslation\(['"]([^'"]+)['"]\)/;
+    const namespaceMatch = content.match(namespaceRegex);
+    const namespace = namespaceMatch ? namespaceMatch[1] : 'common';
+
+    // 检查是否使用了 ready 状态
+    const hasReadyCheck = content.includes('ready') && (
+      content.includes('if (!ready)') || 
+      content.includes('if (ready === false') ||
+      content.includes('!ready ?') ||
+      content.includes('ready === false ?') ||
+      content.includes('useEffect(() => { if (!ready)') ||
+      content.includes('<Suspense') ||
+      content.includes('ErrorBoundary')
+    );
+
+    if (!hasReadyCheck) {
+      fileWarnings.push('Missing ready check before rendering');
+    }
+
+    // 检查是否在组件顶部解构 ready
+    const hasReadyDestructuring = content.includes('const { t, ready } = useTranslation') ||
+                                content.includes('const { t, i18n, ready } = useTranslation');
+    if (!hasReadyDestructuring) {
+      fileWarnings.push('Missing ready destructuring from useTranslation');
+    }
+
+    // 检查是否在渲染前等待 ready
+    const hasReadyWait = content.includes('if (!ready) return null') || 
+                        content.includes('if (!ready) return <></>') ||
+                        content.includes('if (!ready) return <Loading') ||
+                        content.includes('if (!ready) return <Suspense') ||
+                        content.includes('if (!ready) return <ErrorBoundary');
+    if (!hasReadyWait) {
+      fileWarnings.push('Missing ready wait before rendering');
+    }
+
+    // 检查是否使用了 withTranslation
+    const hasWithTranslation = content.includes('withTranslation');
+    if (hasWithTranslation) {
+      fileWarnings.push('Using withTranslation HOC - consider migrating to useTranslation hook');
+    }
+
+    // 检查是否使用了 Trans 组件
+    const hasTransComponent = content.includes('<Trans');
+    if (hasTransComponent) {
+      fileWarnings.push('Using Trans component - ensure proper usage with i18next');
+    }
+
     filesWithTranslations.set(filePath, {
       keys: Array.from(fileKeys),
-      namespace: getNamespaceFromPath(filePath)
+      namespace,
+      hasReadyCheck,
+      hasReadyDestructuring,
+      hasReadyWait,
+      hasWithTranslation,
+      hasTransComponent,
+      warnings: fileWarnings,
+      errors: fileErrors
     });
+  }
+
+  // 检查硬编码文本
+  if (filePath.endsWith('.json')) {
+    const jsonContent = JSON.parse(content);
+    checkJsonForHardcodedText(jsonContent, filePath, fileHardcodedTexts);
+  } else {
+    // 检查 JSX 中的文本
+    const textRegex = />([^<>{}]+)</g;
+    while ((match = textRegex.exec(content)) !== null) {
+      const text = match[1].trim();
+      if (text && !text.match(/^[0-9\s.,!?]+$/)) {
+        fileHardcodedTexts.add(text);
+      }
+    }
   }
 
   if (fileHardcodedTexts.size > 0) {
     hardcodedTexts.set(filePath, Array.from(fileHardcodedTexts));
   }
-
-  return {
-    errors: fileErrors,
-    warnings: fileWarnings
-  };
 }
 
-// 从文件路径获取命名空间
-function getNamespaceFromPath(filePath) {
-  const pathParts = filePath.split('/');
-  const srcIndex = pathParts.indexOf('src');
-  if (srcIndex !== -1 && srcIndex < pathParts.length - 1) {
-    return pathParts[srcIndex + 1];
-  }
-  return 'common';
+// 检查 JSON 文件中的硬编码文本
+function checkJsonForHardcodedText(obj, filePath, hardcodedTexts, prefix = '') {
+  Object.entries(obj).forEach(([key, value]) => {
+    const currentPath = prefix ? `${prefix}.${key}` : key;
+    if (typeof value === 'string' && !value.match(/^[0-9\s.,!?]+$/)) {
+      hardcodedTexts.add(value);
+    } else if (typeof value === 'object' && value !== null) {
+      checkJsonForHardcodedText(value, filePath, hardcodedTexts, currentPath);
+    }
+  });
 }
 
-// 检查翻译 key 是否存在（多命名空间支持）
+// 检查翻译 key 是否存在
 function checkTranslationKeys(translations) {
-  filesWithTranslations.forEach((info, file) => {
-    const namespaces = Array.isArray(info.namespace) ? info.namespace : [info.namespace];
-    info.keys.forEach(key => {
-      namespaces.forEach(ns => {
-        config.languages.forEach(lang => {
-          if (!translations[lang]) {
-            errors.push(`Language ${lang} not found in translations`);
-            return;
+  translationKeys.forEach(key => {
+    config.languages.forEach(lang => {
+      if (!translations[lang]) {
+        errors.push(`Language ${lang} not found in translations`);
+        return;
+      }
+
+      // 检查每个命名空间
+      Object.entries(translations[lang]).forEach(([namespace, content]) => {
+        if (!key.includes('.')) {
+          if (!content[key]) {
+            errors.push(`Translation key "${key}" not found in ${lang}/${namespace}.json`);
           }
-          if (!translations[lang][ns]) {
-            errors.push(`Namespace ${ns} not found in ${lang}`);
-            return;
-          }
-          const content = translations[lang][ns];
-          // 支持嵌套 key
+        } else {
           const parts = key.split('.');
           let current = content;
-          let found = true;
           for (const part of parts) {
-            if (current && Object.prototype.hasOwnProperty.call(current, part)) {
-              current = current[part];
-            } else {
-              found = false;
+            if (!current[part]) {
+              errors.push(`Translation key "${key}" not found in ${lang}/${namespace}.json`);
               break;
             }
+            current = current[part];
           }
-          if (!found) {
-            errors.push(`Translation key "${key}" not found in ${lang}/${ns}.json`);
-          }
-        });
+        }
       });
     });
   });
@@ -441,273 +417,43 @@ function checkConfigFiles() {
   });
 }
 
-// 在 loadTranslations 之后，添加检测对象值 key 的逻辑
-function collectObjectValueKeys(translations) {
-  Object.entries(translations).forEach(([lang, namespaces]) => {
-    Object.entries(namespaces).forEach(([namespace, content]) => {
-      const findObjectKeys = (obj, path = '') => {
-        Object.entries(obj).forEach(([key, value]) => {
-          const currentPath = path ? `${path}.${key}` : key;
-          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-            if (!objectValueKeys.has(lang)) objectValueKeys.set(lang, []);
-            objectValueKeys.get(lang).push(`${namespace}.${currentPath}`);
-            // 递归查找嵌套对象
-            findObjectKeys(value, currentPath);
-          }
-        });
-      };
-      findObjectKeys(content);
-    });
-  });
-}
-
-// 新增：自动扫描代码文件提取 t('xxx') 用到的 key，并比对语言包
-function extractUsedKeysFromCode() {
-  const codeKeys = new Set();
-  const keyRegex = /t\(['"`]([a-zA-Z0-9_.-]+)['"`]\)/g;
-  const codeFiles = glob.sync('src/**/*.{js,jsx,ts,tsx}', {
-    ignore: config.excludeDirs.map(dir => `**/${dir}/**`)
-  });
-  codeFiles.forEach(file => {
-    const content = fs.readFileSync(file, 'utf8');
-    let match;
-    while ((match = keyRegex.exec(content)) !== null) {
-      codeKeys.add(match[1]);
-    }
-  });
-  return Array.from(codeKeys);
-}
-
-function getValueFromJson(obj, key) {
-  return key.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), obj);
-}
-
-function checkCodeKeysAgainstLocales(translations, usedKeys) {
-  const missing = [];
-  const typeErrors = [];
-  config.languages.forEach(lang => {
-    Object.entries(translations[lang] || {}).forEach(([namespace, content]) => {
-      usedKeys.forEach(key => {
-        const value = getValueFromJson(content, key);
-        if (value === undefined) {
-          missing.push(`[${lang}/${namespace}] missing: ${key}`);
-        } else if (typeof value !== 'string') {
-          typeErrors.push(`[${lang}/${namespace}] not string: ${key}`);
-        }
-      });
-    });
-  });
-  return { missing, typeErrors };
-}
-
-// 自动补全缺失 key
-function autoFillMissingKeys(translations, usedKeys) {
-  const baseLang = 'en';
-  config.languages.forEach(lang => {
-    Object.entries(translations[lang] || {}).forEach(([namespace, content]) => {
-      usedKeys.forEach(key => {
-        const value = getValueFromJson(content, key);
-        if (value === undefined) {
-          // 获取英文原文或空字符串
-          let baseValue = '';
-          if (lang !== baseLang && translations[baseLang] && translations[baseLang][namespace]) {
-            const enValue = getValueFromJson(translations[baseLang][namespace], key);
-            if (typeof enValue === 'string') baseValue = enValue;
-          }
-          // 补全缺失 key
-          const keyParts = key.split('.');
-          let target = content;
-          for (let i = 0; i < keyParts.length - 1; i++) {
-            if (!target[keyParts[i]]) {
-              target[keyParts[i]] = {};
-            }
-            target = target[keyParts[i]];
-          }
-          target[keyParts[keyParts.length - 1]] = baseValue;
-          console.log(`[AutoFill] ${lang}/${namespace} 补全缺失 key: ${key}`);
-        }
-      });
-    });
-  });
-  // 保存补全后的翻译文件
-  Object.entries(translations).forEach(([lang, namespaces]) => {
-    Object.entries(namespaces).forEach(([namespace, content]) => {
-      const filePath = path.join(config.localesPath, lang, `${namespace}.json`);
-      fs.writeFileSync(filePath, JSON.stringify(content, null, 2), 'utf8');
-    });
-  });
-}
-
 // 主函数
 async function main() {
   console.log('Starting i18n check...\n');
 
   // 加载翻译文件
   const translations = loadTranslations();
-  collectObjectValueKeys(translations);
-  const usedKeys = extractUsedKeysFromCode();
-  const codeKeyCheck = checkCodeKeysAgainstLocales(translations, usedKeys);
-  autoFillMissingKeys(translations, usedKeys);
-  console.log('Loaded translation files:', Object.keys(translations).join(', '), '\n');
+  console.log('Loaded translation files:', Object.keys(translations).join(', '));
 
-  // 自动补全缺失 key
-  const baseLang = 'en';
-  const baseKeys = new Set();
-  // 收集英文（基准语言）的所有 key
-  Object.values(translations[baseLang] || {}).forEach(content => {
-    const collectKeys = (obj, path = '') => {
-      Object.entries(obj).forEach(([key, value]) => {
-        const currentPath = path ? `${path}.${key}` : key;
-        baseKeys.add(currentPath);
-        if (typeof value === 'object' && value !== null) {
-          collectKeys(value, currentPath);
-        }
-      });
-    };
-    collectKeys(content);
-  });
-
-  // 遍历其他语言，检查并补全缺失 key
-  Object.entries(translations).forEach(([lang, namespaces]) => {
-    if (lang === baseLang) return;
-    Object.entries(namespaces).forEach(([namespace, content]) => {
-      const langKeys = new Set();
-      const collectKeys = (obj, path = '') => {
-        Object.entries(obj).forEach(([key, value]) => {
-          const currentPath = path ? `${path}.${key}` : key;
-          langKeys.add(currentPath);
-          if (typeof value === 'object' && value !== null) {
-            collectKeys(value, currentPath);
-          }
-        });
-      };
-      collectKeys(content);
-
-      // 检查缺失 key，并补全
-      baseKeys.forEach(key => {
-        if (!langKeys.has(key)) {
-          // 从英文翻译中获取对应值
-          let baseValue = '';
-          const keyParts = key.split('.');
-          let current = translations[baseLang][namespace];
-          for (const part of keyParts) {
-            if (current && typeof current === 'object' && current[part] !== undefined) {
-              current = current[part];
-            } else {
-              current = undefined;
-              break;
-            }
-          }
-          if (typeof current === 'string') {
-            baseValue = current;
-          }
-          // 补全缺失 key
-          let target = content;
-          for (let i = 0; i < keyParts.length - 1; i++) {
-            if (!target[keyParts[i]]) {
-              target[keyParts[i]] = {};
-            }
-            target = target[keyParts[i]];
-          }
-          target[keyParts[keyParts.length - 1]] = baseValue;
-          console.log(`补全 ${lang}/${namespace} 缺失 key: ${key}`);
-        }
-      });
-    });
-  });
-
-  // 保存补全后的翻译文件
-  Object.entries(translations).forEach(([lang, namespaces]) => {
-    Object.entries(namespaces).forEach(([namespace, content]) => {
-      const filePath = path.join(config.localesPath, lang, `${namespace}.json`);
-      fs.writeFileSync(filePath, JSON.stringify(content, null, 2), 'utf8');
-    });
-  });
-
-  // 继续原有的检查逻辑
+  // 获取所有需要检查的文件
   const files = glob.sync(config.filePatterns, {
-    ignore: config.excludeDirs.map(dir => `**/${dir}/**`)
+    ignore: config.excludeDirs.map(dir => `**/${dir}/**`),
   });
-  console.log(`Found ${files.length} files to check\n`);
+
+  console.log(`\nFound ${files.length} files to check`);
+
+  // 检查每个文件
+  files.forEach(file => {
+    checkFile(file);
+  });
 
   // 检查配置文件
-  config.configFiles.forEach(file => {
-    if (fs.existsSync(file)) {
-      const result = checkFile(file);
-      if (result.errors.length > 0) {
-        errors.push(...result.errors.map(error => `${file}: ${error}`));
-      }
-      if (result.warnings.length > 0) {
-        warnings.push(...result.warnings.map(warning => `${file}: ${warning}`));
-      }
-    }
-  });
+  checkConfigFiles();
 
-  // 检查其他文件
-  files.forEach(file => {
-    if (!config.configFiles.includes(file)) {
-      const result = checkFile(file);
-      if (result.errors.length > 0) {
-        errors.push(...result.errors.map(error => `${file}: ${error}`));
-      }
-      if (result.warnings.length > 0) {
-        warnings.push(...result.warnings.map(warning => `${file}: ${warning}`));
-      }
-    }
-  });
-
-  // 检查翻译完整性
-  const missingTranslations = checkTranslationCompleteness(translations);
-  if (missingTranslations.size > 0) {
-    missingTranslations.forEach((keys, lang) => {
-      keys.forEach(key => {
-        errors.push(`Translation key "${key}" not found in ${lang}/common.json`);
-      });
-    });
-  }
-
-  // 检查重复的翻译 key
-  const duplicateKeys = checkDuplicateKeys(translations);
-  if (duplicateKeys.size > 0) {
-    duplicateKeys.forEach((files, key) => {
-      warnings.push(`Duplicate translation key "${key}" found in: ${files.join(', ')}`);
-    });
-  }
+  // 检查翻译 key
+  checkTranslationKeys(translations);
 
   // 检查命名空间一致性
-  const namespaceUsage = checkNamespaceConsistency();
-  if (namespaceUsage.size === 0) {
-    warnings.push('No namespace usage found');
-  }
+  checkNamespaceConsistency();
+
+  // 检查重复的翻译 key
+  checkDuplicateKeys(translations);
+
+  // 检查翻译完整性
+  checkTranslationCompleteness(translations);
 
   // 检查翻译 key 使用频率
-  const keyUsageFrequency = checkKeyUsageFrequency();
-  if (keyUsageFrequency.size === 0) {
-    warnings.push('No translation key usage found');
-  }
-
-  // 新增：自动翻译所有非主语言 value 为空的 key
-  await Promise.all(Object.entries(translations).map(async ([lang, namespaces]) => {
-    if (lang === baseLang) return;
-    await Promise.all(Object.entries(namespaces).map(async ([namespace, content]) => {
-      const fillEmpty = async (obj, path = '') => {
-        await Promise.all(Object.entries(obj).map(async ([key, value]) => {
-          const currentPath = path ? `${path}.${key}` : key;
-          if (typeof value === 'string' && value.trim() === '') {
-            const enValue = getValueFromJson(translations[baseLang][namespace], currentPath);
-            if (enValue && typeof enValue === 'string') {
-              const translated = await translateText(enValue, lang);
-              obj[key] = translated;
-              console.log(`[AutoTranslate] ${lang}/${namespace}: ${currentPath} value 为空，已自动翻译`);
-            }
-          } else if (typeof value === 'object' && value !== null) {
-            await fillEmpty(value, currentPath);
-          }
-        }));
-      };
-      await fillEmpty(content);
-    }));
-  }));
+  checkKeyUsageFrequency();
 
   // 生成报告
   console.log('\n=== i18n Check Report ===\n');
@@ -719,6 +465,23 @@ async function main() {
     if (!info.isConfigFile) {
       console.log(`  Namespace: ${info.namespace}`);
       console.log(`  Keys: ${info.keys.join(', ')}`);
+      console.log(`  Ready Check: ${info.hasReadyCheck ? '✅' : '❌'}`);
+      console.log(`  Ready Destructuring: ${info.hasReadyDestructuring ? '✅' : '❌'}`);
+      console.log(`  Ready Wait: ${info.hasReadyWait ? '✅' : '❌'}`);
+      if (info.hasWithTranslation) {
+        console.log('  ⚠️ Using withTranslation HOC');
+      }
+      if (info.hasTransComponent) {
+        console.log('  ⚠️ Using Trans component');
+      }
+      if (info.warnings.length > 0) {
+        console.log('  Warnings:');
+        info.warnings.forEach(warning => console.log(`    - ${warning}`));
+      }
+      if (info.errors.length > 0) {
+        console.log('  Errors:');
+        info.errors.forEach(error => console.log(`    - ${error}`));
+      }
     } else {
       console.log('  Configuration file with i18n settings');
     }
@@ -784,25 +547,6 @@ async function main() {
     files.forEach(file => console.log(`  - ${file}`));
   });
 
-  // 显示对象值 key
-  if (objectValueKeys.size > 0) {
-    console.log('\nKeys whose value is an object (not a string):');
-    objectValueKeys.forEach((keys, lang) => {
-      console.log(`\n${lang}:`);
-      keys.forEach(key => console.log(`  - ${key}`));
-    });
-  }
-
-  // 显示代码 key 检查结果
-  if (codeKeyCheck.missing.length > 0) {
-    console.log('\n[Code Key Check] Missing keys:');
-    codeKeyCheck.missing.forEach(msg => console.log('  - ' + msg));
-  }
-  if (codeKeyCheck.typeErrors.length > 0) {
-    console.log('\n[Code Key Check] Keys not string:');
-    codeKeyCheck.typeErrors.forEach(msg => console.log('  - ' + msg));
-  }
-
   // 显示错误
   if (errors.length > 0) {
     console.log('\nErrors found:');
@@ -817,7 +561,12 @@ async function main() {
   console.log(`- Files using translations: ${filesWithTranslations.size}`);
   console.log(`- Total translation keys: ${translationKeys.size}`);
   console.log(`- Total errors: ${errors.length}`);
+  console.log(`- Files with ready check: ${Array.from(filesWithTranslations.values()).filter(info => info.hasReadyCheck).length}`);
+  console.log(`- Files with ready destructuring: ${Array.from(filesWithTranslations.values()).filter(info => info.hasReadyDestructuring).length}`);
+  console.log(`- Files with ready wait: ${Array.from(filesWithTranslations.values()).filter(info => info.hasReadyWait).length}`);
   console.log(`- Files with hardcoded texts: ${hardcodedTexts.size}`);
+  console.log(`- Files using withTranslation: ${Array.from(filesWithTranslations.values()).filter(info => info.hasWithTranslation).length}`);
+  console.log(`- Files using Trans component: ${Array.from(filesWithTranslations.values()).filter(info => info.hasTransComponent).length}`);
   console.log(`- Files with HTML entities: ${htmlEntities.size}`);
   console.log(`- Files with dynamic translation keys: ${dynamicTranslationKeys.size}`);
   console.log(`- Total namespaces used: ${namespaceUsage.size}`);

@@ -1,6 +1,7 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 type Tool = typeof aiTools[number];
 type LangKey = keyof typeof aiTools[0]['name'];
 export default function AIApps() {
@@ -11,7 +12,7 @@ export default function AIApps() {
   const apps = aiTools.filter((tool: Tool) => tool.type === 'app' || (tool.tags && tool.tags.some((t: string) => t.toLowerCase().includes('app'))));
   return (
     <div className="py-8 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8 text-center">{t('ai_apps')}</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">{t('category_app')}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {apps.length === 0 ? <div className="col-span-4 text-center text-gray-400">{t('no_apps')}</div> :
           apps.map((tool: Tool, idx: number) => (
@@ -27,4 +28,11 @@ export default function AIApps() {
       </div>
     </div>
   );
+}
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 } 

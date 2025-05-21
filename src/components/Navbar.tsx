@@ -3,7 +3,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import Link from 'next/link';
 import { useSearch } from '@/contexts/SearchContext';
 import { useRouter } from 'next/router';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '../utils/supabaseClient';
@@ -22,8 +22,27 @@ function Logo() {
   );
 }
 
+// 重构菜单数据结构
+const rankingMenu = [
+  { icon: '🏱', key: 'menu_ranking', descKey: 'menu_ranking_desc', link: '/rankings' },
+  { icon: '🏨', key: 'menu_category_ranking', descKey: 'menu_category_ranking_desc', link: '/rankings/categories' },
+  { icon: '🍖', key: 'menu_region_ranking', descKey: 'menu_region_ranking_desc', link: '/rankings/region' },
+  { icon: '👐', key: 'menu_channel_ranking', descKey: 'menu_channel_ranking_desc', link: '/rankings/channel' },
+  { icon: '🧵', key: 'menu_revenue_ranking', descKey: 'menu_revenue_ranking_desc', link: '/rankings/revenue' },
+];
+const categoryMenu = [
+  { icon: '✔', key: 'menu_new_arrivals', descKey: 'menu_new_arrivals_desc', link: '/categories/new' },
+  { icon: '📑', key: 'menu_most_saved', descKey: 'menu_most_saved_desc', link: '/categories/saved' },
+  { icon: '🔥', key: 'menu_top_traffic', descKey: 'menu_top_traffic_desc', link: '/categories/top' },
+  { icon: '🫫', key: 'menu_ai_apps', descKey: 'menu_ai_apps_desc', link: '/categories/apps' },
+  { icon: '🐓', key: 'menu_ai_plugins', descKey: 'menu_ai_plugins_desc', link: '/categories/plugins' },
+  { icon: '🧻', key: 'menu_gpts', descKey: 'menu_gpts_desc', link: '/categories/gpts' },
+];
+
 export default function Navbar() {
   const { t, i18n } = useTranslation('common');
+  type LangKey = 'zh' | 'en' | 'ja' | 'ko' | 'de' | 'fr' | 'es' | 'ru';
+  const lang = (i18n.language as LangKey) || 'zh';
   const { keyword, setKeyword } = useSearch();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,50 +52,6 @@ export default function Navbar() {
   const categoryTimeout = useRef<NodeJS.Timeout | null>(null);
   const { user } = useAuth();
   const [profileDropdown, setProfileDropdown] = useState(false);
-  
-  // 定义菜单数据
-  const [rankingMenu, setRankingMenu] = useState([
-    { icon: '📈', key: 'menu_ranking', descKey: 'menu_ranking_desc', link: '/rankings' },
-    { icon: '📂', key: 'menu_category_ranking', descKey: 'menu_category_ranking_desc', link: '/rankings/categories' },
-    { icon: '🌍', key: 'menu_region_ranking', descKey: 'menu_region_ranking_desc', link: '/rankings/region' },
-    { icon: '🔗', key: 'menu_channel_ranking', descKey: 'menu_channel_ranking_desc', link: '/rankings/channel' },
-    { icon: '💰', key: 'menu_revenue_ranking', descKey: 'menu_revenue_ranking_desc', link: '/rankings/revenue' },
-  ]);
-  
-  const [categoryMenu, setCategoryMenu] = useState([
-    { icon: '✨', key: 'menu_new_arrivals', descKey: 'menu_new_arrivals_desc', link: '/categories/new' },
-    { icon: '💾', key: 'menu_most_saved', descKey: 'menu_most_saved_desc', link: '/categories/saved' },
-    { icon: '🔥', key: 'menu_top_traffic', descKey: 'menu_top_traffic_desc', link: '/categories/top' },
-    { icon: '📱', key: 'menu_ai_apps', descKey: 'menu_ai_apps_desc', link: '/categories/apps' },
-    { icon: '🧩', key: 'menu_ai_plugins', descKey: 'menu_ai_plugins_desc', link: '/categories/plugins' },
-    { icon: '🤖', key: 'menu_gpts', descKey: 'menu_gpts_desc', link: '/categories/gpts' },
-  ]);
-
-  // 强制在语言变化时重新渲染菜单
-  const [forceUpdate, setForceUpdate] = useState(0);
-  
-  // 监听语言变化并更新菜单数据
-  useEffect(() => {
-    setForceUpdate(prev => prev + 1);
-    
-    // 重新设置菜单，确保翻译更新
-    setRankingMenu([
-      { icon: '📈', key: 'menu_ranking', descKey: 'menu_ranking_desc', link: '/rankings' },
-      { icon: '📂', key: 'menu_category_ranking', descKey: 'menu_category_ranking_desc', link: '/rankings/categories' },
-      { icon: '🌍', key: 'menu_region_ranking', descKey: 'menu_region_ranking_desc', link: '/rankings/region' },
-      { icon: '🔗', key: 'menu_channel_ranking', descKey: 'menu_channel_ranking_desc', link: '/rankings/channel' },
-      { icon: '💰', key: 'menu_revenue_ranking', descKey: 'menu_revenue_ranking_desc', link: '/rankings/revenue' },
-    ]);
-    
-    setCategoryMenu([
-      { icon: '✨', key: 'menu_new_arrivals', descKey: 'menu_new_arrivals_desc', link: '/categories/new' },
-      { icon: '💾', key: 'menu_most_saved', descKey: 'menu_most_saved_desc', link: '/categories/saved' },
-      { icon: '🔥', key: 'menu_top_traffic', descKey: 'menu_top_traffic_desc', link: '/categories/top' },
-      { icon: '📱', key: 'menu_ai_apps', descKey: 'menu_ai_apps_desc', link: '/categories/apps' },
-      { icon: '🧩', key: 'menu_ai_plugins', descKey: 'menu_ai_plugins_desc', link: '/categories/plugins' },
-      { icon: '🤖', key: 'menu_gpts', descKey: 'menu_gpts_desc', link: '/categories/gpts' },
-    ]);
-  }, [i18n.language]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -119,23 +94,22 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-900 shadow flex items-center px-4 md:px-8" style={{ minHeight: 72 }} key={`navbar-${i18n.language}-${forceUpdate}`}>
+    <nav key={i18n.language} className="w-full bg-white dark:bg-gray-900 shadow flex items-center px-4 md:px-8" style={{ minHeight: 72 }}>
       <div className="flex items-center gap-2 min-w-[180px]" style={{ marginLeft: SIDEBAR_WIDTH }}>
         <Link href="/" className="flex items-center gap-2">
           <Logo />
           <span className="font-bold text-2xl text-purple-700 ml-1">SoniceAI</span>
         </Link>
       </div>
-      {/* 桌面导航 居中 */}
+      {/* 页面导航 居中 */}
       <div className="flex-1 flex justify-center">
         <div className="hidden md:flex gap-6 text-gray-700 dark:text-gray-200 font-medium items-center">
           {/* 排行榜下拉 */}
           <div className="relative"
             onMouseEnter={handleRankingEnter}
             onMouseLeave={handleRankingLeave}
-            key={`ranking-dropdown-${i18n.language}-${forceUpdate}`}
           >
-            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📈</span>{t('navbar_rankings')}</button>
+            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">🏱</span>{t('navbar_rankings')}</button>
             {rankingDropdown && (
               <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-30"
                 onMouseEnter={handleRankingEnter}
@@ -143,7 +117,7 @@ export default function Navbar() {
               >
                 <div className="py-2">
                   {rankingMenu.map(item => (
-                    <Link key={`${item.link}-${i18n.language}-${forceUpdate}`} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
+                    <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
                         <div className="font-bold text-base">{t(item.key)}</div>
@@ -159,9 +133,8 @@ export default function Navbar() {
           <div className="relative"
             onMouseEnter={handleCategoryEnter}
             onMouseLeave={handleCategoryLeave}
-            key={`category-dropdown-${i18n.language}-${forceUpdate}`}
           >
-            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📂</span>{t('navbar_categories')}</button>
+            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">🏨</span>{t('navbar_categories')}</button>
             {categoryDropdown && (
               <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-30"
                 onMouseEnter={handleCategoryEnter}
@@ -169,7 +142,7 @@ export default function Navbar() {
               >
                 <div className="py-2">
                   {categoryMenu.map(item => (
-                    <Link key={`${item.link}-${i18n.language}-${forceUpdate}`} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
+                    <Link key={item.link} href={item.link} className="flex items-start gap-3 px-5 py-3 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-xl">
                       <span className="text-2xl mt-1">{item.icon}</span>
                       <div>
                         <div className="font-bold text-base">{t(item.key)}</div>
@@ -191,7 +164,7 @@ export default function Navbar() {
           <span className="material-icons">menu</span>
         </button>
         {mobileMenuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg z-50 flex flex-col gap-2 p-4" key={`mobile-menu-${i18n.language}-${forceUpdate}`}>
+          <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg z-50 flex flex-col gap-2 p-4">
             <Link href="/categories" className={`flex items-center gap-2 py-2 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_categories')}</Link>
             <Link href="/rankings" className={`flex items-center gap-2 py-2 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_rankings')}</Link>
             <Link href="/tools" className={`flex items-center gap-2 py-2 ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_tools')}</Link>
@@ -203,12 +176,11 @@ export default function Navbar() {
       <div className="flex items-center gap-2 min-w-[320px] justify-end ml-auto" style={{ marginRight: 24 }}>
         <div className="flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
           <input
-            type="text"
+            className="px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 outline-none"
+            placeholder={t('navbar_search_placeholder')}
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-            placeholder={t('navbar_search')}
-            key={`search-input-${i18n.language}-${forceUpdate}`}
+            onChange={e => setKeyword(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') handleSearch(); }}
           />
           <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 flex items-center" onClick={handleSearch}>
             <span className="material-icons text-base">{t('navbar_search')}</span>
@@ -216,31 +188,14 @@ export default function Navbar() {
         </div>
         <ThemeToggle />
         <LanguageSwitcher />
-        {/* 用户中心/登录注册 */}
+        {/* 用户中心/登录注册/看板 */}
         {user ? (
-          <div className="relative ml-2">
-            <button
-              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-              onClick={() => setProfileDropdown(v => !v)}
-            >
-              Hi, {user.email || user.username}
-            </button>
-            {profileDropdown && (
-              <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
-                <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">{t('navbar_profile')}</Link>
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">{t('navbar_logout')}</button>
-              </div>
-            )}
-          </div>
+          <Link href="/dashboard" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{t('navbar_dashboard')}</Link>
         ) : (
-          <div className="flex gap-2 ml-2">
-            <Link href="/login" className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
-              {t('navbar_login')}
-            </Link>
-            <Link href="/register" className="px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">
-              {t('navbar_register')}
-            </Link>
-          </div>
+          <>
+            <Link href="/login" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{t('navbar_login')}</Link>
+            <Link href="/register" className="ml-2 px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">{t('navbar_register')}</Link>
+          </>
         )}
       </div>
     </nav>

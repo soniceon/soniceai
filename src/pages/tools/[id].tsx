@@ -50,12 +50,12 @@ const chatgptDetail = {
         es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe'],
         ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка']
       },
-      cta: 'Get Started',
+      cta: 'get_started',
       ctaUrl: 'https://chat.openai.com/'
     },
     {
       name: 'Pro',
-      price: '$29/month',
+      price: '$29',
       features: {
         zh: ['自然语言理解', '上下文感知对话', '多语言支持', '可定制的人格和语气'],
         en: ['Natural language understanding', 'Context-aware conversations', 'Multilingual support', 'Customizable personality and tone'],
@@ -66,7 +66,7 @@ const chatgptDetail = {
         es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe', 'Personalidad y tono personalizables'],
         ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка', 'Настраиваемая личность и тон']
       },
-      cta: 'Upgrade',
+      cta: 'upgrade',
       ctaUrl: 'https://chat.openai.com/pro'
     },
     {
@@ -82,7 +82,7 @@ const chatgptDetail = {
         es: ['Todas las funciones', 'Soporte premium', 'Integración personalizada'],
         ru: ['Все функции', 'Премиум поддержка', 'Индивидуальная интеграция']
       },
-      cta: 'Contact Sales',
+      cta: 'contact_sales',
       ctaUrl: 'mailto:sales@openai.com'
     }
   ]
@@ -206,11 +206,11 @@ export default function ToolDetailPage() {
           <div className="w-64 flex-shrink-0 flex flex-col gap-4">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
               <div className="font-bold mb-2">{t('quick_info')}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">Launched: {chatgptDetail.launchDate}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">Company: {chatgptDetail.company}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">Website: <a href={chatgptDetail.website} className="underline" target="_blank">{chatgptDetail.website}</a></div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">Users: {chatgptDetail.users}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">Response Time: {chatgptDetail.responseTime}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{t('launched')}: {chatgptDetail.launchDate}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{t('company')}: {chatgptDetail.company}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{t('website')}: <a href={chatgptDetail.website} className="underline" target="_blank">{chatgptDetail.website}</a></div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{t('users')}: {chatgptDetail.users}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{t('response_time')}: {chatgptDetail.responseTime}</div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
               <div className="font-bold mb-2">{t('share')}</div>
@@ -298,8 +298,8 @@ export default function ToolDetailPage() {
           <div className="flex flex-col md:flex-row gap-4 w-full">
             {chatgptDetail.pricing.map((plan, idx) => (
               <div key={idx} className="flex-1 bg-gray-50 dark:bg-gray-900 rounded-xl p-4 flex flex-col items-start border border-gray-200 dark:border-gray-700">
-                <div className="font-bold text-lg mb-2">{t(plan.name)}</div>
-                <div className="text-purple-700 dark:text-purple-300 font-bold mb-2">{plan.price}</div>
+                <div className="font-bold text-lg mb-2">{t('plan_' + plan.name.toLowerCase())}</div>
+                <div className="text-purple-700 dark:text-purple-300 font-bold mb-2">{plan.price}{plan.name !== 'Free' && plan.name !== 'Enterprise' ? ' ' + t('per_month') : ''}</div>
                 <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 mb-4">
                   {plan.features[langTyped]?.map((f: string, i: number) => <li key={i}>{f}</li>)}
                 </ul>
@@ -328,7 +328,7 @@ export default function ToolDetailPage() {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-yellow-500 text-2xl">★</span>
             <span className="text-xl font-bold">{tool.rating}</span>
-            <span className="text-gray-400 text-sm">({tool.users} users)</span>
+            <span className="text-gray-400 text-sm">({tool.users} {t('users')})</span>
           </div>
           <div className="mb-2">{t('rate_this_tool')}</div>
           <div className="flex gap-1 mb-2">

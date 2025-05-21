@@ -32,6 +32,12 @@ function MyApp({ Component, pageProps }) {
     }
   }, [i18n.language, ready]);
   
+  useEffect(() => {
+    if (i18n && router.locale) {
+      i18n.changeLanguage(router.locale);
+    }
+  }, [router.locale]);
+  
   if (!ready) return null;
   
   return (
@@ -43,7 +49,7 @@ function MyApp({ Component, pageProps }) {
               <DynamicNavbar />
               {isHome && <Hero />}
               <div className="flex flex-1">
-                <Sidebar />
+                <Sidebar key={i18n.language} />
                 <div className="flex-1 ml-20 md:ml-56">
                   <main className="max-w-7xl mx-auto w-full px-4">
                     <Component {...pageProps} />

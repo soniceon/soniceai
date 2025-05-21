@@ -9,17 +9,17 @@ export default function Hero() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [forceUpdate, setForceUpdate] = useState(0);
   const [heroMenu, setHeroMenu] = useState([
-    { key: 'AI Rank', link: '/rankings', icon: '📊' },
-    { key: 'New Arrivals', link: '/categories/new', icon: '✨' },
-    { key: 'Most Saved', link: '/categories/saved', icon: '💾' },
-    { key: 'Top Traffic', link: '/categories/top', icon: '🔥' },
-    { key: 'AI Apps', link: '/categories/apps', icon: '📱' },
-    { key: 'AI Plugins', link: '/categories/plugins', icon: '🧩' },
-    { key: 'GPTs', link: '/categories/gpts', icon: '🤖' },
-    { key: 'Category Rankings', link: '/rankings/categories', icon: '📂' },
-    { key: 'Region Rankings', link: '/rankings/region', icon: '🌍' },
-    { key: 'Channel Rankings', link: '/rankings/channel', icon: '🔗' },
-    { key: 'Revenue Rankings', link: '/rankings/revenue', icon: '💰' }
+    { key: 'menu_ranking', link: '/rankings', icon: '📊' },
+    { key: 'menu_new_arrivals', link: '/categories/new', icon: '✨' },
+    { key: 'menu_most_saved', link: '/categories/saved', icon: '💾' },
+    { key: 'menu_top_traffic', link: '/categories/top', icon: '🔥' },
+    { key: 'menu_ai_apps', link: '/categories/apps', icon: '📱' },
+    { key: 'menu_ai_plugins', link: '/categories/plugins', icon: '🧩' },
+    { key: 'menu_gpts', link: '/categories/gpts', icon: '🤖' },
+    { key: 'menu_category_ranking', link: '/rankings/categories', icon: '📂' },
+    { key: 'menu_region_ranking', link: '/rankings/region', icon: '🌍' },
+    { key: 'menu_channel_ranking', link: '/rankings/channel', icon: '🔗' },
+    { key: 'menu_revenue_ranking', link: '/rankings/revenue', icon: '💰' }
   ]);
   
   // 监听语言变化，强制重新渲染并更新菜单数据
@@ -28,17 +28,17 @@ export default function Hero() {
     
     // 重新设置菜单，确保翻译更新
     setHeroMenu([
-      { key: 'AI Rank', link: '/rankings', icon: '📊' },
-      { key: 'New Arrivals', link: '/categories/new', icon: '✨' },
-      { key: 'Most Saved', link: '/categories/saved', icon: '💾' },
-      { key: 'Top Traffic', link: '/categories/top', icon: '🔥' },
-      { key: 'AI Apps', link: '/categories/apps', icon: '📱' },
-      { key: 'AI Plugins', link: '/categories/plugins', icon: '🧩' },
-      { key: 'GPTs', link: '/categories/gpts', icon: '🤖' },
-      { key: 'Category Rankings', link: '/rankings/categories', icon: '📂' },
-      { key: 'Region Rankings', link: '/rankings/region', icon: '🌍' },
-      { key: 'Channel Rankings', link: '/rankings/channel', icon: '🔗' },
-      { key: 'Revenue Rankings', link: '/rankings/revenue', icon: '💰' }
+      { key: 'menu_ranking', link: '/rankings', icon: '📊' },
+      { key: 'menu_new_arrivals', link: '/categories/new', icon: '✨' },
+      { key: 'menu_most_saved', link: '/categories/saved', icon: '💾' },
+      { key: 'menu_top_traffic', link: '/categories/top', icon: '🔥' },
+      { key: 'menu_ai_apps', link: '/categories/apps', icon: '📱' },
+      { key: 'menu_ai_plugins', link: '/categories/plugins', icon: '🧩' },
+      { key: 'menu_gpts', link: '/categories/gpts', icon: '🤖' },
+      { key: 'menu_category_ranking', link: '/rankings/categories', icon: '📂' },
+      { key: 'menu_region_ranking', link: '/rankings/region', icon: '🌍' },
+      { key: 'menu_channel_ranking', link: '/rankings/channel', icon: '🔗' },
+      { key: 'menu_revenue_ranking', link: '/rankings/revenue', icon: '💰' }
     ]);
   }, [i18n.language]);
   
@@ -49,7 +49,7 @@ export default function Hero() {
   };
   
   return (
-    <div className="w-full bg-[#ede9fe] dark:bg-[#232136] py-16" key={`hero-${i18n.language}-${forceUpdate}`}>
+    <div key={i18n.language} className="w-full bg-[#ede9fe] dark:bg-[#232136] py-16">
       <section className="max-w-7xl mx-auto text-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white tracking-tight">{t('hero_title')}</h1>
         <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200 mb-8 max-w-2xl mx-auto">

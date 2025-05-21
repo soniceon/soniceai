@@ -1,6 +1,7 @@
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 type Tool = typeof aiTools[number];
 type LangKey = keyof typeof aiTools[0]['name'];
 export default function MostSaved() {
@@ -33,4 +34,12 @@ export default function MostSaved() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 } 

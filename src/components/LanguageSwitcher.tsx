@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 const langs = [
   { code: 'zh', label: '中' },
@@ -13,15 +14,17 @@ const langs = [
 
 export default function LanguageSwitcher() {
   const router = useRouter();
-  const currentLang = router.locale || 'en';
+  const { i18n } = useTranslation();
+  const currentLang = router.locale || i18n.language || 'en';
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
-    router.push(
+    await router.push(
       { pathname: router.pathname, query: router.query },
       undefined,
       { locale: newLang }
     );
+    i18n.changeLanguage(newLang);
   };
 
   return (

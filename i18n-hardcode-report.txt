@@ -1,0 +1,672 @@
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ErrorBoundary.tsx: min-h-[400px] flex flex-col items-center justify-center p-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ErrorBoundary.tsx: text-red-500 text-4xl mb-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ErrorBoundary.tsx: text-2xl font-bold text-gray-900 dark:text-white mb-2
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ErrorBoundary.tsx: text-gray-600 dark:text-gray-400 text-center
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ErrorBoundary.tsx: mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: 简体中文
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: 日本語
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: 版权所有
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: 全著作権所有
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: All rights reserved.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: Alle Rechte vorbehalten.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: Tous droits réservés.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: Todos los derechos reservados.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: bg-[#ede9fe] dark:bg-[#232136] border-t border-gray-200 dark:border-gray-800 py-8 mt-16
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: max-w-7xl mx-auto px-4 flex flex-col items-center gap-2
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: text-2xl font-bold text-purple-700
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: flex flex-wrap justify-center gap-3 text-gray-500 text-sm mb-1
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: hover:text-purple-700 cursor-pointer underline-offset-2 transition font-bold ${lang === l.code ? 
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Footer.tsx: text-gray-400 dark:text-gray-500 text-xs
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\home\CategoryGrid.tsx: grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\home\CategoryGrid.tsx: group relative overflow-hidden rounded-lg bg-gray-800 p-6 hover:bg-gray-700 transition-colors
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\home\CategoryGrid.tsx: flex items-center space-x-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\home\CategoryGrid.tsx: flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${category.color}
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\home\CategoryGrid.tsx: text-lg font-semibold text-white
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\LanguageSwitcher.tsx: 切换语言
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\LanguageSwitcher.tsx: w-16 h-9 rounded-full bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm font-bold text-center text-gray-900 dark:text-white
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: bg-gray-900 border-b border-gray-800
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: flex items-center justify-between h-16
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: flex items-center space-x-3
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: text-xl font-bold text-white
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: flex items-center space-x-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\Header.tsx: inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\MobileNav.tsx: fixed bottom-0 inset-x-0 bg-gray-900 border-t border-gray-800
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\MobileNav.tsx: grid grid-cols-4 h-16
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\MobileNav.tsx: flex flex-col items-center justify-center text-gray-400 hover:text-white
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\MobileNav.tsx: flex flex-col items-center justify-center text-gray-400 hover:text-white
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\MobileNav.tsx: flex flex-col items-center justify-center text-gray-400 hover:text-white
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\layout\MobileNav.tsx: flex flex-col items-center justify-center text-gray-400 hover:text-white w-full
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\LoadingSpinner.tsx: flex justify-center items-center
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\LoadingSpinner.tsx: M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Logo.tsx: M200,20 a180,180 0 0,1 0,360 a90,90 0 0,0 0,-180 a90,90 0 0,1 0,-180
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\SEO.tsx: SoniceAI - AI Tools Directory
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\SEO.tsx: Discover and explore the best AI tools for various tasks. From chatbots to image generation, find the perfect AI solution for your needs.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\SEO.tsx: AI tools, artificial intelligence, chatbot, image generation, coding assistant, productivity tools
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Skeleton.tsx: animate-pulse bg-gray-200 dark:bg-gray-700 rounded ${className}
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Skeleton.tsx: bg-white dark:bg-gray-900 rounded-2xl shadow p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Skeleton.tsx: w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 mb-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Skeleton.tsx: w-3/4 h-6 mb-2
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Skeleton.tsx: w-full h-4 mb-2
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\Skeleton.tsx: grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ThemeToggle.tsx: 切换到浅色模式
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ThemeToggle.tsx: 切换到深色模式
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ThemeToggle.tsx: w-9 h-9 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition border border-gray-300 dark:border-gray-700
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ThemeToggle.tsx: M12 3v1m0 16v1m8.66-12.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 4.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\components\ThemeToggle.tsx: M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 的强大对话模型
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 強力
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 対話
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 对话
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像生成工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 创造令人惊艳的艺术作品
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 艺术
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 的文本到图像生成模型
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 编程助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 提升开发效率
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 開発効率
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 代码
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 开发
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 谷歌推出的多模态
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 聊天助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 对话
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 谷歌
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 推出的安全对话
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 安全
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 対話
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 对话
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 集成于
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与效率工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 統合
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生産性
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 效率
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 平台的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 设计与生成工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 设计
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与内容生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 内容
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音频与视频编辑的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音声
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 動画編集
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音频
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 视频
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 编辑
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文案生成与营销助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文案
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 营销
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与内容生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 多功能
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像生成与分析平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 多機能
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 分析
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 聊天机器人
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 陪伴与对话
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 会話
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 平台的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 设计助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 会议记录与转录工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 会議
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文字起
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 视频生成与编辑平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 動画生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 編集
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文案生成与营销助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 改写与语法检查工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文法
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 艺术与图像生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 代码自动补全工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 自動補完
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的内容创作与自动化平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 作成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 自動化
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 微软推出的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 对话助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像生成工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 语法检查与写作辅助工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文法
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 语音生成与配音平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音声生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 平台的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 任务与项目管理助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 管理
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 艺术与图像生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 平台的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 应用集合
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的内容优化与写作平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 最適化
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像编辑与背景移除工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像編集
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 背景除去
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 内容优化平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 最適化
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的搜索与问答平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 検索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 视频与图像生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 動画
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 代码自动补全与开发助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 自動補完
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 開発
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的亚马逊产品文案生成工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 商品
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 内容创作与设计平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 作成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 的品牌声音与内容一致性工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 一貫性
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 设计生成工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的流程文档与自动化助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文書化
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 自動化
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与改写助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的演示文稿设计平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 旗下
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 聊天机器人
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的视频内容创作平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 動画
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 作成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的高效邮件与生产力工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生産性
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的笔记与知识管理工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 知識管理
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音乐识别与推荐平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音楽認識
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 推薦
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 推出的大型语言模型平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 大規模言語
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的社交媒体内容生成工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 图像处理与背景移除工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像処理
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 背景除去
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与内容生成助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的视频与动画生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 動画
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与自动补全助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 自動補完
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 内容检测器
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 検出器
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 检测
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成内容的工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 検出
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成器
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 艺术与图像风格化平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 画像
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的故事与演示文稿生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的问答与搜索助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 検索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 写作与内容生成平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的矢量图与设计平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音乐生成与编辑平台
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 音楽生成
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 編集
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 驱动的
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 文档问答助手
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: 駆動
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: OpenAI의 강력한 대화형 AI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Leistungsstarke Konversations-KI von OpenAI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: IA conversationnelle puissante d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: La potente IA conversacional de OpenAI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI image generator for stunning art.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Bildgenerator für beeindruckende Kunstwerke.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Generador de imágenes IA para arte impresionante.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: OpenAI의 텍스트-이미지 생성 모델.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Text-zu-Bild-Generator von OpenAI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Generador de imágenes a partir de texto de OpenAI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI coding assistant to boost productivity.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Coding-Assistent zur Steigerung der Produktivität.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de codage IA pour améliorer la productivité.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de codificación IA para aumentar la productividad.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Googles multimodaler KI-Chat-Assistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de chat IA multimodal de Google.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de chat IA multimodal de Google.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Safe conversational AI by Anthropic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Anthropic의 안전한 대화형 AI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Sichere Konversations-KI von Anthropic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: IA conversationnelle sûre d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: IA conversacional segura de Anthropic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and productivity tool in Notion.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion에 통합된 AI 작문 및 생산성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: In Notion integriertes KI-Schreib- und Produktivitätstool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de escritura y productividad IA integrada en Notion.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI design and generation tools in Canva.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Canva의 AI 디자인 및 생성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Design- und Generierungstools in Canva.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outils de conception et de génération IA dans Canva.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramientas de diseño y generación IA en Canva.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and content generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 작문 및 콘텐츠 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Schreib- und Content-Generierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de escritura y generación de contenido IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI platform for audio and video editing.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Plattform für Audio- und Videobearbeitung.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme IA pour l
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma IA para edición de audio y video.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI copywriting and marketing assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 카피라이팅 및 마케팅 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Text- und Marketingassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant IA pour la rédaction et le marketing.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de redacción y marketing IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and content generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 작문 및 콘텐츠 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Schreib- und Content-Generierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de escritura y generación de contenido IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Versatile AI image generation and analysis platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Vielseitige KI-Bildgenerierungs- und Analyseplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme polyvalente de génération et d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma versátil de generación y análisis de imágenes IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI chatbot for companionship and conversation.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Chatbot für Gesellschaft und Konversation.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Chatbot IA pour la compagnie et la conversation.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Chatbot IA para compañía y conversación.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI design assistant for Figma platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Figma 플랫폼용 AI 디자인 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Design-Assistent für Figma.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de conception IA pour Figma.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de diseño IA para Figma.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI meeting notes and transcription tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 회의록 및 전사 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Meeting-Notizen und Transkriptionstool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de prise de notes et de transcription IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de notas y transcripción IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI video generation and editing platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 비디오 생성 및 편집 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Video-Generierungs- und Bearbeitungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de génération et d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de generación y edición de video IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI copywriting and marketing assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 카피라이팅 및 마케팅 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Texterstellungs- und Marketingassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de rédaction et de marketing IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de redacción y marketing IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI paraphrasing and grammar checking tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 문장 바꾸기 및 문법 검사 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Umschreibungs- und Grammatikprüfungswerkzeug.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de reformulation et de vérification grammaticale IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de parafraseo y corrección gramatical IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI art and image generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 예술 및 이미지 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Kunst- und Bildgenerierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de arte y generación de imágenes IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI code autocompletion tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 코드 자동완성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de autocompletado de código IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered content creation and automation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 콘텐츠 제작 및 자동화 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützte Content-Erstellung und Automatisierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de création de contenu et d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de creación de contenido y automatización IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI chat assistant by Microsoft.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Chat-Assistent von Microsoft.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de chat IA de Microsoft.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de chat IA de Microsoft.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Adobe의 AI 이미지 생성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de génération d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de generación de imágenes IA de Adobe.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI grammar checking and writing assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 문법 검사 및 작문 보조 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Grammatikprüfung und Schreibassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de vérification grammaticale et d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de corrección gramatical y escritura IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI voice generation and dubbing platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 음성 생성 및 더빙 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Sprachgenerierungs- und Synchronisationsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de génération vocale et de doublage IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de generación de voz y doblaje IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI task and project management assistant for Asana.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asana 플랫폼용 AI 작업 및 프로젝트 관리 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Aufgaben- und Projektmanagementassistent für Asana.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant IA de gestion de tâches et de projets pour Asana.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de gestión de tareas y proyectos IA para Asana.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI art and image generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 예술 및 이미지 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Kunst- und Bildgenerierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de arte y generación de imágenes IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion AI Apps
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI apps collection for Notion platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Notion 플랫폼용 AI 앱 모음.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-App-Sammlung für Notion.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Colección de apps IA para Notion.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: INK For All
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered content optimization and writing platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 콘텐츠 최적화 및 작문 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützte Content-Optimierungs- und Schreibplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de optimización de contenido y escritura IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI image editing and background removal tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 이미지 편집 및 배경 제거 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Bildbearbeitungs- und Hintergrundentfernungswerkzeug.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: image et de suppression d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de edición de imágenes y eliminación de fondo IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered SEO content optimization platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 SEO 콘텐츠 최적화 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de optimización de contenido SEO IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered search and Q&A platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 검색 및 Q&A 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützte Such- und Q&A-Plattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de recherche et de questions-réponses IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de búsqueda y preguntas IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI video and image generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 비디오 및 이미지 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Video- und Bildgenerierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de génération vidéo et image IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de generación de video e imagen IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI code autocompletion and dev assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 코드 자동완성 및 개발 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Code-Autovervollständigung und Entwicklungsassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Autocomplétion de code IA et assistant dev.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Autocompletado de código IA y asistente de desarrollo.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered Amazon product copy generator.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 아마존 상품 카피 생성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Générateur de textes produits Amazon IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Generador de textos de productos Amazon IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI content creation and design platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 콘텐츠 제작 및 디자인 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Content-Erstellungs- und Designplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de création de contenu et de design IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de creación de contenido y diseño IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper Brand Voice
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Brand voice and content consistency tool by Jasper AI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Jasper AI의 브랜드 보이스 및 콘텐츠 일관성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Brand-Voice- und Content-Konsistenztool von Jasper AI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de cohérence de la voix de marque et du contenu Jasper AI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de voz de marca y coherencia de contenido de Jasper AI.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered UI/UX design generation tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 UI/UX 디자인 생성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de génération de design UI/UX IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de generación de diseño UI/UX IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered process documentation and automation assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 프로세스 문서화 및 자동화 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützter Prozessdokumentations- und Automatisierungsassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de documentación y automatización de procesos IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and rewriting assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 작문 및 리라이트 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Schreib- und Umschreibassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de escritura y reescritura IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered presentation design platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 프레젠테이션 디자인 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de conception de présentations IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de diseño de presentaciones IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI chatbot by WriteSonic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: WriteSonic의 AI 챗봇.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Chatbot von WriteSonic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Chatbot IA de WriteSonic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Chatbot IA de WriteSonic.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered video content creation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 동영상 콘텐츠 제작 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de création de contenu vidéo IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de creación de contenido de video IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered email and productivity tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 이메일 및 생산성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestütztes E-Mail- und Produktivitätstool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de correo y productividad IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered note-taking and knowledge management tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 노트 및 지식 관리 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestütztes Notiz- und Wissensmanagement-Tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de prise de notes et gestion des connaissances IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de notas y gestión del conocimiento IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI music recognition and recommendation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 음악 인식 및 추천 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Musikerkennungs- und Empfehlungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de reconnaissance et recommandation musicale IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de reconocimiento y recomendación musical IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Large language model platform by AI21 Labs.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI21 Labs의 대형 언어 모델 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Große Sprachmodellplattform von AI21 Labs.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de grands modèles linguistiques IA21 Labs.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de grandes modelos de lenguaje de AI21 Labs.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered social media content generation tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 소셜미디어 콘텐츠 생성 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de génération de contenu pour réseaux sociaux IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de generación de contenido para redes sociales IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI image processing and background removal tool.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 이미지 처리 및 배경 제거 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Bildverarbeitungs- und Hintergrundentfernungswerkzeug.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de traitement d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta de procesamiento de imágenes y eliminación de fondo IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and content generation assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 작문 및 콘텐츠 생성 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Schreib- und Content-Generierungsassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de escritura y generación de contenido IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered video and animation generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 비디오 및 애니메이션 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützte Video- und Animationsgenerierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de génération de vidéos et d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de generación de videos y animaciones IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and autocompletion assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 작문 및 자동완성 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Schreib- und Autovervollständigungsassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de escritura y autocompletado IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI Content Detector
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 콘텐츠 감지기
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI Content Detector
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Détecteur de contenu IA
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Detector de contenido IA
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Tool for detecting AI-generated content.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 생성 콘텐츠 감지 도구.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Werkzeug zur Erkennung von KI-generierten Inhalten.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Outil de détection de contenu généré par IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Herramienta para detectar contenido generado por IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI art and image stylization platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 예술 및 이미지 스타일화 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Kunst- und Bildstilierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de arte y estilización de imágenes IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered story and presentation generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 스토리 및 프레젠테이션 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützte Story- und Präsentationsgenerierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de génération d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de generación de historias y presentaciones IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered Q&A and search assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 Q&A 및 검색 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützter Q&A- und Suchassistent.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de questions-réponses et de recherche IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de preguntas y búsqueda IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI writing and content generation platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 작문 및 콘텐츠 생성 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Schreib- und Content-Generierungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de escritura y generación de contenido IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered vector graphics and design platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 벡터 그래픽 및 디자인 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-gestützte Vektorgrafik- und Designplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de graphismes vectoriels et de design IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de gráficos vectoriales y diseño IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI music generation and editing platform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 음악 생성 및 편집 플랫폼.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: KI-Musikgenerierungs- und Bearbeitungsplattform.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plateforme de génération et d
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Plataforma de generación y edición musical IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI-powered PDF document Q&A assistant.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: AI 기반 PDF 문서 Q&A 어시스턴트.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Assistant de questions-réponses sur documents PDF IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\data\aiTools.ts: Asistente de preguntas y respuestas para documentos PDF IA.
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 简体中文
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 日本語
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 首页
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 分类
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 排行榜
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 精选
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 注目
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 发现最佳
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 最高
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 発見
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 探索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 比较并使用顶级
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 提升你的工作与创造力
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 探索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 比較
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 活用
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 仕事
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 創造性
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 搜索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 模型或用例
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 検索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 搜索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 検索
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 工具
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 分类
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 专业用户
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 万人以上
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 利用
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: 可继续扩展其它页面内容
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Discover the Best AI Tools
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Entdecke die besten KI-Tools
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Découvrez les meilleurs outils IA
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Descubre las mejores herramientas de IA
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Explore, compare and use top AI tools to enhance your work and creativity
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Erkunde, vergleiche und nutze Top-KI-Tools, um deine Arbeit und Kreativität zu steigern
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Explorez, comparez et utilisez les meilleurs outils IA pour booster votre travail et votre créativité
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Explora, compara y usa las mejores herramientas de IA para potenciar tu trabajo y creatividad
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Search AI tools, models or use cases...
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: AI 도구, 모델 또는 사용 사례 검색...
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: KI-Tools, Modelle oder Anwendungsfälle suchen...
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Rechercher des outils IA, des modèles ou des cas d\
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Buscar herramientas IA, modelos o casos de uso...
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Used by 1M+ professionals
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Von über 1 Mio. Profis genutzt
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Utilisé par 1M+ professionnels
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\locales\index.ts: Usado por más de 1M de profesionales
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\admin-panel\ai-tools.tsx: 管理后台页面
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\change-password.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\change-password.ts: Missing email or password
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\change-password.ts: User not found
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 请提供邮箱地址
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 未找到该邮箱对应的用户
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 生成重置密码
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 发送重置密码邮件
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 发送重置密码邮件失败
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 重置密码链接已发送到您的邮箱
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: 处理请求时出错
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\forgot-password.ts: Forgot password error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\login.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\login.ts: Missing email or password
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\login.ts: Invalid email or password
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\login.ts: Invalid email or password
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\login.ts: Email not verified
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\login.ts: Internal server error
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\logout.ts: 清除
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\logout.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\logout.ts: auth_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Strict
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\logout.ts: Logged out successfully
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\logout.ts: Internal server error
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 请提供重置
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 和新密码
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 验证
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 无效或已过期的重置链接
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 验证密码强度
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 密码不符合要求
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 密码重置成功
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: 处理请求时出错
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\reset-password.ts: Reset password error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-password.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-password.ts: Missing token or new password
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-password.ts: Password update error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-password.ts: Internal server error
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-profile.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-profile.ts: Missing userId or updates
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-profile.ts: Profile update error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\update-profile.ts: Internal server error
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\user.ts: User not found
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\validate-session.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\validate-session.ts: Session validation error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\validate-session.ts: Internal server error
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\verify-email.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\verify-email.ts: Email verification error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\auth\verify-email.ts: Internal server error
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: 限制每个用户每个工具只能评论一次
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: Missing toolId or userEmail
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: Missing required fields
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: Not logged in
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: You have already reviewed this tool
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: Missing id or userEmail
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: Review not found or no permission
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\reviews.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\sendVerificationEmail.js: 邮件发送失败
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\sendVerificationEmail.js: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 验证用户是否已登录
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 未登录
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 登录已过期
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 用户不存在
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 获取用户资料失败
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 更新成功
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: 更新用户资料失败
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: Get profile error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: Update profile error:
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\api\user\profile.ts: Method not allowed
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: 登录失败
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: 抱歉
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: 登录过程中出现错误
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: 请稍后重试
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: 返回登录页面
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: 返回首页
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: max-w-md w-full space-y-8
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: mt-6 text-center text-3xl font-extrabold text-gray-900
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: mt-2 text-center text-sm text-gray-600
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\pages\auth\error.tsx: flex items-center justify-center space-x-4
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\utils\jwt.ts: 记住登录状态时
+C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\src\utils\jwt.ts: 有效期

@@ -90,9 +90,9 @@ export default function ToolGrid() {
   const featuredTools = aiTools.filter(t => t.featured);
 
   return (
-    <div className="flex gap-8" id="toolgrid-anchor">
+    <div key={i18n.language} className="w-full flex flex-col md:flex-row gap-6">
       {/* 主内容区 */}
-      <div className="flex-1 min-w-0 space-y-16">
+      <div className="flex-1 min-w-0 space-y-16 max-w-6xl mx-auto">
         {/* 搜索和分类标签区 */}
         <div className="flex flex-col gap-4 mb-8">
           <div className="flex flex-wrap gap-2">
@@ -125,8 +125,8 @@ export default function ToolGrid() {
         {types.filter(t => type === 'all' || t === type).map(typeKey => (
           <div key={typeKey}>
             <h2 id={typeKey} className="text-2xl font-bold mb-6 text-purple-700 dark:text-purple-300 flex items-center gap-2">
-              <span className="text-lg">#</span>
-              {t(typeKey) !== typeKey ? t(typeKey) : (typeLabels[typeKey]?.[lang] || typeKey)}
+              {/* <span className="text-lg">#</span> */}
+              {t(`category_${typeKey}`)}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
               {filtered.filter(t => t.type === typeKey).map(tool => (
@@ -152,7 +152,7 @@ export default function ToolGrid() {
                     </span>
                   </span>
                   <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name && tool.name[lang] ? tool.name[lang] : ''}</div>
-                  <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{t(tool.type) !== tool.type ? t(tool.type) : (typeLabels[tool.type]?.[lang] || tool.type)}</div>
+                  <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{t(`category_${tool.type}`)}</div>
                   <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc && tool.desc[lang] ? tool.desc[lang] : ''}</div>
                   <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
                     <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>

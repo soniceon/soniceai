@@ -2,6 +2,8 @@ import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
 
 export default function FeaturedPage() {
   const { lang } = useLanguage();
@@ -36,4 +38,12 @@ export default function FeaturedPage() {
       )}
     </div>
   );
-} 
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'en', ['common'])),
+    },
+  };
+}; 

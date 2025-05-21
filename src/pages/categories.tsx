@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
 
 const categories = [
   { type: 'chatbot', icon: '💬' },
@@ -65,4 +67,12 @@ export default function CategoriesPage() {
       </div>
     </div>
   );
-} 
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'en', ['common'])),
+    },
+  };
+}; 
