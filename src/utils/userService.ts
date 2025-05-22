@@ -46,7 +46,7 @@ export class UserService {
       throw new Error('Email already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(input.password, SALT_ROUNDS);
+    const hashedPassword = input.password ? await bcrypt.hash(input.password, SALT_ROUNDS) : null;
 
     const newUser: User = {
       id: crypto.randomUUID(),
@@ -56,7 +56,10 @@ export class UserService {
       verified: true,
       token: null,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      provider: input.provider,
+      providerId: input.providerId,
+      avatar: input.avatar
     };
 
     this.users.push(newUser);
@@ -105,5 +108,11 @@ export class UserService {
     } catch (error) {
       return { success: false, message: 'Invalid session' };
     }
+  }
+
+  // 通过 provider 和 providerId 查找用户（如 OAuth 登录）
+  public async findByProviderId(provider: string, providerId: string): Promise<User | null> {
+    // 假设 User 结构中有 provider 和 providerId 字段
+    return this.users.find(user => (user as any).provider === provider && (user as any).providerId === providerId) || null;
   }
 } 
