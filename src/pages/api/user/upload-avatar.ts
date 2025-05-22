@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { UserService } from '../../../utils/userService';
-import { validateToken } from '../../../utils/jwt';
+import { JwtUtil } from '../../../utils/jwtUtil';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ message: '未登录' });
   }
 
-  const decoded = validateToken(token);
+  const decoded = JwtUtil.getInstance().validateToken(token);
   if (!decoded) {
     return res.status(401).json({ message: '登录已过期' });
   }
@@ -41,7 +41,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     });
 
-    const file = files.avatar as formidable.File;
+    let file: formidable.File | undefined;
+    if (Array.isArray(files.avatar)) {
+      file = files.avatar[0];
+    } else {
+      file = files.avatar as formidable.File;
+    }
+
     if (!file) {
       return res.status(400).json({ message: '请上传头像文件' });
     }
@@ -49,14 +55,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // 验证文件类型
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
     if (!allowedTypes.includes(file.mimetype || '')) {
-      fs.unlinkSync(file.filepath);
+      if (file.filepath) fs.unlinkSync(file.filepath);
       return res.status(400).json({ message: '只支持 JPG、PNG 和 GIF 格式的图片' });
     }
 
     // 生成文件名
     const fileName = `${decoded.userId}-${Date.now()}${path.extname(file.originalFilename || '')}`;
     const newPath = path.join(process.cwd(), 'public/uploads/avatars', fileName);
-    fs.renameSync(file.filepath, newPath);
+    if (file.filepath) fs.renameSync(file.filepath, newPath);
 
     // 更新用户头像
     const userService = UserService.getInstance();
