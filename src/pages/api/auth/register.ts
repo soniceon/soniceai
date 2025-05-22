@@ -31,19 +31,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const userService = UserService.getInstance();
-    const result = await userService.register({
-      email,
-      name,
-      password
-    });
-
-    if (!result.success) {
-      return res.status(400).json({ message: result.message });
+    let user;
+    try {
+      user = await userService.create({
+        email,
+        name,
+        password
+      });
+    } catch (e: any) {
+      return res.status(400).json({ message: e.message || '注册失败' });
     }
 
     res.status(201).json({
       message: '注册成功',
-      user: result.user
+      user
     });
   } catch (error) {
     console.error('Registration error:', error);
