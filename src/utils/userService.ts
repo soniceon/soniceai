@@ -58,7 +58,7 @@ export class UserService {
       updatedAt: new Date().toISOString(),
       provider: input.provider,
       providerId: input.providerId,
-      avatar: input.avatar
+      avatar: input.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(input.email)}`
     };
 
     this.users.push(newUser);
