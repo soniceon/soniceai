@@ -110,6 +110,23 @@ export class UserService {
     }
   }
 
+  // 链接第三方账号到现有用户
+  public async linkProvider(userId: string, profile: OAuthProfile): Promise<User> {
+    const user = this.users.find(u => u.id === userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // 更新用户的第三方账号信息
+    user.provider = profile.provider;
+    user.providerId = profile.id;
+    user.avatar = profile.avatar || user.avatar;
+    user.updatedAt = new Date().toISOString();
+
+    this.saveUsers();
+    return user;
+  }
+
   // 通过 provider 和 providerId 查找用户（如 OAuth 登录）
   public async findByProviderId(provider: string, providerId: string): Promise<User | null> {
     // 假设 User 结构中有 provider 和 providerId 字段
