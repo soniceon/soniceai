@@ -1,15 +1,11 @@
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import DashboardSidebar from '../components/DashboardSidebar';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 
-const mockUser = {
-  avatar: '/avatar.svg',
-  nickname: 'sonice',
-  email: 'soniceono@gmail.com',
-};
 const mockStats = [
   { label: 'dashboard_tools', value: 2 },
   { label: 'dashboard_ads', value: 1 },
@@ -53,8 +49,20 @@ const mockProfile = {
 export default function Dashboard() {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const [user] = useState(mockUser);
+  const { user } = useAuth();
   const [stats] = useState(mockStats);
+
+  useEffect(() => {
+    if (!user) {
+      router.replace('/login');
+    }
+  }, [user, router]);
+
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    localStorage.clear();
+    router.push('/login');
+  };
 
   return (
     <div className="flex bg-[#181825] min-h-screen">
@@ -62,11 +70,11 @@ export default function Dashboard() {
       <main className="flex-1 p-8 bg-transparent max-w-6xl mx-auto">
         {/* 个人信息卡片 */}
         <div className="bg-[#232136] rounded-2xl shadow-xl border border-purple-900 p-6 flex items-center gap-6 mb-8 transition hover:shadow-2xl">
-          <img src={user.avatar} alt="avatar" className="w-16 h-16 rounded-full bg-gray-200 shadow-lg" />
+          <img src={user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.email || user.nickname || 'user')}`} alt="avatar" className="w-16 h-16 rounded-full bg-gray-200 shadow-lg" />
           <div>
             <div className="text-lg font-bold mb-1 text-gray-100 flex items-center gap-2"><span className="text-purple-400">👤</span>{user.nickname}</div>
             <div className="text-gray-400 mb-2">{user.email}</div>
-            <button className="px-4 py-1 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white rounded-lg text-sm shadow flex items-center gap-2 transition hover:scale-105"><span className="material-icons text-base">logout</span>{t('logout')}</button>
+            <button className="px-4 py-1 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white rounded-lg text-sm shadow flex items-center gap-2 transition hover:scale-105" onClick={handleLogout}><span className="material-icons text-base">logout</span>{t('logout')}</button>
             <div className="mt-2 text-sm text-gray-400 flex items-center gap-1"><span className="inline-block align-middle">🧾</span>{t('sidebar_orders')}</div>
           </div>
         </div>
