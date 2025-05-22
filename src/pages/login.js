@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabaseClient';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Login() {
   const router = useRouter();
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n, ready } = useTranslation('common');
+  const { login, isLoggedIn, user } = useAuth();
   console.log('当前 dont_have_account:', t('dont_have_account'));
   console.log('当前语言:', i18n.language);
   const [email, setEmail] = useState('');
@@ -17,18 +19,30 @@ export default function Login() {
   const [resetEmail, setResetEmail] = useState('');
   const [resetMsg, setResetMsg] = useState('');
 
+  if (!ready) return null;
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      setMessage(t('invalid_email_or_password'));
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+      credentials: 'include',
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setMessage(data.message || t('invalid_email_or_password'));
     } else {
       setMessage(t('login_successful'));
       localStorage.setItem('userEmail', email);
       localStorage.setItem('username', email);
-      router.push('/');
+      await login();
+      setTimeout(() => {
+        const localePrefix = router.locale ? `/${router.locale}` : '';
+        window.location.href = `${localePrefix}/dashboard`;
+      }, 200);
     }
     setLoading(false);
   };
@@ -48,6 +62,14 @@ export default function Login() {
       setResetMsg(t('reset_email_sent'));
     }
   };
+
+  // 已登录时自动跳转到 dashboard
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      const localePrefix = router.locale ? `/${router.locale}` : '';
+      router.replace(`${localePrefix}/dashboard`);
+    }
+  }, [isLoggedIn, user, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">

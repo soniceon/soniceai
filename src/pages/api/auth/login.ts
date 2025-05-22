@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
 import { UserService } from '../../../utils/userService';
+import { JwtUtil } from '../../../utils/jwtUtil';
 
 const usersFile = path.resolve(process.cwd(), 'src/data/users.json');
 
@@ -37,6 +38,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ message: 'Email not verified', token: user.token });
     }
 
+    // 生成JWT token
+    const jwtUtil = JwtUtil.getInstance();
+    const token = jwtUtil.generateToken(user);
+    // 设置cookie
+    res.setHeader('Set-Cookie', `token=${token}; Path=/; SameSite=Lax; Max-Age=2592000`);
     return res.status(200).json({ 
       message: 'Login success', 
       user: {

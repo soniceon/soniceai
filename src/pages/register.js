@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { supabase } from '../utils/supabaseClient';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Register() {
   const router = useRouter();
   const { t, ready } = useTranslation('common');
+  const { login } = useAuth();
   if (!ready) return null;
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,12 +24,27 @@ export default function Register() {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      setMessage(error.message);
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setMessage(data.message || t('register_failed'));
     } else {
-      setMessage(t('register_success_check_email'));
-      setTimeout(() => router.push('/login'), 3000);
+      // 注册成功后自动登录
+      const loginRes = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      if (loginRes.ok) {
+        await login();
+        window.location.href = '/dashboard';
+      } else {
+        setMessage(t('register_success_but_login_failed'));
+      }
     }
     setLoading(false);
   };
@@ -43,6 +60,14 @@ export default function Register() {
             className="w-full px-4 py-2 bg-gray-100 text-gray-900 dark:bg-[#23283b] dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder={t('name')}
+            className="w-full px-4 py-2 bg-gray-100 text-gray-900 dark:bg-[#23283b] dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+            value={name}
+            onChange={e => setName(e.target.value)}
             required
           />
           <input

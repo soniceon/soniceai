@@ -11,6 +11,7 @@ type AvatarStyle = typeof AVATAR_STYLES[number];
 // dicebear 卡通风格列表
 const DICEBEAR_STYLES = ['avataaars', 'bottts', 'micah', 'adventurer'] as const;
 type DicebearStyle = typeof DICEBEAR_STYLES[number];
+type AvatarStyle = DicebearStyle | 'ins';
 
 const sidebarMenu = [
   { icon: '👤', key: 'profile_info' },
@@ -51,6 +52,28 @@ function randomSeed() {
   return nanoid(10);
 }
 
+// 新增 ins 风格头像生成函数
+function getInsAvatarSvg(seed: string) {
+  // 生成渐变色
+  const gradients = [
+    ['#f9ce34', '#ee2a7b', '#6228d7'],
+    ['#fd5c63', '#fcb045', '#fd1d1d'],
+    ['#4f5bd5', '#962fbf', '#d62976'],
+    ['#f58529', '#dd2a7b', '#8134af'],
+    ['#43cea2', '#185a9d', '#f7971e'],
+    ['#00c6ff', '#0072ff', '#f7971e'],
+    ['#ff6a00', '#ee0979', '#ff6a00'],
+    ['#11998e', '#38ef7d', '#43cea2'],
+    ['#fc00ff', '#00dbde', '#43cea2'],
+  ];
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+  const idx = Math.abs(hash) % gradients.length;
+  const [c1, c2, c3] = gradients[idx];
+  // SVG 头像
+  return `data:image/svg+xml;utf8,<svg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='g' x1='0' y1='0' x2='80' y2='80' gradientUnits='userSpaceOnUse'><stop stop-color='${c1}'/><stop offset='0.5' stop-color='${c2}'/><stop offset='1' stop-color='${c3}'/></linearGradient></defs><circle cx='40' cy='40' r='38' fill='url(%23g)' stroke='white' stroke-width='4'/><text x='50%' y='54%' text-anchor='middle' font-size='36' font-family='Arial' fill='white' dy='.3em'>${seed[0].toUpperCase()}</text></svg>`;
+}
+
 export default function Profile() {
   const router = useRouter();
   const { t, i18n } = useTranslation('common');
@@ -60,9 +83,9 @@ export default function Profile() {
   const [message, setMessage] = useState('');
   const [reviews, setReviews] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('profile_info');
-  const [avatarStyle, setAvatarStyle] = useState<DicebearStyle>(() => {
+  const [avatarStyle, setAvatarStyle] = useState<AvatarStyle>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('avatarStyle') as DicebearStyle) || 'avataaars';
+      return (localStorage.getItem('avatarStyle') as AvatarStyle) || 'avataaars';
     }
     return 'avataaars';
   });
@@ -73,7 +96,7 @@ export default function Profile() {
     return '';
   });
   const [showAvatarModal, setShowAvatarModal] = useState(false);
-  const [randomAvatars, setRandomAvatars] = useState<{style: DicebearStyle, seed: string}[]>([]);
+  const [randomAvatars, setRandomAvatars] = useState<{style: AvatarStyle, seed: string}[]>([]);
 
   useEffect(() => {
     const email = localStorage.getItem('userEmail');
@@ -95,12 +118,11 @@ export default function Profile() {
 
   useEffect(() => {
     if (showAvatarModal) {
-      // 每次弹窗都生成9个随机卡通头像（不同 dicebear 风格混合）
-      const arr: {style: DicebearStyle, seed: string}[] = [];
-      for (let i = 0; i < 9; i++) {
-        const style = DICEBEAR_STYLES[Math.floor(Math.random() * DICEBEAR_STYLES.length)];
-        arr.push({ style, seed: randomSeed() });
-      }
+      // 生成9个 ins 风格头像
+      const arr: {style: AvatarStyle, seed: string}[] = Array.from({ length: 9 }).map((_, i) => {
+        const seed = randomSeed();
+        return { style: 'ins' as AvatarStyle, seed };
+      });
       setRandomAvatars(arr);
     }
   }, [showAvatarModal]);
@@ -148,13 +170,23 @@ export default function Profile() {
   const avatarChar = (user.username || user.email)[0]?.toUpperCase() || '?';
   const showSeed = avatarSeed || user.email || user.username || 'user';
   let avatarNode = null;
-  avatarNode = (
-    <img
-      src={getDicebearUrl(showSeed, avatarStyle)}
-      alt="avatar"
-      className="w-16 h-16 rounded-full mb-2 shadow-lg bg-white"
-    />
-  );
+  if (avatarStyle === 'ins') {
+    avatarNode = (
+      <img
+        src={getInsAvatarSvg(showSeed)}
+        alt="avatar"
+        className="w-16 h-16 rounded-full mb-2 shadow-lg bg-white"
+      />
+    );
+  } else {
+    avatarNode = (
+      <img
+        src={getDicebearUrl(showSeed, avatarStyle as DicebearStyle)}
+        alt="avatar"
+        className="w-16 h-16 rounded-full mb-2 shadow-lg bg-white"
+      />
+    );
+  }
 
   return (
     <div className="min-h-[80vh] flex" /* 不设置背景色，继承全站主题 */>
@@ -262,7 +294,7 @@ export default function Profile() {
                     localStorage.setItem('avatarSeed', item.seed);
                   }}
                 >
-                  <img src={getDicebearUrl(item.seed, item.style)} alt="avatar" className="w-14 h-14 rounded-full mb-1 bg-white" />
+                  <img src={item.style === 'ins' ? getInsAvatarSvg(item.seed) : getDicebearUrl(item.seed, item.style as DicebearStyle)} alt="avatar" className="w-14 h-14 rounded-full mb-1 bg-white" />
                 </button>
               ))}
             </div>

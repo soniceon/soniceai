@@ -3,10 +3,11 @@ import LanguageSwitcher from './LanguageSwitcher';
 import Link from 'next/link';
 import { useSearch } from '@/contexts/SearchContext';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '../utils/supabaseClient';
+import Cookies from 'js-cookie';
 
 const SIDEBAR_WIDTH = 80; // 侧边栏展开宽度(px)
 
@@ -50,14 +51,14 @@ export default function Navbar() {
   const [categoryDropdown, setCategoryDropdown] = useState(false);
   const rankingTimeout = useRef<NodeJS.Timeout | null>(null);
   const categoryTimeout = useRef<NodeJS.Timeout | null>(null);
-  const { user } = useAuth();
+  const { logout, isLoggedIn, user } = useAuth();
   const [profileDropdown, setProfileDropdown] = useState(false);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('username');
-    router.push('/login');
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+    localStorage.clear();
+    if (typeof logout === 'function') logout();
+    window.location.href = '/login'; // 强制刷新，彻底同步状态
   };
 
   // 搜索并跳转首页
@@ -134,7 +135,9 @@ export default function Navbar() {
             onMouseEnter={handleCategoryEnter}
             onMouseLeave={handleCategoryLeave}
           >
-            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">🏨</span>{t('navbar_categories')}</button>
+            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}>
+              <span className="text-xl">🏨</span>{t('navbar_categories')}
+            </button>
             {categoryDropdown && (
               <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-30"
                 onMouseEnter={handleCategoryEnter}
@@ -158,20 +161,6 @@ export default function Navbar() {
           <Link href="/featured" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">⭐</span>{t('navbar_featured')}</Link>
         </div>
       </div>
-      {/* 移动端汉堡菜单 */}
-      <div className="md:hidden ml-auto flex items-center">
-        <button onClick={() => setMobileMenuOpen(v => !v)} className="p-2 text-gray-700 dark:text-gray-200">
-          <span className="material-icons">menu</span>
-        </button>
-        {mobileMenuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg z-50 flex flex-col gap-2 p-4">
-            <Link href="/categories" className={`flex items-center gap-2 py-2 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_categories')}</Link>
-            <Link href="/rankings" className={`flex items-center gap-2 py-2 ${isActive('/rankings') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_rankings')}</Link>
-            <Link href="/tools" className={`flex items-center gap-2 py-2 ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_tools')}</Link>
-            <Link href="/featured" className={`flex items-center gap-2 py-2 ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}>{t('navbar_featured')}</Link>
-          </div>
-        )}
-      </div>
       {/* 右侧搜索/主题/语言 */}
       <div className="flex items-center gap-2 min-w-[320px] justify-end ml-auto" style={{ marginRight: 24 }}>
         <div className="flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
@@ -189,7 +178,7 @@ export default function Navbar() {
         <ThemeToggle />
         <LanguageSwitcher />
         {/* 用户中心/登录注册/看板 */}
-        {user ? (
+        {isLoggedIn && user ? (
           <Link href="/dashboard" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{t('navbar_dashboard')}</Link>
         ) : (
           <>
@@ -200,4 +189,4 @@ export default function Navbar() {
       </div>
     </nav>
   );
-} 
+}

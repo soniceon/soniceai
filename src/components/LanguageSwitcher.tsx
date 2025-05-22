@@ -19,12 +19,10 @@ export default function LanguageSwitcher() {
 
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
-    await router.push(
-      { pathname: router.pathname, query: router.query },
-      undefined,
-      { locale: newLang }
-    );
-    i18n.changeLanguage(newLang);
+    if (router.locale !== newLang) {
+      await router.push(router.asPath, router.asPath, { locale: newLang });
+      i18n.changeLanguage(newLang);
+    }
   };
 
   return (
