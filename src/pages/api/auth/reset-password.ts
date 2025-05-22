@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { UserService } from '../../../utils/userService';
-import { validateToken } from '../../../utils/jwt';
+import { JwtUtil } from '../../../utils/jwtUtil';
 import { validatePassword } from '../../../utils/passwordValidator';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // 验证token
-    const decoded = validateToken(token);
+    const decoded = JwtUtil.getInstance().validateToken(token);
     if (!decoded) {
       return res.status(400).json({ message: '无效或已过期的重置链接' });
     }

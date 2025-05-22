@@ -132,4 +132,16 @@ export class UserService {
     // 假设 User 结构中有 provider 和 providerId 字段
     return this.users.find(user => (user as any).provider === provider && (user as any).providerId === providerId) || null;
   }
+
+  // 通过 userId 重置密码
+  public async updatePassword(userId: string, newPassword: string): Promise<{ success: boolean; message: string }> {
+    const user = this.users.find(u => u.id === userId);
+    if (!user) {
+      return { success: false, message: 'User not found' };
+    }
+    user.password = await bcrypt.hash(newPassword, SALT_ROUNDS);
+    user.updatedAt = new Date().toISOString();
+    this.saveUsers();
+    return { success: true, message: 'Password updated successfully' };
+  }
 } 
