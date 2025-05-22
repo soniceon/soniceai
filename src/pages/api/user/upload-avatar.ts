@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let file: formidable.File | undefined;
     if (Array.isArray(files.avatar)) {
       file = files.avatar[0];
-    } else {
+    } else if (files.avatar) {
       file = files.avatar as formidable.File;
     }
 
