@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { UserService } from '../../../utils/userService';
-import { validateToken } from '../../../utils/jwt';
+import { JwtUtil } from '../../../utils/jwtUtil';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // 验证用户是否已登录
@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ message: '未登录' });
   }
 
-  const decoded = validateToken(token);
+  const decoded = JwtUtil.getInstance().validateToken(token);
   if (!decoded) {
     return res.status(401).json({ message: '登录已过期' });
   }

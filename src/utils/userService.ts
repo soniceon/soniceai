@@ -4,7 +4,6 @@ import path from 'path';
 import crypto from 'crypto';
 import { User, UserInput, OAuthProfile, UserResponse } from '../types/user';
 import { validatePassword } from './passwordValidator';
-import { generateToken } from './jwt';
 
 const SALT_ROUNDS = 10;
 const usersFile = path.resolve(process.cwd(), 'src/data/users.json');
@@ -143,5 +142,10 @@ export class UserService {
     user.updatedAt = new Date().toISOString();
     this.saveUsers();
     return { success: true, message: 'Password updated successfully' };
+  }
+
+  // 通过 userId 查找用户
+  public async findById(userId: string): Promise<User | null> {
+    return this.users.find(user => user.id === userId) || null;
   }
 } 
