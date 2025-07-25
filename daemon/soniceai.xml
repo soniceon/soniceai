@@ -1,0 +1,31 @@
+<service>
+	<id>soniceai.exe</id>
+	<name>SoniceAI</name>
+	<description>Sonice AI Web Application Service</description>
+	<executable>D:\cursor\node.exe</executable>
+	<argument>C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\node_modules\node-windows\lib\wrapper.js</argument>
+	<argument>--file</argument>
+	<argument>C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project\start-service.js</argument>
+	<argument>--scriptoptions=</argument>
+	<argument>--log</argument>
+	<argument>SoniceAI wrapper</argument>
+	<argument>--grow</argument>
+	<argument>0.25</argument>
+	<argument>--wait</argument>
+	<argument>1</argument>
+	<argument>--maxrestarts</argument>
+	<argument>3</argument>
+	<argument>--abortonerror</argument>
+	<argument>n</argument>
+	<argument>--stopparentfirst</argument>
+	<argument>undefined</argument>
+	<logmode>rotate</logmode>
+	<stoptimeout>30sec</stoptimeout>
+	<env name="NODE_ENV" value="production"/>
+	<serviceaccount>
+		<domain>NEW-2025-2666V3</domain>
+		<user>LocalSystem</user>
+		<password></password>
+	</serviceaccount>
+	<workingdirectory>C:\Users\Administrator\Desktop\project-bolt-sb1-p2y9grxw\project</workingdirectory>
+</service>

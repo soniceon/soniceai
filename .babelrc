@@ -1,0 +1,4 @@
+{
+  "presets": ["next/babel"],
+  "ignore": ["./src_backup_i18n_temp/**/*"]
+} 

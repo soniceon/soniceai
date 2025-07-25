@@ -1,0 +1,15 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://soniceai.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+
+# Crawl-delay
+Crawl-delay: 10 
