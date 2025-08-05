@@ -13,9 +13,11 @@ export default function ToolsPage() {
   return (
     <>
       <SEO 
-        title="AI 工具 - SoniceAI"
-        description="浏览和发现最佳的 AI 工具，包括聊天机器人、图像生成、编程助手等。"
-        keywords="AI 工具, 人工智能工具, 聊天机器人, 图像生成, 编程助手"
+        title="AI 工具库 - SoniceAI"
+        description="浏览和发现最佳的 AI 工具，包括聊天机器人、图像生成、编程助手、生产力工具等。找到最适合您需求的AI解决方案。"
+        keywords="AI 工具, 人工智能工具, 聊天机器人, 图像生成, 编程助手, 生产力工具, 机器学习应用"
+        ogImage="/og-image.jpg"
+        ogType="website"
       />
           <div className="max-w-7xl mx-auto w-full px-4 py-8">
         <div className="flex gap-4 mb-6">

@@ -15,8 +15,10 @@ export default function FeaturedPage() {
     <>
       <SEO 
         title="精选 AI 工具 - SoniceAI"
-        description="发现精选的 AI 工具，这些工具经过精心挑选，为用户提供最佳的 AI 体验。"
-        keywords="精选 AI 工具, 推荐 AI 工具, 最佳 AI 工具"
+        description="发现精选的 AI 工具，这些工具经过精心挑选，为用户提供最佳的 AI 体验。包括聊天机器人、图像生成、编程助手等各类优质AI工具。"
+        keywords="精选 AI 工具, 推荐 AI 工具, 最佳 AI 工具, 优质 AI 应用, 热门 AI 工具"
+        ogImage="/og-image.jpg"
+        ogType="website"
       />
     <div className="max-w-7xl mx-auto w-full px-4">
       <h1 className="text-3xl font-bold mb-6 mt-8">{t('featured_ai_tools')}</h1>

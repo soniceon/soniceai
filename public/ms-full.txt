@@ -1,0 +1,79 @@
+# AI工具网站 - SoniceAI 完整站点地图
+
+## 主要页面
+https://soniceai.com/
+https://soniceai.com/tools
+https://soniceai.com/categories
+https://soniceai.com/featured
+https://soniceai.com/rankings
+
+## 用户功能页面
+https://soniceai.com/login
+https://soniceai.com/register
+https://soniceai.com/dashboard
+https://soniceai.com/profile
+https://soniceai.com/favorites
+https://soniceai.com/posts
+https://soniceai.com/ads
+https://soniceai.com/gpts
+https://soniceai.com/invoice
+https://soniceai.com/listening
+https://soniceai.com/verify-email
+
+## AI工具分类
+### 聊天机器人
+- ChatGPT
+- Claude
+- Bing Chat
+- Replika
+- Google Bard
+
+### 图像生成
+- Midjourney
+- DALL-E
+- Stable Diffusion
+- Canva AI
+
+### 编程助手
+- GitHub Copilot
+- Cursor
+- Tabnine
+- CodeWhisperer
+
+### 生产力工具
+- Notion AI
+- Grammarly
+- Jasper
+- Copy.ai
+
+### 设计工具
+- Figma AI
+- Adobe Firefly
+- Canva AI
+- Uizard
+
+### 写作工具
+- ChatGPT
+- Jasper
+- Copy.ai
+- Writesonic
+
+### 媒体工具
+- Runway ML
+- Descript
+- Synthesia
+- D-ID
+
+### 营销工具
+- Jasper
+- Copy.ai
+- Phrasee
+- Persado
+
+## 网站功能
+- AI工具发现和比较
+- 工具分类浏览
+- 用户评价和评分
+- 工具提交和更新
+- 个性化推荐
+- 多语言支持 

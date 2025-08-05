@@ -31,8 +31,10 @@ export default function CategoriesPage() {
     <>
       <SEO 
         title="AI 工具分类 - SoniceAI"
-        description="按分类浏览 AI 工具，包括聊天机器人、图像生成、编程助手、生产力工具等。"
-        keywords="AI 工具分类, 聊天机器人, 图像生成, 编程助手, 生产力工具"
+        description="按分类浏览 AI 工具，包括聊天机器人、图像生成、编程助手、生产力工具、设计工具、写作工具等。找到最适合您需求的AI解决方案。"
+        keywords="AI 工具分类, 聊天机器人, 图像生成, 编程助手, 生产力工具, 设计工具, 写作工具, 媒体工具, 营销工具"
+        ogImage="/og-image.jpg"
+        ogType="website"
       />
     <div className="max-w-7xl mx-auto w-full px-4">
       <h1 className="text-3xl font-bold mb-6 mt-8">{t('ai_tool_categories')}</h1>
