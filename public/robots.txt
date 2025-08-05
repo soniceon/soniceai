@@ -5,11 +5,147 @@ Allow: /
 # Sitemap location
 Sitemap: https://soniceai.com/sitemap.xml
 
-# Disallow admin and API routes
+# Disallow sensitive routes only
 Disallow: /admin-panel/
 Disallow: /api/
 Disallow: /auth/
 Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+# Allow important pages
+Allow: /tools/
+Allow: /categories/
+Allow: /rankings/
+Allow: /featured/
+
+# AI Crawler Specific Rules
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+User-agent: Applebot
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+User-agent: Bytespider
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+# Search Engine Specific Rules
+User-agent: Baiduspider
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin-panel/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
 
 # Crawl-delay
-Crawl-delay: 10 
+Crawl-delay: 5 
