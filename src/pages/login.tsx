@@ -1,52 +1,53 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useState, FormEvent, useEffect } from 'react';
 import { supabase } from '../utils/supabaseClient';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useAuth } from '@/context/AuthContext';
+import { GetServerSideProps } from 'next';
 import SEO from '@/components/SEO';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [showReset, setShowReset] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetMsg, setResetMsg] = useState('');
   const router = useRouter();
-  const { t, i18n, ready } = useTranslation('common');
-  const { login, isLoggedIn, user } = useAuth() as any;
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-  const [showReset, setShowReset] = useState<boolean>(false);
-  const [resetEmail, setResetEmail] = useState<string>('');
-  const [resetMsg, setResetMsg] = useState<string>('');
-
-  if (!ready) return null;
+  const { t } = useTranslation('common');
+  const { isLoggedIn, user } = useAuth();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-      credentials: 'include',
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      setMessage(data.message || t('invalid_email_or_password'));
-    } else {
-      setMessage(t('login_successful'));
-      localStorage.setItem('userEmail', email);
-      localStorage.setItem('username', email);
-      await login();
-      setTimeout(() => {
-        const localePrefix = router.locale ? `/${router.locale}` : '';
-        router.push(`${localePrefix}/dashboard`);
-      }, 200);
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(t('login_success'));
+        router.push('/dashboard');
+      } else {
+        setMessage(data.message || t('login_failed'));
+      }
+    } catch (error) {
+      setMessage(t('network_error'));
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  // Reset password
   const handleResetPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setResetMsg('');
@@ -54,11 +55,17 @@ export default function Login() {
       setResetMsg(t('please_enter_email'));
       return;
     }
-    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail);
-    if (error) {
-      setResetMsg(error.message || t('reset_failed'));
+    
+    // 添加supabase安全检查
+    if (supabase && typeof supabase.auth !== 'undefined') {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail);
+      if (error) {
+        setResetMsg(error.message || t('reset_failed'));
+      } else {
+        setResetMsg(t('reset_email_sent'));
+      }
     } else {
-      setResetMsg(t('reset_email_sent'));
+      setResetMsg(t('service_unavailable'));
     }
   };
 
@@ -147,33 +154,30 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="text-gray-500 ml-2"
-                  onClick={() => {
-                    setShowReset(false);
-                    setResetMsg('');
-                  }}
+                  onClick={() => setShowReset(false)}
+                  className="text-gray-500 hover:text-gray-700"
                 >
                   {t('cancel')}
                 </button>
               </div>
               {resetMsg && (
-                <div className={`mt-2 text-sm ${resetMsg.includes(t('reset_email_sent')) ? 'text-green-600' : 'text-red-600'}`}>
+                <div className="mt-2 text-sm text-center">
                   {resetMsg}
                 </div>
               )}
             </form>
           </div>
         )}
+        </div>
       </div>
-    </div>
     </>
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
-} 
+}; 

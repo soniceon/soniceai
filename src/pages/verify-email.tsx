@@ -11,6 +11,13 @@ export default function VerifyEmail() {
   useEffect(() => {
     async function verifyEmail() {
       if (!token) return;
+      
+      // 添加supabase安全检查
+      if (!supabase) {
+        setStatus('error');
+        return;
+      }
+      
       try {
         const { data, error } = await supabase
           .from('users')
