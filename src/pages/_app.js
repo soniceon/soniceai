@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }) {
       {/* Google Analytics */}
       <Script
         strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+        src="https://www.googletagmanager.com/gtag/js?id=G-TC3XJEJM16"
       />
       <Script
         id="google-analytics"
@@ -55,7 +55,11 @@ function MyApp({ Component, pageProps }) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('config', 'G-TC3XJEJM16', {
+          page_title: document.title,
+          page_location: window.location.href,
+          send_page_view: true
+        });
       `}</Script>
       
       <ThemeProvider attribute="class" defaultTheme="dark">
