@@ -12,9 +12,9 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-  title = 'SoniceAI - AI Tools Directory',
-  description = 'Discover and explore the best AI tools for various tasks. From chatbots to image generation, find the perfect AI solution for your needs.',
-  keywords = 'AI tools, artificial intelligence, chatbot, image generation, coding assistant, productivity tools',
+  title = 'SoniceAI - Discover the Best AI Tools and Websites',
+  description = 'Explore a comprehensive collection of AI tools, categorized and ranked, to help you find the perfect solution. From chatbots to image generation, from programming assistants to productivity tools, discover the AI tools that best suit your needs.',
+  keywords = 'AI tools, artificial intelligence, chatbot, image generation, coding assistant, productivity tools, machine learning, natural language processing',
   ogImage = '/og-image.jpg',
   ogType = 'website',
   twitterCard = 'summary_large_image',

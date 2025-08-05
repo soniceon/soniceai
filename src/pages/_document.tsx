@@ -5,9 +5,9 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* 基础SEO标签 */}
-        <title>SoniceAI - 发现最佳 AI 工具和网站</title>
-        <meta name="description" content="探索全面的 AI 工具集合，分类和排名，帮助您找到完美的解决方案。从聊天机器人到图像生成，从编程助手到生产力工具，发现最适合您需求的AI工具。" />
-        <meta name="keywords" content="AI 工具, 人工智能, 聊天机器人, 图像生成, 编程助手, 生产力工具, 机器学习, 自然语言处理" />
+        <title>SoniceAI - Discover the Best AI Tools and Websites</title>
+        <meta name="description" content="Explore a comprehensive collection of AI tools, categorized and ranked, to help you find the perfect solution. From chatbots to image generation, from programming assistants to productivity tools, discover the AI tools that best suit your needs." />
+        <meta name="keywords" content="AI tools, artificial intelligence, chatbot, image generation, coding assistant, productivity tools, machine learning, natural language processing" />
         
         {/* Canonical URL */}
         <link rel="canonical" href="https://soniceai.com/" />
@@ -17,8 +17,8 @@ export default function Document() {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="SoniceAI - 发现最佳 AI 工具和网站" />
-        <meta property="og:description" content="探索全面的 AI 工具集合，分类和排名，帮助您找到完美的解决方案。从聊天机器人到图像生成，从编程助手到生产力工具，发现最适合您需求的AI工具。" />
+        <meta property="og:title" content="SoniceAI - Discover the Best AI Tools and Websites" />
+        <meta property="og:description" content="Explore a comprehensive collection of AI tools, categorized and ranked, to help you find the perfect solution. From chatbots to image generation, from programming assistants to productivity tools, discover the AI tools that best suit your needs." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://soniceai.com/" />
         <meta property="og:image" content="https://soniceai.com/og-image.jpg" />
@@ -27,8 +27,8 @@ export default function Document() {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="SoniceAI - 发现最佳 AI 工具和网站" />
-        <meta name="twitter:description" content="探索全面的 AI 工具集合，分类和排名，帮助您找到完美的解决方案。从聊天机器人到图像生成，从编程助手到生产力工具，发现最适合您需求的AI工具。" />
+        <meta name="twitter:title" content="SoniceAI - Discover the Best AI Tools and Websites" />
+        <meta name="twitter:description" content="Explore a comprehensive collection of AI tools, categorized and ranked, to help you find the perfect solution. From chatbots to image generation, from programming assistants to productivity tools, discover the AI tools that best suit your needs." />
         <meta name="twitter:image" content="https://soniceai.com/og-image.jpg" />
         <meta name="twitter:site" content="@soniceai" />
         
