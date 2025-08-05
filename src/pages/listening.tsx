@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import SEO from '@/components/SEO';
 
 const mockSites = [
   { site: 'notion.so', status: '搜索完成', total: 10276, unlocked: 0 },
@@ -12,6 +13,12 @@ export default function ListeningPage() {
   const { t } = useTranslation('common');
   const [sites] = useState(mockSites);
   return (
+    <>
+      <SEO 
+        title="网站监听 - SoniceAI"
+        description="监控和监听网站数据变化。"
+        noindex={true}
+      />
     <div className="max-w-7xl mx-auto w-full px-4 py-8">
       <div className="bg-white dark:bg-[#232136] rounded-2xl shadow p-6">
         <div className="font-bold text-lg mb-4 text-gray-900 dark:text-white">{t('listening_sites')}</div>
@@ -43,5 +50,6 @@ export default function ListeningPage() {
         </div>
       </div>
     </div>
+    </>
   );
 } 

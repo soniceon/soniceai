@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Provider } from '../config/auth';
 
 interface OAuthButtonProps {
@@ -7,8 +8,10 @@ interface OAuthButtonProps {
 }
 
 const OAuthButton: React.FC<OAuthButtonProps> = ({ provider, className = '' }) => {
+  const router = useRouter();
+  
   const handleClick = () => {
-    window.location.href = `/api/auth/oauth/${provider}`;
+    router.push(`/api/auth/oauth/${provider}`);
   };
 
   const getButtonContent = () => {

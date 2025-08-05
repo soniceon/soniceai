@@ -4,6 +4,7 @@ import { supabase } from '../utils/supabaseClient';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/context/AuthContext';
+import SEO from '@/components/SEO';
 
 export default function Login() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function Login() {
       await login();
       setTimeout(() => {
         const localePrefix = router.locale ? `/${router.locale}` : '';
-        window.location.href = `${localePrefix}/dashboard`;
+        router.push(`${localePrefix}/dashboard`);
       }, 200);
     }
     setLoading(false);
@@ -70,8 +71,14 @@ export default function Login() {
   }, [isLoggedIn, user, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">
-      <div className="w-full max-w-md p-8 bg-white dark:bg-[#23283b] rounded-xl shadow-lg">
+    <>
+      <SEO 
+        title="登录 - SoniceAI"
+        description="登录您的 SoniceAI 账户，管理您的 AI 工具和收藏。"
+        noindex={true}
+      />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">
+        <div className="w-full max-w-md p-8 bg-white dark:bg-[#23283b] rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">{t('login')}</h2>
         <form onSubmit={handleLogin} className="space-y-6">
           <input
@@ -159,6 +166,7 @@ export default function Login() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

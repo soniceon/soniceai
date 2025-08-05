@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import SEO from '@/components/SEO';
 
 const mockAds = [
   { tool: 'ChatGPT', url: 'https://chat.openai.com/ad', balance: 100, status: '投放中' },
@@ -10,6 +11,12 @@ export default function AdsPage() {
   const { t } = useTranslation('common');
   const [ads] = useState(mockAds);
   return (
+    <>
+      <SEO 
+        title="我的广告 - SoniceAI"
+        description="管理您的广告投放和余额。"
+        noindex={true}
+      />
     <div className="max-w-7xl mx-auto w-full px-4 py-8">
       <div className="flex gap-4 mb-6">
         <button className="px-4 py-2 bg-purple-600 text-white rounded">{t('create_new_ad')}</button>
@@ -44,5 +51,6 @@ export default function AdsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 } 

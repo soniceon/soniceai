@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
+import SEO from '@/components/SEO';
 
 const categories = [
   { type: 'chatbot', icon: '💬' },
@@ -27,6 +28,12 @@ export default function CategoriesPage() {
     : aiTools.filter(tool => tool.type === selectedCategory);
 
   return (
+    <>
+      <SEO 
+        title="AI 工具分类 - SoniceAI"
+        description="按分类浏览 AI 工具，包括聊天机器人、图像生成、编程助手、生产力工具等。"
+        keywords="AI 工具分类, 聊天机器人, 图像生成, 编程助手, 生产力工具"
+      />
     <div className="max-w-7xl mx-auto w-full px-4">
       <h1 className="text-3xl font-bold mb-6 mt-8">{t('ai_tool_categories')}</h1>
       <div className="space-y-16">
@@ -70,6 +77,7 @@ export default function CategoriesPage() {
         })}
       </div>
     </div>
+    </>
   );
 }
 

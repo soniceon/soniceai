@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import SEO from '@/components/SEO';
 
 const mockProfile = {
   email: 'soniceono@gmail.com',
@@ -16,6 +17,12 @@ export default function InvoicePage() {
   const { t } = useTranslation('common');
   const [profile, setProfile] = useState(mockProfile);
   return (
+    <>
+      <SEO 
+        title="发票信息 - SoniceAI"
+        description="管理您的发票信息和公司信息。"
+        noindex={true}
+      />
     <div className="max-w-4xl mx-auto w-full px-4 py-8">
       <div className="bg-white dark:bg-[#232136] rounded-2xl shadow p-6 mb-8">
         <div className="font-bold text-lg mb-4 text-gray-900 dark:text-white">{t('profile_invoice_info')}</div>
@@ -59,5 +66,6 @@ export default function InvoicePage() {
         </div>
       </div>
     </div>
+    </>
   );
 } 

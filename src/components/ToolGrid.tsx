@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { useState } from 'react';
-import { aiTools, AiTool } from '../data/aiTools';
+import { useState, useEffect } from 'react';
+import { getAllAiTools, getFeaturedAiTools, AiTool } from '../services/aiToolsService';
 import { useTranslation } from 'next-i18next';
 import { messages } from '@/locales';
 import { useSearch } from '@/contexts/SearchContext';
 
 // 自动补全 typeLabels，确保所有 type 都有友好标签
-const allTypes = Array.from(new Set(aiTools.map(t => t.type)));
+const allTypes = Array.from(new Set(getAllAiTools().map(t => t.type)));
 const defaultLabels = {
   zh: '其他', en: 'Other', ja: 'その他', ko: '기타', de: 'Andere', fr: 'Autre', es: 'Otro', ru: 'Другое'
 };
@@ -73,10 +73,17 @@ export default function ToolGrid() {
   const { t, i18n } = useTranslation('common');
   const { keyword, setKeyword } = useSearch();
   const [type, setType] = useState('all');
-  const types = Array.from(new Set(aiTools.map(t => t.type)));
+  const [page, setPage] = useState(1);
+  const pageSize = 20;
+  const types = Array.from(new Set(getAllAiTools().map(t => t.type)));
   const lang = i18n.language;
 
-  const filtered = aiTools.filter(tool => {
+  // 只在type/keyword变化时重置分页
+  useEffect(() => {
+    setPage(1);
+  }, [type, keyword]);
+
+  const filtered = getAllAiTools().filter(tool => {
     const matchType = type === 'all' || tool.type === type;
     const matchSearch =
       tool.name.zh.includes(keyword) ||
@@ -86,8 +93,11 @@ export default function ToolGrid() {
     return matchType && matchSearch;
   });
 
+  const paged = filtered.slice(0, page * pageSize);
+  const hasMore = filtered.length > paged.length;
+
   // 新增：自动获取精选工具
-  const featuredTools = aiTools.filter(t => t.featured);
+  const featuredTools = getFeaturedAiTools();
 
   return (
     <div key={i18n.language} className="w-full flex flex-col md:flex-row gap-6">
@@ -121,57 +131,60 @@ export default function ToolGrid() {
             ))}
           </div>
         </div>
-        {/* 工具卡片区 */}
-        {types.filter(t => type === 'all' || t === type).map(typeKey => (
-          <div key={typeKey}>
-            <h2 id={typeKey} className="text-2xl font-bold mb-6 text-purple-700 dark:text-purple-300 flex items-center gap-2">
-              {/* <span className="text-lg">#</span> */}
-              {t(`category_${typeKey}`)}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
-              {filtered.filter(t => t.type === typeKey).map(tool => (
-                <Link
-                  key={tool.id}
-                  href={`/tools/${tool.id}`}
-                  className="bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-xl transition p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800 relative"
-                >
-                  {tool.featured && (
-                    <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">★ {t('featured_label')}</span>
-                  )}
-                  <span className="text-3xl mb-2">
-                    <span className="relative w-10 h-10 flex items-center justify-center">
-                      <img
-                        src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website || '')}`}
-                        alt={String(tool.name?.[lang] ?? '')}
-                        className="w-8 h-8"
-                        onError={e => { e.currentTarget.style.display = 'none'; }}
-                      />
-                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                        {tool.icon || tool.name[lang][0]}
-                      </span>
-                    </span>
+        {/* 工具列表 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {paged.map(tool => (
+            <Link
+              key={tool.id}
+              href={`/tools/${tool.id}`}
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-xl transition p-4 sm:p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800 relative"
+            >
+              {tool.featured && (
+                <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">★ {t('featured_label')}</span>
+              )}
+              <span className="text-3xl mb-2">
+                <span className="relative w-10 h-10 flex items-center justify-center">
+                  <img
+                    src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website || '')}`}
+                    alt={String(tool.name?.[lang] ?? '')}
+                    className="w-8 h-8"
+                    onError={e => { e.currentTarget.style.display = 'none'; }}
+                  />
+                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                    {tool.icon || tool.name[lang][0]}
                   </span>
-                  <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name && tool.name[lang] ? tool.name[lang] : ''}</div>
-                  <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{t(`category_${tool.type}`)}</div>
-                  <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc && tool.desc[lang] ? tool.desc[lang] : ''}</div>
-                  <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
-                    <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>
-                    <span>👥 {tool.users ?? ''}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1 mt-auto">
-                    {tool.tags.map(tag => {
-                      const key = 'tag_' + tag.toLowerCase().replace(/[^a-z0-9]/g, '');
-                      const localized = t(key) !== key ? t(key) : tag;
-                      return (
-                        <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{localized}</span>
-                      );
-                    })}
-                  </div>
-                </Link>
-              ))}
-            </div>
+                </span>
+              </span>
+              <div className="font-bold text-base sm:text-lg mb-1 text-gray-900 dark:text-white">{tool.name && tool.name[lang] ? tool.name[lang] : ''}</div>
+              <div className="text-xs sm:text-sm text-purple-600 dark:text-purple-300 mb-2">{t(`category_${tool.type}`)}</div>
+              <div className="text-gray-500 dark:text-gray-300 text-xs sm:text-sm mb-3 line-clamp-2">{tool.desc && tool.desc[lang] ? tool.desc[lang] : ''}</div>
+              <div className="flex gap-1 sm:gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
+                <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>
+                <span>👥 {tool.users ?? ''}</span>
+              </div>
+              <div className="flex flex-wrap gap-1 mt-auto">
+                {tool.tags.map(tag => {
+                  const key = 'tag_' + tag.toLowerCase().replace(/[^a-z0-9]/g, '');
+                  const localized = t(key) !== key ? t(key) : tag;
+                  return (
+                    <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-1.5 py-0.5 rounded text-xs">{localized}</span>
+                  );
+                })}
+              </div>
+            </Link>
+          ))}
+        </div>
+        {/* 加载更多按钮 */}
+        {hasMore && (
+          <div className="flex justify-center mt-8">
+            <button
+              className="px-6 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
+              onClick={() => setPage(page + 1)}
+            >
+              {t('load_more') || '加载更多'}
+            </button>
           </div>
-        ))}
+        )}
       </div>
       {/* 精选栏（右侧） */}
       <aside className="hidden lg:block w-80 flex-shrink-0">

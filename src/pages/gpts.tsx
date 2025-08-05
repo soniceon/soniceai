@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import SEO from '@/components/SEO';
 
 const mockGpts = [
   { name: 'AI写作助手', date: '2024-05-01', status: '已上线' },
@@ -10,6 +11,12 @@ export default function GptsPage() {
   const { t } = useTranslation('common');
   const [gpts] = useState(mockGpts);
   return (
+    <>
+      <SEO 
+        title="我的 GPTs - SoniceAI"
+        description="管理您创建的 GPTs 应用。"
+        noindex={true}
+      />
     <div className="max-w-7xl mx-auto w-full px-4 py-8">
       <div className="flex gap-4 mb-6">
         <button className="px-4 py-2 bg-purple-600 text-white rounded">{t('submit_new_gpt')}</button>
@@ -42,5 +49,6 @@ export default function GptsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 } 

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
+import SEO from '@/components/SEO';
 
 export default function FeaturedPage() {
   const { lang } = useLanguage();
@@ -11,6 +12,12 @@ export default function FeaturedPage() {
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof aiTools[0]['name'];
   const featured = aiTools.filter(t => t.featured);
   return (
+    <>
+      <SEO 
+        title="精选 AI 工具 - SoniceAI"
+        description="发现精选的 AI 工具，这些工具经过精心挑选，为用户提供最佳的 AI 体验。"
+        keywords="精选 AI 工具, 推荐 AI 工具, 最佳 AI 工具"
+      />
     <div className="max-w-7xl mx-auto w-full px-4">
       <h1 className="text-3xl font-bold mb-6 mt-8">{t('featured_ai_tools')}</h1>
       {featured.length === 0 ? (
@@ -41,6 +48,7 @@ export default function FeaturedPage() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { nanoid } from 'nanoid';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
+import SEO from '@/components/SEO';
 
 const AVATAR_STYLES = ['ins', 'dicebear', 'avataaars'] as const;
 type AvatarStyle = typeof AVATAR_STYLES[number];
@@ -188,7 +189,13 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-[80vh] flex" /* 不设置背景色，继承全站主题 */>
+    <>
+      <SEO 
+        title="个人资料 - SoniceAI"
+        description="管理您的个人资料、收藏、评论和账户设置。"
+        noindex={true}
+      />
+      <div className="min-h-[80vh] flex" /* 不设置背景色，继承全站主题 */>
       {/* 侧边栏 */}
       <aside className="w-64 bg-white dark:bg-[#232136] border-r border-gray-200 dark:border-gray-800 flex flex-col py-8 px-4">
         <div className="flex flex-col items-center mb-8">
@@ -302,6 +309,7 @@ export default function Profile() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

@@ -376,7 +376,7 @@ export default function ToolDetailPage() {
           <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded shadow text-center">
               <div className="mb-4">{t('please_login_before_comment')}</div>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); window.location.href = '/login'; }}>{t('go_to_login')}</button>
+              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); router.push('/login'); }}>{t('go_to_login')}</button>
             </div>
           </div>
         )}

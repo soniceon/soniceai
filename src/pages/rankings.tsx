@@ -2,6 +2,7 @@ import { aiTools } from '@/data/aiTools';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
+import SEO from '@/components/SEO';
 
 export default function RankingsPage() {
   const { lang } = useLanguage();
@@ -9,6 +10,12 @@ export default function RankingsPage() {
   const langKey = (['zh','en','ja','ko','de','fr','es','ru'].includes(lang) ? lang : 'en') as keyof typeof aiTools[0]['name'];
   const sorted = [...aiTools].sort((a, b) => b.rating - a.rating).slice(0, 10);
   return (
+    <>
+      <SEO 
+        title="AI 工具排行榜 - SoniceAI"
+        description="查看最受欢迎的 AI 工具排行榜，基于用户评分和使用量。"
+        keywords="AI 工具排行榜, 最受欢迎 AI 工具, AI 工具评分"
+      />
     <div className="max-w-7xl mx-auto w-full px-4 flex flex-col items-center" style={{background:'#181A20'}}>
       <h1 className="text-4xl font-extrabold mb-12 mt-14 text-center text-white tracking-tight">
         {t('ai_tool_rankings')}
@@ -57,5 +64,6 @@ export default function RankingsPage() {
         </div>
       )}
     </div>
+    </>
   );
 } 

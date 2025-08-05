@@ -5,11 +5,25 @@ Allow: /
 # Sitemap location
 Sitemap: https://soniceai.com/sitemap.xml
 
-# Disallow admin and API routes
+# Disallow sensitive routes only
 Disallow: /admin-panel/
 Disallow: /api/
 Disallow: /auth/
 Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /invoice/
+Disallow: /favorites/
+Disallow: /posts/
+Disallow: /listening/
+Disallow: /ads/
+Disallow: /gpts/
+
+# Allow important pages
+Allow: /tools/
+Allow: /categories/
+Allow: /rankings/
+Allow: /featured/
 
 # Crawl-delay
-Crawl-delay: 10 
+Crawl-delay: 5 

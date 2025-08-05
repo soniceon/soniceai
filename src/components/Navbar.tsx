@@ -58,7 +58,7 @@ export default function Navbar() {
     await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
     localStorage.clear();
     if (typeof logout === 'function') logout();
-    window.location.href = '/login'; // 强制刷新，彻底同步状态
+    router.push('/login'); // 使用 router.push 替代强制刷新
   };
 
   // 搜索并跳转首页

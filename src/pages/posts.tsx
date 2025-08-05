@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
+import SEO from '@/components/SEO';
 
 const mockPosts = [
   { title: 'post_ai_tools_recommend', url: 'https://blog.ai.com/post1', type: 'type_post', date: '2024-05-01', status: 'status_published' },
@@ -12,6 +13,12 @@ export default function PostsPage() {
   const { t } = useTranslation('common');
   const [posts] = useState(mockPosts);
   return (
+    <>
+      <SEO 
+        title="我的文章和链接 - SoniceAI"
+        description="管理您发布的文章和外部链接。"
+        noindex={true}
+      />
     <div className="max-w-7xl mx-auto w-full px-4 py-8">
       <div className="flex gap-4 mb-6">
         <button className="px-4 py-2 bg-purple-600 text-white rounded">{t('create_new_post')}</button>
@@ -49,6 +56,7 @@ export default function PostsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

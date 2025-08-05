@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import SEO from '@/components/SEO';
 
 export default function TestPage() {
   const { t } = useTranslation('common');
@@ -11,6 +12,12 @@ export default function TestPage() {
   ];
   
   return (
+    <>
+      <SEO 
+        title="测试页面 - SoniceAI"
+        description="这是一个测试页面。"
+        noindex={true}
+      />
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Translation Test</h1>
       <div className="mb-4">
@@ -27,5 +34,6 @@ export default function TestPage() {
         ))}
       </ul>
     </div>
+    </>
   );
 } 

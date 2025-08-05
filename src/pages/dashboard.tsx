@@ -6,6 +6,7 @@ import DashboardSidebar from '../components/DashboardSidebar';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { nanoid } from 'nanoid';
+import SEO from '@/components/SEO';
 
 const mockStats = [
   { label: 'dashboard_tools', value: 2 },
@@ -185,16 +186,23 @@ export default function Dashboard() {
     await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
     localStorage.clear();
     if (typeof logout === 'function') logout();
-    window.location.href = '/login';
+    router.push('/login');
   };
 
-  if (!isLoggedIn || !user) return (
-    <div className="flex bg-[#181825] min-h-screen">
-      <DashboardSidebar />
-      <main className="flex-1 p-8 bg-transparent max-w-6xl mx-auto flex items-center justify-center text-gray-400 text-xl">
-        {isLoggedIn ? '正在加载用户信息...' : '请先登录'}
-      </main>
-    </div>
+  if (!isLoggedIn || !user)   return (
+    <>
+      <SEO 
+        title="用户仪表板 - SoniceAI"
+        description="管理您的 AI 工具、广告、收藏和账户信息。"
+        noindex={true}
+      />
+      <div className="flex bg-[#181825] min-h-screen">
+        <DashboardSidebar />
+        <main className="flex-1 p-8 bg-transparent max-w-6xl mx-auto flex items-center justify-center text-gray-400 text-xl">
+          {isLoggedIn ? '正在加载用户信息...' : '请先登录'}
+        </main>
+      </div>
+    </>
   );
 
   return (

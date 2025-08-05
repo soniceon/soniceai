@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import SEO from '@/components/SEO';
 
 const mockFavorites = [
   { name: 'ChatGPT', url: 'https://chat.openai.com', type: '聊天', date: '2024-05-01' },
@@ -10,6 +11,12 @@ export default function FavoritesPage() {
   const { t } = useTranslation('common');
   const [favorites] = useState(mockFavorites);
   return (
+    <>
+      <SEO 
+        title="我的收藏 - SoniceAI"
+        description="管理您收藏的 AI 工具和网站。"
+        noindex={true}
+      />
     <div className="max-w-7xl mx-auto w-full px-4 py-8">
       <div className="bg-white dark:bg-[#232136] rounded-2xl shadow p-6">
         <div className="font-bold text-lg mb-4 text-gray-900 dark:text-white">{t('my_favorites')}</div>
@@ -46,5 +53,6 @@ export default function FavoritesPage() {
         </div>
       </div>
     </div>
+    </>
   );
 } 

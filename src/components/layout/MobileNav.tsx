@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { FiHome, FiGrid, FiSearch, FiMenu } from 'react-icons/fi';
+import { FiHome, FiGrid, FiSearch, FiMenu, FiStar } from 'react-icons/fi';
 
 interface MobileNavProps {
   onSidebarToggle: () => void;
@@ -9,7 +9,7 @@ interface MobileNavProps {
 const MobileNav = ({ onSidebarToggle }: MobileNavProps) => {
   return (
     <nav className="fixed bottom-0 inset-x-0 bg-gray-900 border-t border-gray-800">
-      <div className="grid grid-cols-4 h-16">
+      <div className="grid grid-cols-5 h-16">
         <Link
           href="/"
           className="flex flex-col items-center justify-center text-gray-400 hover:text-white"
@@ -32,6 +32,14 @@ const MobileNav = ({ onSidebarToggle }: MobileNavProps) => {
         >
           <FiGrid className="h-6 w-6" />
           <span className="text-xs mt-1">Categories</span>
+        </Link>
+
+        <Link
+          href="/featured"
+          className="flex flex-col items-center justify-center text-yellow-400 hover:text-yellow-500"
+        >
+          <FiStar className="h-6 w-6" />
+          <span className="text-xs mt-1">精选</span>
         </Link>
 
         <button

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/context/AuthContext';
+import SEO from '@/components/SEO';
 
 export default function Register() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function Register() {
       });
       if (loginRes.ok) {
         await login();
-        window.location.href = '/dashboard';
+        router.push('/dashboard');
       } else {
         setMessage(t('register_success_but_login_failed'));
       }
@@ -50,8 +51,14 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">
-      <div className="w-full max-w-md p-8 bg-white dark:bg-[#23283b] rounded-xl shadow-lg">
+    <>
+      <SEO 
+        title="注册 - SoniceAI"
+        description="注册 SoniceAI 账户，开始探索和管理您的 AI 工具。"
+        noindex={true}
+      />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">
+        <div className="w-full max-w-md p-8 bg-white dark:bg-[#23283b] rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">{t('register')}</h2>
         <form onSubmit={handleRegister} className="space-y-6">
           <input
@@ -107,6 +114,7 @@ export default function Register() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
