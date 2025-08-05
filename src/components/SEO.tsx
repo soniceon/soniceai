@@ -31,6 +31,7 @@ const SEO: React.FC<SEOProps> = ({
       <link rel="canonical" href={canonicalUrl} />
       
       {/* Favicon */}
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       
