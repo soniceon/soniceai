@@ -17,14 +17,15 @@ export class JwtUtil {
     return JwtUtil.instance;
   }
 
-  public generateToken(user: User, rememberMe?: boolean): string {
+  public generateToken(user: User | { email: string }, rememberMe?: boolean): string {
     const expiresIn = rememberMe ? REMEMBER_ME_EXPIRES_IN : DEFAULT_EXPIRES_IN;
     
+    const payload = 'id' in user 
+      ? { userId: user.id, email: user.email }
+      : { email: user.email };
+    
     return jwt.sign(
-      { 
-        userId: user.id,
-        email: user.email
-      },
+      payload,
       JWT_SECRET,
       { expiresIn }
     );

@@ -203,9 +203,9 @@ export default function Dashboard() {
       <main className="flex-1 p-8 bg-transparent max-w-6xl mx-auto">
         {/* 个人信息卡片 */}
         <div className="bg-[#232136] rounded-2xl shadow-xl border border-purple-900 p-6 flex items-center gap-6 mb-8 transition hover:shadow-2xl">
-          <img src={avatarStyle !== 'ins' ? getDicebearUrl(avatarSeed || user?.email || user?.nickname || 'user', avatarStyle as DicebearStyle) : getInsAvatarSvg(avatarSeed || user?.email || user?.nickname || 'user')} alt="avatar" className="w-16 h-16 rounded-full bg-gray-200 shadow-lg" />
+          <img src={avatarStyle !== 'ins' ? getDicebearUrl(avatarSeed || user?.email || user?.name || 'user', avatarStyle as DicebearStyle) : getInsAvatarSvg(avatarSeed || user?.email || user?.name || 'user')} alt="avatar" className="w-16 h-16 rounded-full bg-gray-200 shadow-lg" />
           <div>
-            <div className="text-lg font-bold mb-1 text-gray-100 flex items-center gap-2"><span className="text-purple-400">👤</span>{user?.nickname}</div>
+            <div className="text-lg font-bold mb-1 text-gray-100 flex items-center gap-2"><span className="text-purple-400">👤</span>{user?.name}</div>
             <div className="text-gray-400 mb-2">{user?.email}</div>
             <button className="px-4 py-1 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white rounded-lg text-sm shadow flex items-center gap-2 transition hover:scale-105" onClick={handleLogout}><span className="material-icons text-base">logout</span>{t('logout')}</button>
             <button className="ml-2 text-xs text-purple-400 hover:underline" onClick={()=>setShowAvatarModal(true)}>更换头像</button>

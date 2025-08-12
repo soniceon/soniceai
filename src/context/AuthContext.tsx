@@ -1,12 +1,22 @@
-import { createContext, useEffect, useState, useContext } from 'react';
+import { createContext, useEffect, useState, useContext, ReactNode } from 'react';
 import { supabase } from '../utils/supabaseClient';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { AuthUser } from '../types/auth';
 
-const AuthContext = createContext();
+interface AuthContextType {
+  user: AuthUser | null | undefined;
+  isLoggedIn: boolean;
+  setUser: (user: AuthUser | null) => void;
+  login: (userObj: AuthUser) => Promise<void>;
+  logout: () => void;
+  fetchUser: () => Promise<AuthUser | null>;
+}
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(undefined); // undefined 表示未初始化
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<AuthUser | null | undefined>(undefined); // undefined 表示未初始化
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 拉取当前用户信息
@@ -24,7 +34,7 @@ export function AuthProvider({ children }) {
   };
 
   // 登录后设置token和状态
-  const login = async (userObj) => {
+  const login = async (userObj: AuthUser) => {
     await fetchUser();
   };
   // 登出时清理状态
@@ -64,5 +74,9 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 } 

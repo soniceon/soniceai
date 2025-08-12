@@ -2,8 +2,9 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://soniceai.com/sitemap.xml
+# Sitemap locations
+Sitemap: https://soniceai.com/sitemap-index.xml
+Sitemap: https://soniceai.com/api/sitemap.xml
 
 # Disallow sensitive routes only
 Disallow: /admin-panel/
@@ -24,6 +25,16 @@ Allow: /tools/
 Allow: /categories/
 Allow: /rankings/
 Allow: /featured/
+
+# Prevent duplicate content issues
+Disallow: /pages/
+Disallow: /sites/
+Disallow: /*?q=*
+Disallow: /*search*
+
+# Allow specific tool pages
+Allow: /tools/*.html
+Allow: /tools/*/
 
 # AI Crawler Specific Rules
 User-agent: ChatGPT-User

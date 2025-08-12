@@ -13,15 +13,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'soniceono@gmail.com',
-      pass: 'ajoj tuhq rtrh bybc',
+      user: process.env.EMAIL_USER || 'soniceono@gmail.com',
+      pass: process.env.EMAIL_PASSWORD || '',
     },
   });
 
-  const verifyUrl = `http://localhost:3000/verify-email?token=${token}`;
+  const verifyUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/verify-email?token=${token}`;
   try {
     await transporter.sendMail({
-      from: 'soniceono@gmail.com',
+      from: process.env.EMAIL_USER || 'soniceono@gmail.com',
       to: email,
       subject: '邮箱验证',
       html: `<p>请点击以下链接完成邮箱验证：</p><a href="${verifyUrl}">${verifyUrl}</a>`

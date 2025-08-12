@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SEO from '@/components/SEO';
 
 const chatgptDetail = {
   launchDate: 'November 2022',
@@ -159,8 +160,16 @@ export default function ToolDetailPage() {
   };
 
   return (
-    <div className="flex justify-center w-full">
-      <main className="max-w-7xl w-full px-4 py-8">
+    <>
+      <SEO 
+        title={`${tool.name[lang] || tool.name.en} - AI工具详情 - SoniceAI`}
+        description={tool.desc[lang] || tool.desc.en}
+        keywords={`${tool.name[lang] || tool.name.en}, AI工具, ${tool.type}, 人工智能`}
+        ogImage="/og-image.jpg"
+        ogType="website"
+      />
+      <div className="flex justify-center w-full">
+        <main className="max-w-7xl w-full px-4 py-8">
         {/* 顶部卡片 */}
         <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col md:flex-row gap-6 mb-8">
           <div className="flex items-center gap-4 flex-1">
@@ -382,13 +391,14 @@ export default function ToolDetailPage() {
         )}
       </main>
     </div>
+    </>
   );
 }
 
 export async function getStaticPaths() {
-  const paths = aiTools.map(tool => ({ params: { id: tool.id } }));
+  const paths = aiTools.map((tool) => ({ params: { id: tool.id } }));
   const locales = ['en', 'zh', 'ja', 'ko', 'de', 'fr', 'es', 'ru'];
-  const localizedPaths = [];
+  const localizedPaths: any[] = [];
   for (const locale of locales) {
     for (const path of paths) {
       localizedPaths.push({ params: path.params, locale });
