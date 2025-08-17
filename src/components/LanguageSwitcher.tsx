@@ -5,7 +5,7 @@ const langs = [
   { code: 'zh', label: '中' },
   { code: 'en', label: 'EN' },
   { code: 'ja', label: '日' },
-  { code: 'ko', label: '韩' },
+  { code: 'ko', label: '한' },
   { code: 'de', label: 'DE' },
   { code: 'fr', label: 'FR' },
   { code: 'es', label: 'ES' },

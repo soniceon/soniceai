@@ -1,4 +1,9 @@
-export default function NotImplemented({ title = "页面未开发", desc = "该功能正在建设中，敬请期待！" }) {
+interface NotImplementedProps {
+  title?: string;
+  desc?: string;
+}
+
+export default function NotImplemented({ title = "页面未开发", desc = "该功能正在建设中，敬请期待！" }: NotImplementedProps) {
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
       <div className="bg-[rgba(24,24,37,0.6)] backdrop-blur-lg rounded-2xl shadow-xl border border-[rgba(255,255,255,0.15)] p-12 flex flex-col items-center">

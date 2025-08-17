@@ -10,8 +10,7 @@ const AuthError: React.FC = () => {
             登录失败
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            抱歉，登录过程中出现错误。请稍后重试。
-          </p>
+            抱歉，登录过程中出现错误。请稍后重试�?          </p>
         </div>
         <div className="mt-8 space-y-6">
           <div className="flex items-center justify-center space-x-4">

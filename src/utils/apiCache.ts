@@ -41,7 +41,7 @@ export class ApiCache {
     const targetCache = useLocalStorage ? this.localStorageCache : this.cache;
 
     // 尝试从缓存获取
-    const cached = targetCache.get<T>(cacheKey);
+    const cached = (targetCache as any).get(cacheKey);
     if (cached) {
       return cached;
     }
@@ -96,19 +96,18 @@ export class ApiCache {
    * 清除特定API的缓存
    */
   clearCache(key: string, useLocalStorage: boolean = false): boolean {
-    const cacheKey = `api_${key}`;
     const targetCache = useLocalStorage ? this.localStorageCache : this.cache;
-    return targetCache.delete(cacheKey);
+    return (targetCache as any).delete(key);
   }
 
   /**
-   * 清除所有API缓存
+   * 清除所有缓存
    */
   clearAllCache(useLocalStorage: boolean = false): void {
     if (useLocalStorage) {
-      this.localStorageCache.clear();
+      (this.localStorageCache as any).clear();
     } else {
-      this.cache.clear();
+      (this.cache as any).clear();
     }
   }
 
@@ -129,9 +128,9 @@ export class ApiCache {
   /**
    * 获取缓存统计信息
    */
-  getStats(useLocalStorage: boolean = false) {
-    const targetCache = useLocalStorage ? this.localStorageCache : this.cache;
-    return targetCache.getStats();
+  getStats(): { size: number; hitRate: number } {
+    const targetCache = this.cache;
+    return (targetCache as any).getStats();
   }
 }
 

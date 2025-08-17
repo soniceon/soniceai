@@ -22,7 +22,7 @@ export default function TestPage() {
         {translationKeys.map(key => (
           <li key={key} className="border-b pb-2">
             <div className="font-mono text-sm text-gray-600">{key}</div>
-            <div className="font-bold">"{t(key)}"</div>
+            <div className="font-bold">&quot;{t(key)}&quot;</div>
           </li>
         ))}
       </ul>

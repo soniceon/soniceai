@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import SEO from '@/components/SEO';
+import ToolSEO from '@/components/ToolSEO';
+import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 
 const chatgptDetail = {
   launchDate: 'November 2022',
@@ -89,66 +91,98 @@ const chatgptDetail = {
   ]
 };
 
-export default function ToolDetailPage() {
+export default function ToolDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { t, i18n } = useTranslation('common');
-  const tool = aiTools.find(tl => tl.id === id) || aiTools[0];
+  const { lang } = useLanguage();
+  const { t } = useTranslation('common');
+  const { user, isLoggedIn } = useAuth();
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [showQR, setShowQR] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState('');
+  const [isClient, setIsClient] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [review, setReview] = useState('');
-  const [copied, setCopied] = useState(false);
-  const [showQR, setShowQR] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [reviewError, setReviewError] = useState('');
-  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const lang = i18n.language;
-  const langTyped = lang as keyof typeof chatgptDetail.features;
+  const [userEmail, setUserEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [formattedReviews, setFormattedReviews] = useState<Array<{
+    id: string;
+    username: string;
+    rating: number;
+    comment: string;
+    userEmail: string;
+    createdAt: string;
+    formattedDate: string;
+  }>>([]);
+
+  // 确保只在客户端获取URL
+  useEffect(() => {
+    setIsClient(true);
+    setCurrentUrl(window.location.href);
+  }, []);
+
+  // 确保只在客户端获取localStorage数据
+  useEffect(() => {
+    if (isClient) {
+      setUserEmail(localStorage.getItem('userEmail') || '');
+      setUsername(localStorage.getItem('username') || '');
+    }
+  }, [isClient]);
+
+  // 格式化评论时间
+  useEffect(() => {
+    if (reviews.length > 0 && isClient) {
+      const formatted = reviews.map(review => ({
+        ...review,
+        formattedDate: new Date(review.createdAt).toLocaleString()
+      }));
+      setFormattedReviews(formatted);
+    }
+  }, [reviews, isClient]);
 
   // 拉取评论
   useEffect(() => {
+    if (!id) return;
     setLoadingReviews(true);
-    fetch(`/api/reviews?toolId=${tool.id}`)
+    fetch(`/api/reviews?toolId=${id}`)
       .then(res => res.json())
       .then(data => { setReviews(data); setLoadingReviews(false); })
       .catch(() => setLoadingReviews(false));
-  }, [tool.id]);
+  }, [id]);
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setReviewError('');
-    const userEmail = localStorage.getItem('userEmail');
-    const username = localStorage.getItem('username') || userEmail;
-    if (!userEmail) {
-      setShowLoginPrompt(true);
-      return;
+    if (!userRating || !review.trim()) return;
+
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ toolId: id, userEmail, username, rating: userRating, comment: review })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setUserRating(0);
+        setReview('');
+        // 重新拉取评论
+        fetch(`/api/reviews?toolId=${id}`)
+          .then(res => res.json())
+          .then(data => setReviews(data));
+      } else {
+        setReviewError(data.message);
+      }
+    } catch (error) {
+      setReviewError('提交评论失败');
     }
-    if (!userRating) {
-      setReviewError('请先评分');
-      return;
-    }
-    const res = await fetch('/api/reviews', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ toolId: tool.id, userEmail, username, rating: userRating, comment: review })
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      setReviewError(data.message || '提交失败');
-      return;
-    }
-    setUserRating(0);
-    setReview('');
-    // 重新拉取评论
-    fetch(`/api/reviews?toolId=${tool.id}`)
-      .then(res => res.json())
-      .then(data => setReviews(data));
   };
 
   const handleDeleteReview = async (id: string) => {
-    const userEmail = localStorage.getItem('userEmail');
     if (!userEmail) return;
-    if (!window.confirm('确定要删除这条评论吗？')) return;
+    if (!isClient || !window.confirm('确定要删除这条评论吗？')) return;
     const res = await fetch('/api/reviews', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -159,15 +193,12 @@ export default function ToolDetailPage() {
     }
   };
 
+  const tool = aiTools.find(tl => tl.id === id) || aiTools[0];
+  const langTyped = lang as keyof typeof chatgptDetail.features;
+
   return (
     <>
-      <SEO 
-        title={`${tool.name[lang] || tool.name.en} - AI工具详情 - SoniceAI`}
-        description={tool.desc[lang] || tool.desc.en}
-        keywords={`${tool.name[lang] || tool.name.en}, AI工具, ${tool.type}, 人工智能`}
-        ogImage="/og-image.jpg"
-        ogType="website"
-      />
+      <ToolSEO tool={tool} lang={lang} />
       <div className="flex justify-center w-full">
         <main className="max-w-7xl w-full px-4 py-8">
         {/* 顶部卡片 */}
@@ -226,7 +257,7 @@ export default function ToolDetailPage() {
               <div className="flex gap-2 flex-wrap">
                 {/* Twitter */}
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}&url=${encodeURIComponent(currentUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1 bg-black text-white rounded"
@@ -235,7 +266,7 @@ export default function ToolDetailPage() {
                 </a>
                 {/* Facebook */}
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1 bg-black text-white rounded"
@@ -246,9 +277,11 @@ export default function ToolDetailPage() {
                 <button
                   className="px-3 py-1 bg-gray-700 text-white rounded"
                   onClick={() => {
-                    navigator.clipboard.writeText(typeof window !== 'undefined' ? window.location.href : '');
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 1500);
+                    if (isClient && navigator.clipboard) {
+                      navigator.clipboard.writeText(currentUrl);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 1500);
+                    }
                   }}
                 >
                   {t('copy_link')}
@@ -263,13 +296,13 @@ export default function ToolDetailPage() {
                 </button>
                 {showQR && (
                   <div className="absolute z-50 bg-white p-2 rounded shadow">
-                    <QRCodeCanvas value={typeof window !== 'undefined' ? window.location.href : ''} size={120} />
+                    <QRCodeCanvas value={currentUrl} size={120} />
                     <div className="text-xs text-center mt-1">微信扫码分享</div>
                   </div>
                 )}
                 {/* QQ分享 */}
                 <a
-                  href={`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&title=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}`}
+                  href={`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1 bg-blue-500 text-white rounded"
@@ -278,7 +311,7 @@ export default function ToolDetailPage() {
                 </a>
                 {/* WhatsApp */}
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI! ' + (typeof window !== 'undefined' ? window.location.href : ''))}`}
+                  href={`https://wa.me/?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI! ' + currentUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1 bg-green-600 text-white rounded"
@@ -289,9 +322,11 @@ export default function ToolDetailPage() {
                 <button
                   className="px-3 py-1 bg-pink-500 text-white rounded"
                   onClick={() => {
-                    navigator.clipboard.writeText(typeof window !== 'undefined' ? window.location.href : '');
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 1500);
+                    if (isClient && navigator.clipboard) {
+                      navigator.clipboard.writeText(currentUrl);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 1500);
+                    }
                   }}
                 >
                   {t('instagram')}
@@ -363,13 +398,13 @@ export default function ToolDetailPage() {
           {loadingReviews ? <div>{t('loading')}</div> : (
             reviews.length === 0 ? <div className="text-gray-400">{t('no_comments')}</div> :
             <div className="space-y-4">
-              {reviews.map(r => (
+              {formattedReviews.map(r => (
                 <div key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-bold text-purple-700">{r.username}</span>
                     <span className="text-yellow-500">{'★'.repeat(r.rating)}</span>
-                    <span className="text-xs text-gray-400 ml-auto">{new Date(r.createdAt).toLocaleString()}</span>
-                    {r.userEmail === (typeof window !== 'undefined' ? localStorage.getItem('userEmail') : '') && (
+                    <span className="text-xs text-gray-400 ml-auto">{r.formattedDate}</span>
+                    {r.userEmail === userEmail && (
                       <button className="ml-2 text-red-500 hover:underline text-xs" onClick={() => handleDeleteReview(r.id)}>{t('delete')}</button>
                     )}
                   </div>
@@ -385,7 +420,7 @@ export default function ToolDetailPage() {
           <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded shadow text-center">
               <div className="mb-4">{t('please_login_before_comment')}</div>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); window.location.href = '/login'; }}>{t('go_to_login')}</button>
+              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); if (isClient) window.location.href = '/login'; }}>{t('go_to_login')}</button>
             </div>
           </div>
         )}

@@ -651,5 +651,7 @@
   "tag_google": "Google",
   "tag_imagegeneration": "Image Generation",
   "tag_art": "Art",
-  "tag_writing": "Writing"
+  "tag_writing": "Writing",
+  "view_all_tools": "View All Tools",
+  "view_all": "View All"
 }

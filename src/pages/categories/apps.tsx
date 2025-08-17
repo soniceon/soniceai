@@ -1,15 +1,19 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 type Tool = typeof aiTools[number];
 type LangKey = keyof typeof aiTools[0]['name'];
+
 export default function AIApps() {
   const { lang } = useLanguage();
   const { t } = useTranslation('common');
   const langKey: LangKey = (Object.keys(aiTools[0].name).includes(lang) ? lang : 'en') as LangKey;
+  
   // 筛选type为'app'或tag含有'app'的工具
   const apps = aiTools.filter((tool: Tool) => tool.type === 'app' || (tool.tags && tool.tags.some((t: string) => t.toLowerCase().includes('app'))));
+  
   return (
     <div className="py-8 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">{t('category_app')}</h1>
@@ -29,6 +33,7 @@ export default function AIApps() {
     </div>
   );
 }
+
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

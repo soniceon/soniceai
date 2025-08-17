@@ -7,6 +7,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { nanoid } from 'nanoid';
 
+// dicebear 卡通风格列表
+const DICEBEAR_STYLES = ['avataaars', 'bottts', 'micah', 'adventurer'] as const;
+type DicebearStyle = typeof DICEBEAR_STYLES[number];
+type AvatarStyle = DicebearStyle | 'ins';
+
 const mockStats = [
   { label: 'dashboard_tools', value: 2 },
   { label: 'dashboard_ads', value: 1 },
@@ -46,11 +51,6 @@ const mockProfile = {
   address: '',
   vat: '',
 };
-
-// dicebear 卡通风格列表
-const DICEBEAR_STYLES = ['avataaars', 'bottts', 'micah', 'adventurer'] as const;
-type DicebearStyle = typeof DICEBEAR_STYLES[number];
-type AvatarStyle = DicebearStyle | 'ins';
 
 function randomSeed() {
   return nanoid(10);
@@ -113,8 +113,7 @@ function getInsAvatarSvg(seed: string) {
     `<rect x='28' y='48' width='24' height='8' rx='4' fill='#222' fill-opacity='0.18'/>`, // 嘴部口罩
     `<ellipse cx='40' cy='60' rx='10' ry='4' fill='#222' fill-opacity='0.12'/>`, // 下巴阴影
     `<rect x='30' y='34' width='20' height='8' rx='4' fill='#222' fill-opacity='0.10'/>`, // 眼镜
-    `<ellipse cx='32' cy='38' rx='5' ry='5' fill='#fff' fill-opacity='0.18' stroke='#222' stroke-width='1.5'/><ellipse cx='48' cy='38' rx='5' ry='5' fill='#fff' fill-opacity='0.18' stroke='#222' stroke-width='1.5'/>`, // 圆眼镜
-    `<rect x='28' y='18' width='24' height='8' rx='4' fill='#222' fill-opacity='0.10'/>`, // 帽檐
+    `<ellipse cx='32' cy='38' rx='5' ry='5' fill='#fff' fill-opacity='0.18' stroke='#222' stroke-width='1.5'/><ellipse cx='48' cy='38' rx='5' ry='5' fill='#fff' fill-opacity='0.18' stroke='#222' stroke-width='1.5'/>`, // 圆眼�?    `<rect x='28' y='18' width='24' height='8' rx='4' fill='#222' fill-opacity='0.10'/>`, // 帽檐
     `<ellipse cx='40' cy='18' rx='12' ry='4' fill='#222' fill-opacity='0.10'/>`, // 耳机
   ];
   const accessory = accessories[Math.abs(hash * 17) % accessories.length];
@@ -124,8 +123,7 @@ function getInsAvatarSvg(seed: string) {
     `<ellipse cx='32' cy='38' rx='3' ry='5' fill='#4f5bd5'/><ellipse cx='48' cy='38' rx='3' ry='5' fill='#4f5bd5'/><ellipse cx='32' cy='38' rx='1.2' ry='2' fill='#fff'/><ellipse cx='48' cy='38' rx='1.2' ry='2' fill='#fff'/><path d='M34 50 Q40 56 46 50' stroke='#fd5c63' stroke-width='2' fill='none'/>`,
     // 酷脸
     `<ellipse cx='32' cy='38' rx='3' ry='5' fill='#00c6ff'/><ellipse cx='48' cy='38' rx='3' ry='5' fill='#00c6ff'/><ellipse cx='32' cy='38' rx='1.2' ry='2' fill='#fff'/><ellipse cx='48' cy='38' rx='1.2' ry='2' fill='#fff'/><rect x='36' y='48' width='8' height='2' rx='1' fill='#222'/>`,
-    // 吐舌头
-    `<ellipse cx='32' cy='38' rx='3' ry='5' fill='#ee2a7b'/><ellipse cx='48' cy='38' rx='3' ry='5' fill='#ee2a7b'/><ellipse cx='32' cy='38' rx='1.2' ry='2' fill='#fff'/><ellipse cx='48' cy='38' rx='1.2' ry='2' fill='#fff'/><ellipse cx='40' cy='52' rx='4' ry='2' fill='#fd5c63'/><rect x='38' y='50' width='4' height='6' rx='2' fill='#fd5c63'/>`,
+    // 吐舌�?    `<ellipse cx='32' cy='38' rx='3' ry='5' fill='#ee2a7b'/><ellipse cx='48' cy='38' rx='3' ry='5' fill='#ee2a7b'/><ellipse cx='32' cy='38' rx='1.2' ry='2' fill='#fff'/><ellipse cx='48' cy='38' rx='1.2' ry='2' fill='#fff'/><ellipse cx='40' cy='52' rx='4' ry='2' fill='#fd5c63'/><rect x='38' y='50' width='4' height='6' rx='2' fill='#fd5c63'/>`,
     // wink
     `<ellipse cx='32' cy='38' rx='3' ry='5' fill='#43cea2'/><ellipse cx='48' cy='38' rx='3' ry='2' fill='#43cea2'/><ellipse cx='32' cy='38' rx='1.2' ry='2' fill='#fff'/><rect x='46' y='38' width='4' height='1.5' rx='0.75' fill='#fff'/><ellipse cx='40' cy='50' rx='7' ry='3' fill='#f9ce34'/>`,
     // 大笑
@@ -148,20 +146,28 @@ export default function Dashboard() {
   const router = useRouter();
   const { user, isLoggedIn, logout } = useAuth();
   const [stats] = useState(mockStats);
-  const [avatarStyle, setAvatarStyle] = useState<AvatarStyle>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('avatarStyle') as AvatarStyle) || 'avataaars';
-    }
-    return 'avataaars';
-  });
-  const [avatarSeed, setAvatarSeed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('avatarSeed') || '';
-    }
-    return '';
-  });
+  const [avatarStyle, setAvatarStyle] = useState<AvatarStyle>('avataaars');
+  const [avatarSeed, setAvatarSeed] = useState<string>('');
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [randomAvatars, setRandomAvatars] = useState<{style: AvatarStyle, seed: string}[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  // 确保只在客户端获取localStorage数据
+  useEffect(() => {
+    setIsClient(true);
+    setAvatarStyle((localStorage.getItem('avatarStyle') as AvatarStyle) || 'avataaars');
+    setAvatarSeed(localStorage.getItem('avatarSeed') || '');
+  }, []);
+
+  function getAvatarStyle(): AvatarStyle {
+    if (!isClient) return 'avataaars';
+    return (localStorage.getItem('avatarStyle') as AvatarStyle) || 'avataaars';
+  }
+
+  function getAvatarSeed(): string {
+    if (!isClient) return '';
+    return localStorage.getItem('avatarSeed') || '';
+  }
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -170,8 +176,8 @@ export default function Dashboard() {
   }, [isLoggedIn, router]);
 
   useEffect(() => {
-    if (showAvatarModal) {
-      // 生成9个 DiceBear 风格卡通头像
+    if (showAvatarModal && isClient) {
+      // 生成9个DiceBear 风格卡通头像
       const arr: {style: AvatarStyle, seed: string}[] = Array.from({ length: 9 }).map(() => {
         const style = DICEBEAR_STYLES[Math.floor(Math.random() * DICEBEAR_STYLES.length)];
         const seed = randomSeed();
@@ -179,7 +185,7 @@ export default function Dashboard() {
       });
       setRandomAvatars(arr);
     }
-  }, [showAvatarModal]);
+  }, [showAvatarModal, isClient]);
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });

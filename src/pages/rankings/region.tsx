@@ -1,13 +1,16 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
+
 const regions = [
   { key: 'america', icon: '🌎' },
   { key: 'europe', icon: '🌍' },
   { key: 'asia', icon: '🌏' },
   { key: 'other', icon: '🌐' },
 ];
+
 type Tool = typeof aiTools[number];
+
 // 随机分配工具到地区
 function getRegionTools(regionKey: string, allTools: Tool[]): Tool[] {
   const total = allTools.length;
@@ -16,9 +19,11 @@ function getRegionTools(regionKey: string, allTools: Tool[]): Tool[] {
   if (regionKey === 'asia') return allTools.slice(Math.ceil(total/2), Math.ceil(total*3/4));
   return allTools.slice(Math.ceil(total*3/4));
 }
+
 export default function RegionRanking() {
   const { lang } = useLanguage();
   const { t } = useTranslation('common');
+  
   return (
     <div className="py-8 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">{t('region_ranking')}</h1>

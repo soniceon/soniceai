@@ -21,8 +21,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   
   // 监听语言变化，在切换语言时重置搜索关键词
   useEffect(() => {
-    // 当语言切换时，清空搜索词
-    setKeyword('');
+    // 当语言切换时，清空搜索�?    setKeyword('');
   }, [router.locale]);
 
   return (

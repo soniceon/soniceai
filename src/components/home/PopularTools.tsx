@@ -56,22 +56,21 @@ const popularTools = [
 const PopularTools = () => {
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-white">Popular AI Tools</h2>
-        <Link href="/tools" className="text-blue-400 hover:text-blue-300 flex items-center gap-2">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-white">Popular AI Tools</h2>
+        <Link href="/tools" className="text-blue-400 hover:text-blue-300 flex items-center gap-2 transition-colors">
           View all <FiArrowRight />
         </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {popularTools.map((tool) => (
-          <Link key={tool.id} href={`/tool/${tool.id}`}>
-            <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
+          <Link key={tool.id} href={`/tools/${tool.id}`}>
+            <div className="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-all duration-300 hover:scale-105 border border-gray-700 hover:border-gray-600">
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                    {/* You can add actual images here */}
-                    <span className="text-2xl">{tool.name.charAt(0)}</span>
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                    {tool.name.charAt(0)}
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white">{tool.name}</h3>
@@ -82,9 +81,9 @@ const PopularTools = () => {
                   </div>
                 </div>
               </div>
-              <p className="mt-4 text-sm text-gray-400 line-clamp-2">{tool.description}</p>
+              <p className="mt-4 text-sm text-gray-400 line-clamp-2 leading-relaxed">{tool.description}</p>
               <div className="mt-4">
-                <span className="inline-block px-2 py-1 text-xs font-medium text-gray-400 bg-gray-700 rounded">
+                <span className="inline-block px-3 py-1 text-xs font-medium text-gray-300 bg-gray-700 rounded-full">
                   {tool.category}
                 </span>
               </div>

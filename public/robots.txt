@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap locations
-Sitemap: https://soniceai.com/sitemap-index.xml
+Sitemap: https://soniceai.com/api/sitemap-index.xml
 Sitemap: https://soniceai.com/api/sitemap.xml
 
 # Disallow sensitive routes only
@@ -26,15 +26,25 @@ Allow: /categories/
 Allow: /rankings/
 Allow: /featured/
 
-# Prevent duplicate content issues
+# Prevent duplicate content issues - 更严格的重复内容控制
 Disallow: /pages/
 Disallow: /sites/
 Disallow: /*?q=*
 Disallow: /*search*
+Disallow: /*.html$
+Disallow: /Tools
+Disallow: /Categories
+Disallow: /Rankings
+Disallow: /old-tools/
+Disallow: /ai-tools/
 
 # Allow specific tool pages
-Allow: /tools/*.html
 Allow: /tools/*/
+
+# 防止重复路径
+Disallow: /tools/tools/
+Disallow: /categories/categories/
+Disallow: /rankings/rankings/
 
 # AI Crawler Specific Rules
 User-agent: ChatGPT-User

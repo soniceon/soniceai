@@ -50,5 +50,5 @@ export const messages = {
       zh: '100万+ 专业用户', en: 'Used by 1M+ professionals', ja: '100万人以上のプロが利用', ko: '100만+ 전문가 사용', de: 'Von über 1 Mio. Profis genutzt', fr: 'Utilisé par 1M+ professionnels', es: 'Usado por más de 1M de profesionales', ru: 'Используют более 1 млн профессионалов',
     },
   },
-  // ...可继续扩展其它页面内容
+  // 可继续扩展其它页面内容
 }; 

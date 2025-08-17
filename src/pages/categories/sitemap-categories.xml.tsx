@@ -4,7 +4,7 @@ import { aiTools } from '@/data/aiTools';
 const EXTERNAL_DATA_URL = 'https://soniceai.com';
 
 function generateCategoriesSiteMap() {
-  // 获取所有唯一的工具类型
+  // 获取所有唯一的工具类�?
   const toolTypes = Array.from(new Set(aiTools.map(tool => tool.type)));
   
   return `<?xml version="1.0" encoding="UTF-8"?>

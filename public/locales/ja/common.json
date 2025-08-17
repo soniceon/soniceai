@@ -771,5 +771,8 @@
   "tag_jasper": "Jasper",
   "tag_writesonic": "WriteSonic",
   "tag_ai": "AI",
-  "tag_chatbot": "チャットボット"
+  "tag_chatbot": "チャットボット",
+  "view_all_tools": "すべてのツールを見る",
+  "featured_ai_tools": "注目のAIツール",
+  "view_all": "すべて見る"
 }

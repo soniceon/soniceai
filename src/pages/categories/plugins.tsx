@@ -1,15 +1,19 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 type Tool = typeof aiTools[number];
 type LangKey = keyof typeof aiTools[0]['name'];
+
 export default function Plugins() {
   const { lang } = useLanguage();
   const { t } = useTranslation('common');
   const langKey: LangKey = (Object.keys(aiTools[0].name).includes(lang) ? lang : 'en') as LangKey;
+  
   // 筛选type为'plugin'或tag含有'plugin'的工具
   const plugins = aiTools.filter((tool: Tool) => tool.type === 'plugin' || (tool.tags && tool.tags.some((t: string) => t.toLowerCase().includes('plugin'))));
+  
   return (
     <div className="py-8 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">{t('ai_plugins')}</h1>
@@ -23,19 +27,13 @@ export default function Plugins() {
               </div>
               <div className="text-xs text-gray-500 mb-1">{tool.desc[langKey] || tool.desc.en}</div>
               <div className="text-xs text-gray-400">⭐ {tool.rating} | 👥 {tool.users}</div>
-              {tool.tags && tool.tags.map(tag => {
-                const key = 'tag_' + tag.toLowerCase().replace(/[^a-z0-9]/g, '');
-                const localized = t(key) !== key ? t(key) : tag;
-                return (
-                  <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{localized}</span>
-                );
-              })}
             </div>
           ))}
       </div>
     </div>
   );
 }
+
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

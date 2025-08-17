@@ -3,11 +3,11 @@ import { nanoid } from 'nanoid';
 export const AVATAR_STYLES = ['ins', 'dicebear', 'avataaars'] as const;
 export type AvatarStyle = typeof AVATAR_STYLES[number];
 
-// dicebear 卡通风格列表
+// dicebear 卡通风格列�?
 export const DICEBEAR_STYLES = ['avataaars', 'bottts', 'micah', 'adventurer'] as const;
 export type DicebearStyle = typeof DICEBEAR_STYLES[number];
 
-// 生成 ins 风格渐变色
+// 生成 ins 风格渐变�?
 export function getAvatarColors(email: string) {
   const gradients = [
     ['#f9ce34', '#ee2a7b', '#6228d7'],
@@ -30,7 +30,7 @@ export function getFlatColor(email: string) {
   return colors[Math.abs(hash) % colors.length];
 }
 
-// dicebear svg url（支持多风格）
+// dicebear svg url（支持多风格�?
 export function getDicebearUrl(seed: string, style: DicebearStyle = 'avataaars') {
   return `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(seed)}`;
 }
@@ -42,7 +42,7 @@ export function randomSeed() {
 
 // 新增 ins 风格头像生成函数
 export function getInsAvatarSvg(seed: string) {
-  // 生成渐变色
+  // 生成渐变�?
   const gradients = [
     ['#f9ce34', '#ee2a7b', '#6228d7'],
     ['#fd5c63', '#fcb045', '#fd1d1d'],

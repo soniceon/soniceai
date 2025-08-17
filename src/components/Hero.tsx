@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/context/SearchContext';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ export default function Hero() {
   const [forceUpdate, setForceUpdate] = useState(0);
   const [heroMenu, setHeroMenu] = useState([
     { key: 'menu_ranking', link: '/rankings', icon: '📊' },
-    { key: 'menu_new_arrivals', link: '/categories/new', icon: '✨' },
+    { key: 'menu_new_arrivals', link: '/categories/new', icon: '🆕' },
     { key: 'menu_most_saved', link: '/categories/saved', icon: '💾' },
     { key: 'menu_top_traffic', link: '/categories/top', icon: '🔥' },
     { key: 'menu_ai_apps', link: '/categories/apps', icon: '📱' },
@@ -29,7 +29,7 @@ export default function Hero() {
     // 重新设置菜单，确保翻译更新
     setHeroMenu([
       { key: 'menu_ranking', link: '/rankings', icon: '📊' },
-      { key: 'menu_new_arrivals', link: '/categories/new', icon: '✨' },
+      { key: 'menu_new_arrivals', link: '/categories/new', icon: '🆕' },
       { key: 'menu_most_saved', link: '/categories/saved', icon: '💾' },
       { key: 'menu_top_traffic', link: '/categories/top', icon: '🔥' },
       { key: 'menu_ai_apps', link: '/categories/apps', icon: '📱' },
@@ -42,7 +42,7 @@ export default function Hero() {
     ]);
   }, [i18n.language]);
   
-  // 滚动到 ToolGrid
+  // 滚动到ToolGrid
   const handleSearch = () => {
     const el = document.getElementById('toolgrid-anchor');
     if (el) el.scrollIntoView({ behavior: 'smooth' });

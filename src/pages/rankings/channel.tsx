@@ -1,5 +1,5 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
 const channels = [
   { key: 'official', icon: '🌐' },
@@ -43,7 +43,7 @@ export default function ChannelRanking() {
                     <span>{tool.name[lang] || tool.name.en}</span>
                   </div>
                   <div className="text-xs text-gray-500 mb-1">{tool.desc[lang] || tool.desc.en}</div>
-                  <div className="text-xs text-gray-400">⭐ {tool.rating} | 👥 {tool.users}</div>
+                  <div className="text-xs text-gray-400">�?{tool.rating} | 👥 {tool.users}</div>
                 </div>
               ))}
             </div>

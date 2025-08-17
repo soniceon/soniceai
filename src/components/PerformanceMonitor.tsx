@@ -87,10 +87,10 @@ export default function PerformanceMonitor() {
     };
   }, []);
 
-  // 发送性能数据到分析服务
+  // 发送性能数据到分析服�?
   useEffect(() => {
     if (process.env.NODE_ENV === 'production' && metrics.fcp !== null) {
-      // 这里可以发送到 Google Analytics 或其他分析服务
+      // 这里可以发送到 Google Analytics 或其他分析服�?
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'performance_metrics', {
           event_category: 'performance',

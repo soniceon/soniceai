@@ -1,5 +1,5 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
@@ -31,15 +31,15 @@ export default function RankingsPage() {
               <span className="mb-4 mt-10 w-20 h-20 flex items-center justify-center rounded-full text-4xl text-white" style={{background:'#5B8FB9'}}>
                 {tool.icon}
               </span>
-              {/* 工具名 */}
+              {/* 工具�?*/}
               <div className="flex items-center gap-2 mb-2 justify-center w-full">
                 <div className="font-bold text-xl text-white truncate max-w-[140px] text-center">{tool.name[langKey]}</div>
               </div>
-              {/* 简介 */}
+              {/* 简�?*/}
               <div className="text-gray-300 text-base mb-4 line-clamp-2 min-h-[44px] text-center w-full">{tool.desc[langKey]}</div>
               {/* 评分和用户数 */}
               <div className="flex gap-3 text-base font-medium mb-3 justify-center w-full">
-                <span className="flex items-center gap-1 text-[#3E54A3] bg-[#E5E9F2] px-3 py-0.5 rounded-full text-base"><span>★</span>{tool.rating}</span>
+                <span className="flex items-center gap-1 text-[#3E54A3] bg-[#E5E9F2] px-3 py-0.5 rounded-full text-base"><span>⭐</span>{tool.rating}</span>
                 <span className="flex items-center gap-1 text-[#3E54A3] bg-[#E5E9F2] px-3 py-0.5 rounded-full text-base"><span>👥</span>{tool.users}</span>
               </div>
               {/* 标签 */}

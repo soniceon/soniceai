@@ -37,6 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (userObj: AuthUser) => {
     await fetchUser();
   };
+
   // 登出时清理状态
   const logout = () => {
     setUser(null);

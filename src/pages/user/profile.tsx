@@ -106,7 +106,7 @@ const Profile: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">加载中...</div>;
+    return <div className="flex justify-center items-center min-h-screen">加载�?..</div>;
   }
 
   if (!profile) {

@@ -9,49 +9,82 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const baseUrl = 'https://soniceai.com';
   const currentDate = new Date().toISOString();
 
-  // 基础页面
-  const staticPages = [
-    { url: '/', priority: '1.0', changefreq: 'daily' },
-    { url: '/tools', priority: '0.9', changefreq: 'daily' },
-    { url: '/categories', priority: '0.8', changefreq: 'weekly' },
-    { url: '/rankings', priority: '0.8', changefreq: 'weekly' },
-    { url: '/featured', priority: '0.8', changefreq: 'weekly' },
+  // 生成sitemap XML
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+  // 首页
+  xml += `  <url>\n`;
+  xml += `    <loc>${baseUrl}/</loc>\n`;
+  xml += `    <lastmod>${currentDate}</lastmod>\n`;
+  xml += `    <changefreq>daily</changefreq>\n`;
+  xml += `    <priority>1.0</priority>\n`;
+  xml += `  </url>\n`;
+
+  // 主要页面
+  const mainPages = [
+    { path: '/tools', priority: '0.9', changefreq: 'daily' },
+    { path: '/categories', priority: '0.8', changefreq: 'weekly' },
+    { path: '/rankings', priority: '0.8', changefreq: 'weekly' },
+    { path: '/featured', priority: '0.8', changefreq: 'weekly' },
+    { path: '/about', priority: '0.6', changefreq: 'monthly' },
+    { path: '/contact', priority: '0.6', changefreq: 'monthly' },
   ];
 
-  // 生成AI工具页面
-  const toolPages = aiTools.map(tool => ({
-    url: `/tools/${tool.id}`,
-    priority: '0.7',
-    changefreq: 'weekly'
-  }));
+  mainPages.forEach(page => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}${page.path}</loc>\n`;
+    xml += `    <lastmod>${currentDate}</lastmod>\n`;
+    xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+    xml += `    <priority>${page.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
 
-  // 生成分类页面
-  const categoryPages = aiTools.reduce((categories: string[], tool) => {
-    if (tool.type && !categories.includes(tool.type)) {
-      categories.push(tool.type);
-    }
-    return categories;
-  }, []).map(type => ({
-    url: `/categories/${type.toLowerCase().replace(/\s+/g, '-')}`,
-    priority: '0.6',
-    changefreq: 'weekly'
-  }));
+  // 分类页面
+  const categories = [
+    'chatbot', 'image-generation', 'text-generation', 'video-generation',
+    'audio-generation', 'code-generation', 'data-analysis', 'productivity',
+    'education', 'business', 'creative', 'research'
+  ];
 
-  // 合并所有页面
-  const allPages = [...staticPages, ...toolPages, ...categoryPages];
+  categories.forEach(category => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/categories/${category}</loc>\n`;
+    xml += `    <lastmod>${currentDate}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.7</priority>\n`;
+    xml += `  </url>\n`;
+  });
 
-  // 生成XML
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allPages.map(page => `  <url>
-    <loc>${baseUrl}${page.url}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>`).join('\n')}
-</urlset>`;
+  // 工具详情页面
+  aiTools.forEach(tool => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/tools/${tool.id}</loc>\n`;
+    xml += `    <lastmod>${currentDate}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.6</priority>\n`;
+    xml += `  </url>\n`;
+  });
 
-  res.setHeader('Content-Type', 'text/xml');
-  res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
-  res.status(200).send(sitemap);
+  // 排行榜页面
+  const rankingPages = [
+    '/rankings/categories', '/rankings/region', '/rankings/revenue'
+  ];
+
+  rankingPages.forEach(page => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}${page}</loc>\n`;
+    xml += `    <lastmod>${currentDate}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.7</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  xml += '</urlset>';
+
+  // 设置响应头
+  res.setHeader('Content-Type', 'application/xml');
+  res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
+  
+  res.status(200).send(xml);
 } 

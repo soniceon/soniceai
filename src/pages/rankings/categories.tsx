@@ -1,6 +1,7 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
+
 const categories = [
   { type: 'chatbot', icon: '💬' },
   { type: 'image', icon: '🖼️' },
@@ -11,10 +12,13 @@ const categories = [
   { type: 'media', icon: '🎬' },
   { type: 'marketing', icon: '📢' },
 ];
+
 type Tool = typeof aiTools[number];
+
 export default function CategoryRanking() {
   const { lang } = useLanguage();
   const { t, i18n } = useTranslation('common');
+  
   return (
     <div className="py-8 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">{t('category_ranking')}</h1>

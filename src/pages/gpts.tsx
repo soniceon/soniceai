@@ -3,12 +3,13 @@ import { useState } from 'react';
 
 const mockGpts = [
   { name: 'AI写作助手', date: '2024-05-01', status: '已上线' },
-  { name: 'AI翻译官', date: '2024-05-02', status: '审核中' },
+  { name: 'AI翻译器', date: '2024-05-02', status: '审核中' },
 ];
 
 export default function GptsPage() {
   const { t } = useTranslation('common');
   const [gpts] = useState(mockGpts);
+  
   return (
     <div className="max-w-7xl mx-auto w-full px-4 py-8">
       <div className="flex gap-4 mb-6">

@@ -4,7 +4,7 @@ interface CacheItem<T> {
   ttl: number;
 }
 
-class Cache {
+export class Cache {
   private storage: Map<string, CacheItem<any>>;
   private maxSize: number;
 

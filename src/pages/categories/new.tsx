@@ -1,14 +1,28 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
-const titles = { zh: '最新推出', en: 'New Arrivals', ja: '新着', ko: '최신 출시', de: 'Neuheiten', fr: 'Nouveautés', es: 'Novedades', ru: 'Новинки' };
+
+const titles: Record<string, string> = { 
+  zh: '最新推荐', 
+  en: 'New Arrivals', 
+  ja: '新着', 
+  ko: '최신 출시', 
+  de: 'Neuheiten', 
+  fr: 'Nouveautés', 
+  es: 'Novedades', 
+  ru: 'Новинки' 
+};
+
 type LangKey = keyof typeof titles;
+
 export default function NewArrivals() {
   const { lang } = useLanguage();
   const { t } = useTranslation('common');
   const langKey: LangKey = (Object.keys(titles).includes(lang) ? lang : 'en') as LangKey;
+  
   // 取最新10个AI工具
   const latest = [...aiTools].slice(-10).reverse();
+  
   return (
     <div className="py-8 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">{t('new_arrivals')}</h1>

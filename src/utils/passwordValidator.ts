@@ -8,7 +8,7 @@ export function validatePassword(password: string): PasswordValidation {
 
   // 只检查密码长度
   if (password.length < 6) {
-    errors.push('密码长度至少为6个字符');
+    errors.push('密码长度至少6个字符');
   }
 
   return {

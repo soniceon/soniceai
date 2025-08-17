@@ -46,10 +46,10 @@ class EmailService {
     const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password?token=${resetToken}`;
     const html = `
       <h1>重置密码</h1>
-      <p>请点击下面的链接重置您的密码：</p>
+      <p>请点击下面的链接重置您的密码�?/p>
       <a href="${resetUrl}">${resetUrl}</a>
-      <p>此链接将在1小时后过期。</p>
-      <p>如果您没有请求重置密码，请忽略此邮件。</p>
+      <p>此链接将�?小时后过期�?/p>
+      <p>如果您没有请求重置密码，请忽略此邮件�?/p>
     `;
 
     return this.sendEmail({

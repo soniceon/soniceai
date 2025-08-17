@@ -9,19 +9,25 @@ const menu = [
   { key: 'posts', icon: '📝', tKey: 'sidebar_posts', path: '/dashboard/posts' },
   { key: 'gpts', icon: '🧊', tKey: 'sidebar_gpts', path: '/dashboard/gpts' },
   { key: 'listening', icon: '👂', tKey: 'sidebar_listening', path: '/dashboard/listening' },
-  { key: 'favorites', icon: '⭐', tKey: 'sidebar_favorites', path: '/dashboard/favorites' },
+  { key: 'favorites', icon: '❤️', tKey: 'sidebar_favorites', path: '/dashboard/favorites' },
   { key: 'orders', icon: '🧾', tKey: 'sidebar_orders', path: '/dashboard/orders' },
 ];
 
 export default function DashboardSidebar() {
   const { t, i18n, ready } = useTranslation('common');
-  if (!ready) return null;
   const [forceUpdate, setForceUpdate] = useState(0);
-  useEffect(() => {
-    i18n.reloadResources(i18n.language, ['common']);
-  }, [i18n.language]);
-  console.log('DashboardSidebar.tsx 当前语言:', i18n.language, 'sidebar_tools:', t('sidebar_tools'));
   const router = useRouter();
+  
+  useEffect(() => {
+    if (ready && i18n) {
+      i18n.reloadResources(i18n.language, ['common']);
+    }
+  }, [ready, i18n]);
+  
+  if (!ready) return null;
+  
+  console.log('DashboardSidebar.tsx 当前语言:', i18n.language, 'sidebar_tools:', t('sidebar_tools'));
+  
   return (
     <aside key={i18n.language} className="flex flex-col w-56 min-h-screen bg-[#232136] border-r border-gray-900 shadow-xl py-8 px-3">
       <nav className="flex flex-col gap-2">

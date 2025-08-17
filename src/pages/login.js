@@ -9,8 +9,6 @@ export default function Login() {
   const router = useRouter();
   const { t, i18n, ready } = useTranslation('common');
   const { login, isLoggedIn, user } = useAuth();
-  console.log('当前 dont_have_account:', t('dont_have_account'));
-  console.log('当前语言:', i18n.language);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,7 +17,18 @@ export default function Login() {
   const [resetEmail, setResetEmail] = useState('');
   const [resetMsg, setResetMsg] = useState('');
 
+  // 已登录时自动跳转到 dashboard
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      const localePrefix = router.locale ? `/${router.locale}` : '';
+      router.replace(`${localePrefix}/dashboard`);
+    }
+  }, [isLoggedIn, user, router]);
+
   if (!ready) return null;
+
+  console.log('当前 dont_have_account:', t('dont_have_account'));
+  console.log('当前语言:', i18n.language);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -62,14 +71,6 @@ export default function Login() {
       setResetMsg(t('reset_email_sent'));
     }
   };
-
-  // 已登录时自动跳转到 dashboard
-  useEffect(() => {
-    if (isLoggedIn && user) {
-      const localePrefix = router.locale ? `/${router.locale}` : '';
-      router.replace(`${localePrefix}/dashboard`);
-    }
-  }, [isLoggedIn, user, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#181c2a]">

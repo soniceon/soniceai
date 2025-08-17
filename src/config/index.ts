@@ -26,7 +26,7 @@ export const config = {
     service: process.env.EMAIL_SERVICE || 'gmail',
   },
   
-  // 数据库配置
+  // 数据库配�?
   database: {
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -37,7 +37,7 @@ export const config = {
     googleAnalyticsId: process.env.NEXT_PUBLIC_GA_ID,
   },
   
-  // 功能开关
+  // 功能开�?
   features: {
     enableOAuth: true,
     enableEmailVerification: true,

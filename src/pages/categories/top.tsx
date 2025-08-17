@@ -1,13 +1,16 @@
 import { aiTools } from '@/data/aiTools';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 type Tool = typeof aiTools[number];
 type LangKey = keyof typeof aiTools[0]['name'];
+
 export default function TopTraffic() {
   const { lang } = useLanguage();
   const { t } = useTranslation('common');
   const langKey: LangKey = (Object.keys(aiTools[0].name).includes(lang) ? lang : 'en') as LangKey;
+  
   // 更智能地解析用户数
   const parseUsers = (u: string) => {
     if (!u) return 0;
@@ -16,7 +19,9 @@ export default function TopTraffic() {
     if (lower.includes('k')) return parseInt(lower) * 1000;
     return parseInt(lower) || 0;
   };
+  
   const sorted = [...aiTools].sort((a, b) => parseUsers(b.users) - parseUsers(a.users)).slice(0, 20);
+  
   return (
     <div className="py-8 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">{t('top_traffic')}</h1>

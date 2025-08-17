@@ -4,8 +4,8 @@ import '../styles/globals.css';
 import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../../next-i18next.config.js';
 import { AuthProvider } from '../context/AuthContext';
-import { SearchProvider } from '../contexts/SearchContext';
-import { LanguageProvider } from '../contexts/LanguageContext';
+import { SearchProvider } from '../context/SearchContext';
+import { LanguageProvider } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { ThemeProvider } from 'next-themes';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
+import ClientOnly from '../components/ClientOnly';
 
 // 懒加载最重的组件
 const DynamicToolGrid = dynamic(() => import('../components/ToolGrid'));
@@ -25,6 +26,12 @@ function MyApp({ Component, pageProps }) {
   const isHome = router.pathname === '/';
   const { ready, i18n } = useTranslation('common');
   const [languageKey, setLanguageKey] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+  
+  // 确保只在客户端渲染
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   // 语言变化时，强制整个应用重新渲染
   useEffect(() => {
@@ -43,46 +50,52 @@ function MyApp({ Component, pageProps }) {
   
   return (
     <>
-      {/* Google Analytics */}
-      <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-TC3XJEJM16"
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-      >{`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-TC3XJEJM16', {
-          page_title: document.title,
-          page_location: window.location.href,
-          send_page_view: true
-        });
-      `}</Script>
+      {/* Google Analytics - 只在客户端渲染 */}
+      {isClient && (
+        <>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-TC3XJEJM16"
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+          >{`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TC3XJEJM16', {
+              page_title: document.title,
+              page_location: window.location.href,
+              send_page_view: true
+            });
+          `}</Script>
+        </>
+      )}
       
-      <ThemeProvider attribute="class" defaultTheme="dark">
-        <LanguageProvider>
-          <SearchProvider>
-            <AuthProvider>
-              <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-[#181825] transition-colors" key={`app-${i18n.language}-${languageKey}`}>
-                <DynamicNavbar />
-                {isHome && <Hero />}
-                <div className="flex flex-1">
-                  <Sidebar key={i18n.language} />
-                  <div className="flex-1 ml-20 md:ml-56">
-                    <main className="max-w-7xl mx-auto w-full px-4">
-                      <Component {...pageProps} />
-                    </main>
+      <ClientOnly fallback={<div className="min-h-screen bg-gray-50 dark:bg-[#181825] transition-colors" />}>
+        <ThemeProvider attribute="class" defaultTheme="dark">
+          <LanguageProvider>
+            <SearchProvider>
+              <AuthProvider>
+                <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-[#181825] transition-colors" key={`app-${i18n.language}-${languageKey}`}>
+                  <DynamicNavbar />
+                  {isHome && <Hero />}
+                  <div className="flex flex-1">
+                    <Sidebar key={i18n.language} />
+                    <div className="flex-1 ml-20 md:ml-56">
+                      <main className="max-w-7xl mx-auto w-full px-4">
+                        <Component {...pageProps} />
+                      </main>
+                    </div>
                   </div>
+                  <DynamicFooter />
                 </div>
-                <DynamicFooter />
-              </div>
-            </AuthProvider>
-          </SearchProvider>
-        </LanguageProvider>
-      </ThemeProvider>
+              </AuthProvider>
+            </SearchProvider>
+          </LanguageProvider>
+        </ThemeProvider>
+      </ClientOnly>
     </>
   );
 }

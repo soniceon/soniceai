@@ -6,15 +6,16 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function Register() {
   const router = useRouter();
-  const { t, ready } = useTranslation('common');
+  const { t, i18n, ready } = useTranslation('common');
   const { login } = useAuth();
-  if (!ready) return null;
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
+  if (!ready) return null;
 
   const handleRegister = async (e) => {
     e.preventDefault();

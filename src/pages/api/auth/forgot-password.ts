@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const jwtUtil = JwtUtil.getInstance();
     const resetToken = jwtUtil.generateToken({ email: user.email });
     
-    // 发送重置密码邮件
+    // 发送重置密码邮�?
     const emailService = EmailService.getInstance();
     const success = await emailService.sendPasswordResetEmail(email, resetToken);
     

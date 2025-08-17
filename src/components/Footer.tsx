@@ -15,7 +15,7 @@ const langs = [
 const copyright = {
   zh: '版权所有',
   en: 'All rights reserved.',
-  ja: '全著作権所有。',
+  ja: '全著作権所有',
   ko: '판권 소유.',
   de: 'Alle Rechte vorbehalten.',
   fr: 'Tous droits réservés.',

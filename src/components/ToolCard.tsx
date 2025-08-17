@@ -1,6 +1,6 @@
 import { AiTool } from '../data/aiTools';
 import { useTranslation } from 'next-i18next';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ToolCard({ tool }: { tool: AiTool }) {
   const { lang } = useLanguage();
@@ -11,7 +11,7 @@ export default function ToolCard({ tool }: { tool: AiTool }) {
       `bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-lg transition p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800 relative ${tool.featured ? 'ring-2 ring-purple-400' : ''}`
     }>
       {tool.featured && (
-        <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">★ Featured</span>
+        <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">�?Featured</span>
       )}
       <div className="text-3xl mb-2">{tool.icon}</div>
       <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name[langKey]}</div>

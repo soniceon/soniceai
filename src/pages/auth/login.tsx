@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import OAuthButton from '../../components/OAuthButton';
 
 const Login: React.FC = () => {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,16 +18,17 @@ const Login: React.FC = () => {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, rememberMe }),
+        body: JSON.stringify({ email, password, rememberMe })
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || '登录失败');
+        throw new Error(data.message);
       }
 
-      router.push('/');
+      // 登录成功，重定向到首页
+      window.location.href = '/';
     } catch (err) {
       setError(err instanceof Error ? err.message : '登录失败');
     } finally {
@@ -42,12 +41,12 @@ const Login: React.FC = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            登录您的账号
+            登录账户
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            或者{' '}
+            还没有账户？{' '}
             <Link href="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500">
-              注册新账号
+              注册新账户
             </Link>
           </p>
         </div>

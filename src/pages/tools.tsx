@@ -10,6 +10,7 @@ const mockTools = [
 export default function ToolsPage() {
   const { t } = useTranslation('common');
   const [tools] = useState(mockTools);
+  
   return (
     <>
       <SEO 
@@ -19,7 +20,7 @@ export default function ToolsPage() {
         ogImage="/og-image.jpg"
         ogType="website"
       />
-          <div className="max-w-7xl mx-auto w-full px-4 py-8">
+      <div className="max-w-7xl mx-auto w-full px-4 py-8">
         <div className="flex gap-4 mb-6">
           <button className="px-4 py-2 bg-purple-600 text-white rounded">{t('submit_new_ai')}</button>
           <button className="px-4 py-2 bg-purple-100 text-purple-700 rounded">{t('update_new_ai')}</button>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { aiTools, AiTool } from '../data/aiTools';
 import { useTranslation } from 'next-i18next';
 import { messages } from '@/locales';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/context/SearchContext';
 
 // 自动补全 typeLabels，确保所有 type 都有友好标签
 const allTypes = Array.from(new Set(aiTools.map(t => t.type)));
@@ -100,8 +100,8 @@ export default function ToolGrid() {
               className={`px-4 py-1 rounded-full font-medium border transition
                 ${type === 'all'
                   ? 'bg-purple-600 text-white border-purple-600'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 border-transparent hover:bg-purple-100 dark:hover:bg-purple-900'}
-              `}
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                }`}
               onClick={() => setType('all')}
             >
               {t('all_categories')}
@@ -112,97 +112,88 @@ export default function ToolGrid() {
                 className={`px-4 py-1 rounded-full font-medium border transition
                   ${type === t
                     ? 'bg-purple-600 text-white border-purple-600'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 border-transparent hover:bg-purple-100 dark:hover:bg-purple-900'}
-                `}
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                  }`}
                 onClick={() => setType(t)}
               >
-                {typeLabels[t]?.[lang] || t}
+                {typeLabels[t]?.[lang] || typeLabels[t]?.en || t}
               </button>
             ))}
           </div>
         </div>
-        {/* 工具卡片区 */}
-        {types.filter(t => type === 'all' || t === type).map(typeKey => (
-          <div key={typeKey}>
-            <h2 id={typeKey} className="text-2xl font-bold mb-6 text-purple-700 dark:text-purple-300 flex items-center gap-2">
-              {/* <span className="text-lg">#</span> */}
-              {t(`category_${typeKey}`)}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
-              {filtered.filter(t => t.type === typeKey).map(tool => (
-                <Link
-                  key={tool.id}
-                  href={`/tools/${tool.id}`}
-                  className="bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-xl transition p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800 relative"
-                >
-                  {tool.featured && (
-                    <span className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full text-gray-900">★ {t('featured_label')}</span>
-                  )}
-                  <span className="text-3xl mb-2">
-                    <span className="relative w-10 h-10 flex items-center justify-center">
-                      <img
-                        src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website || '')}`}
-                        alt={String(tool.name?.[lang] ?? '')}
-                        className="w-8 h-8"
-                        onError={e => { e.currentTarget.style.display = 'none'; }}
-                      />
-                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                        {tool.icon || tool.name[lang][0]}
-                      </span>
-                    </span>
-                  </span>
-                  <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name && tool.name[lang] ? tool.name[lang] : ''}</div>
-                  <div className="text-xs text-purple-600 dark:text-purple-300 mb-2">{t(`category_${tool.type}`)}</div>
-                  <div className="text-gray-500 dark:text-gray-300 text-sm mb-3 line-clamp-2">{tool.desc && tool.desc[lang] ? tool.desc[lang] : ''}</div>
-                  <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-400 mb-2">
-                    <span>⭐ {typeof tool.rating === 'number' ? tool.rating : 0}</span>
-                    <span>👥 {tool.users ?? ''}</span>
+
+        {/* 工具网格 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filtered.map(tool => (
+            <Link
+              key={tool.id}
+              href={`/tools/${tool.id}`}
+              className="group block bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-gray-200 dark:border-gray-700 overflow-hidden hover:border-purple-300 dark:hover:border-purple-600"
+            >
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors mb-2 line-clamp-1">
+                      {tool.name[lang] || tool.name.en}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed">
+                      {tool.desc[lang] || tool.desc.en}
+                    </p>
                   </div>
-                  <div className="flex flex-wrap gap-1 mt-auto">
-                    {tool.tags.map(tag => {
-                      const key = 'tag_' + tag.toLowerCase().replace(/[^a-z0-9]/g, '');
-                      const localized = t(key) !== key ? t(key) : tag;
-                      return (
-                        <span key={tag} className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 px-2 py-0.5 rounded text-xs">{localized}</span>
-                      );
-                    })}
+                  <div className="flex-shrink-0 ml-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 flex items-center justify-center text-2xl">
+                      {tool.icon}
+                    </div>
                   </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      {/* 精选栏（右侧） */}
-      <aside className="hidden lg:block w-80 flex-shrink-0">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 w-full border border-gray-100 dark:border-gray-800">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-yellow-500 text-xl">★</span>
-            <span className="font-bold text-lg">{t('featured_ai_tools')}</span>
-          </div>
-          <div className="flex flex-col gap-4">
-            {featuredTools.map(tool => (
-              <Link key={tool.id} href={`/tools/${tool.id}`} className="flex items-center gap-3 group relative">
-                <span className="relative w-8 h-8 flex items-center justify-center">
-                  <img
-                    src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website || '')}`}
-                    alt={String(tool.name?.[lang] ?? '')}
-                    className="w-8 h-8"
-                    onError={e => { e.currentTarget.style.display = 'none'; }}
-                  />
-                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                    {tool.icon || tool.name[lang][0]}
-                  </span>
-                </span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-bold text-gray-900 dark:text-white group-hover:text-purple-600 truncate">{tool.name[lang]}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-300 truncate">{tool.desc[lang]}</div>
                 </div>
-              </Link>
-            ))}
-          </div>
+                
+                <div className="flex items-center justify-between text-sm mb-3">
+                  <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">
+                    {typeLabels[tool.type]?.[lang] || typeLabels[tool.type]?.en || tool.type}
+                  </span>
+                  <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                    <span className="flex items-center gap-1">
+                      <span className="text-yellow-500">⭐</span>
+                      <span className="font-semibold">{tool.rating}</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="text-blue-500">👥</span>
+                      <span className="font-semibold">{tool.users}</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* 标签 */}
+                {tool.tags && tool.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {tool.tags.slice(0, 3).map((tag, index) => (
+                      <span
+                        key={index}
+                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md text-xs"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Link>
+          ))}
         </div>
-      </aside>
+
+        {/* 无结果提示 */}
+        {filtered.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              {t('no_results_found')}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              {t('try_different_keywords')}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 } 

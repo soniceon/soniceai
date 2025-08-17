@@ -56,20 +56,20 @@ const categories = [
 
 const CategoryGrid = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {categories.map((category) => (
         <Link
           key={category.id}
           href={`/category/${category.id}`}
-          className="group relative overflow-hidden rounded-lg bg-gray-800 p-6 hover:bg-gray-700 transition-colors"
+          className="group relative overflow-hidden rounded-xl bg-gray-800 p-6 hover:bg-gray-700 transition-all duration-300 hover:scale-105 border border-gray-700 hover:border-gray-600"
         >
           <div className="flex items-center space-x-4">
-            <div className={`flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${category.color}`}>
+            <div className={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} text-white`}>
               {category.icon}
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">{category.name}</h3>
-              <p className="text-sm text-gray-400">{category.count} tools</p>
+              <h3 className="text-lg font-semibold text-white group-hover:text-gray-200 transition-colors">{category.name}</h3>
+              <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">{category.count} tools</p>
             </div>
           </div>
         </Link>

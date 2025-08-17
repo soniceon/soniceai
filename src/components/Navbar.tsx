@@ -1,7 +1,7 @@
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import Link from 'next/link';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/context/SearchContext';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -32,12 +32,12 @@ const rankingMenu = [
   { icon: '🧵', key: 'menu_revenue_ranking', descKey: 'menu_revenue_ranking_desc', link: '/rankings/revenue' },
 ];
 const categoryMenu = [
-  { icon: '✔', key: 'menu_new_arrivals', descKey: 'menu_new_arrivals_desc', link: '/categories/new' },
+  { icon: '🆕', key: 'menu_new_arrivals', descKey: 'menu_new_arrivals_desc', link: '/categories/new' },
   { icon: '📑', key: 'menu_most_saved', descKey: 'menu_most_saved_desc', link: '/categories/saved' },
   { icon: '🔥', key: 'menu_top_traffic', descKey: 'menu_top_traffic_desc', link: '/categories/top' },
-  { icon: '🫫', key: 'menu_ai_apps', descKey: 'menu_ai_apps_desc', link: '/categories/apps' },
-  { icon: '🐓', key: 'menu_ai_plugins', descKey: 'menu_ai_plugins_desc', link: '/categories/plugins' },
-  { icon: '🧻', key: 'menu_gpts', descKey: 'menu_gpts_desc', link: '/categories/gpts' },
+  { icon: '📱', key: 'menu_ai_apps', descKey: 'menu_ai_apps_desc', link: '/categories/apps' },
+  { icon: '🧩', key: 'menu_ai_plugins', descKey: 'menu_ai_plugins_desc', link: '/categories/plugins' },
+  { icon: '🤖', key: 'menu_gpts', descKey: 'menu_gpts_desc', link: '/categories/gpts' },
 ];
 
 export default function Navbar() {
@@ -130,14 +130,13 @@ export default function Navbar() {
               </div>
             )}
           </div>
+          
           {/* 分类下拉 */}
           <div className="relative"
             onMouseEnter={handleCategoryEnter}
             onMouseLeave={handleCategoryLeave}
           >
-            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}>
-              <span className="text-xl">🏨</span>{t('navbar_categories')}
-            </button>
+            <button className={`flex items-center gap-1 text-base hover:text-purple-600 ${isActive('/categories') ? 'text-purple-600 font-bold' : ''}`}> <span className="text-xl">📚</span>{t('navbar_categories')}</button>
             {categoryDropdown && (
               <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-30"
                 onMouseEnter={handleCategoryEnter}
@@ -157,34 +156,94 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          <Link href="/tools" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/tools') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">🛠️</span>{t('navbar_tools')}</Link>
-          <Link href="/featured" className={`hover:text-purple-600 flex items-center gap-1 text-base ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}><span className="text-xl">⭐</span>{t('navbar_featured')}</Link>
+          
+          <Link href="/featured" className={`text-base hover:text-purple-600 ${isActive('/featured') ? 'text-purple-600 font-bold' : ''}`}>
+            <span className="text-xl mr-1">⭐</span>{t('navbar_featured')}
+          </Link>
         </div>
       </div>
-      {/* 右侧搜索/主题/语言 */}
-      <div className="flex items-center gap-2 min-w-[320px] justify-end ml-auto" style={{ marginRight: 24 }}>
-        <div className="flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
+      
+      {/* 右侧功能区 */}
+      <div className="flex items-center gap-4 min-w-[200px] justify-end">
+        {/* 搜索框 */}
+        <div className="hidden md:flex items-center gap-2">
           <input
-            className="px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 outline-none"
+            type="text"
             placeholder={t('navbar_search_placeholder')}
             value={keyword}
-            onChange={e => setKeyword(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') handleSearch(); }}
+            onChange={(e) => setKeyword(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
+            className="w-48 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 flex items-center" onClick={handleSearch}>
-            <span className="material-icons text-base">{t('navbar_search')}</span>
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-medium transition"
+          >
+            {t('navbar_search')}
           </button>
         </div>
+        
+        {/* 主题切换 */}
         <ThemeToggle />
+        
+        {/* 语言切换 */}
         <LanguageSwitcher />
-        {/* 用户中心/登录注册/看板 */}
-        {isLoggedIn && user ? (
-          <Link href="/dashboard" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{t('navbar_dashboard')}</Link>
+        
+        {/* 用户菜单 */}
+        {isLoggedIn ? (
+          <div className="relative">
+            <button
+              onClick={() => setProfileDropdown(!profileDropdown)}
+              className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            >
+              <img
+                src={user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email}`}
+                alt="Avatar"
+                className="w-8 h-8 rounded-full"
+              />
+              <span className="hidden md:block text-sm font-medium text-gray-700 dark:text-gray-200">
+                {user?.name || user?.email}
+              </span>
+            </button>
+            
+            {profileDropdown && (
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-xl z-30">
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-lg"
+                >
+                  {t('navbar_profile')}
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  {t('navbar_dashboard')}
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-b-lg"
+                >
+                  {t('navbar_logout')}
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
-          <>
-            <Link href="/login" className="ml-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">{t('navbar_login')}</Link>
-            <Link href="/register" className="ml-2 px-4 py-2 border border-purple-600 text-purple-600 rounded hover:bg-purple-50">{t('navbar_register')}</Link>
-          </>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/auth/login"
+              className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-purple-600 transition"
+            >
+              {t('navbar_login')}
+            </Link>
+            <Link
+              href="/auth/register"
+              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition"
+            >
+              {t('navbar_register')}
+            </Link>
+          </div>
         )}
       </div>
     </nav>

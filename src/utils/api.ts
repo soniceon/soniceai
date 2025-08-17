@@ -7,8 +7,8 @@ const api = axios.create({
 
 // 简单错误处理
 api.interceptors.response.use(
-  response => response,
-  error => {
+  (response: any) => response,
+  (error: any) => {
     if (error.response?.status === 401) {
       window.location.href = '/login';
     }
