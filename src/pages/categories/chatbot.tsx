@@ -14,8 +14,13 @@ export default function ChatbotCategory() {
     <>
       <SEO
         title="聊天机器人 - SoniceAI"
-        description="探索最好的AI聊天机器人工具"
-        keywords="AI聊天机器人, ChatGPT, 对话AI, 自然语言处理"
+        description="探索最好的AI聊天机器人工具，包括ChatGPT、Claude等先进的对话AI系统"
+        keywords="AI聊天机器人, ChatGPT, Claude, 对话AI, 自然语言处理, 智能助手"
+        type="website"
+        section="聊天机器人分类"
+        tags={['AI聊天机器人', 'ChatGPT', 'Claude', '对话AI', '智能助手']}
+        publishedTime={new Date().toISOString()}
+        modifiedTime={new Date().toISOString()}
       />
       
       <div className="min-h-screen bg-gray-50 dark:bg-[#181825] py-12">

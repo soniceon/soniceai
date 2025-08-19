@@ -103,6 +103,66 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
   
+  // 新增：处理更多的404和重定向问题
+  
+  // 处理常见的404路径
+  const common404Paths = [
+    '/tool', '/category', '/ranking', '/feature', '/ai-tool', '/ai-category',
+    '/chatbot-tools', '/image-tools', '/text-tools', '/video-tools', '/audio-tools',
+    '/code-tools', '/data-tools', '/productivity-tools', '/education-tools',
+    '/business-tools', '/creative-tools', '/research-tools'
+  ];
+  
+  for (const path of common404Paths) {
+    if (pathname === path) {
+      if (path.includes('tool')) {
+        return NextResponse.redirect(new URL('/tools', request.url), 301);
+      } else if (path.includes('category')) {
+        return NextResponse.redirect(new URL('/categories', request.url), 301);
+      } else if (path.includes('ranking')) {
+        return NextResponse.redirect(new URL('/rankings', request.url), 301);
+      } else if (path.includes('feature')) {
+        return NextResponse.redirect(new URL('/featured', request.url), 301);
+      }
+    }
+  }
+  
+  // 处理带下划线的路径
+  if (pathname.includes('_')) {
+    const newPath = pathname.replace(/_/g, '-');
+    return NextResponse.redirect(new URL(newPath, request.url), 301);
+  }
+  
+  // 处理双斜杠问题
+  if (pathname.includes('//')) {
+    const newPath = pathname.replace(/\/+/g, '/');
+    return NextResponse.redirect(new URL(newPath, request.url), 301);
+  }
+  
+  // 处理尾部斜杠问题（除了根路径）
+  if (pathname !== '/' && pathname.endsWith('/')) {
+    const newPath = pathname.slice(0, -1);
+    return NextResponse.redirect(new URL(newPath, request.url), 301);
+  }
+  
+  // 处理查询参数中的重复参数
+  const searchParams = url.searchParams;
+  const seenParams = new Set<string>();
+  const cleanParams = new URLSearchParams();
+  
+  // 使用Array.from来避免迭代器问题
+  Array.from(searchParams.entries()).forEach(([key, value]) => {
+    if (!seenParams.has(key)) {
+      cleanParams.set(key, value);
+      seenParams.add(key);
+    }
+  });
+  
+  if (searchParams.toString() !== cleanParams.toString()) {
+    url.search = cleanParams.toString();
+    return NextResponse.redirect(url, 301);
+  }
+  
   return NextResponse.next();
 }
 

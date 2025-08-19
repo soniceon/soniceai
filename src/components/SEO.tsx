@@ -2,125 +2,183 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 interface SEOProps {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   keywords?: string;
-  ogImage?: string;
-  ogType?: string;
-  twitterCard?: string;
-  noindex?: boolean;
+  image?: string;
+  url?: string;
+  type?: 'website' | 'article' | 'product';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  section?: string;
+  tags?: string[];
 }
 
-const SEO: React.FC<SEOProps> = ({
-  title = 'SoniceAI - Discover the Best AI Tools and Websites',
-  description = 'Explore AI tools for chatbots, image generation, coding, and productivity. Find the perfect AI solution for your needs.',
-  keywords = 'AI tools, artificial intelligence, chatbot, image generation, coding, productivity',
-  ogImage = '/og-image.jpg',
-  ogType = 'website',
-  twitterCard = 'summary_large_image',
-  noindex = false,
-}) => {
+export default function SEO({
+  title,
+  description,
+  keywords,
+  image = '/og-image.jpg',
+  url,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author,
+  section,
+  tags
+}: SEOProps) {
   const router = useRouter();
-  const canonicalUrl = `https://soniceai.com${router.asPath}`;
+  const canonicalUrl = url || `https://soniceai.com${router.asPath}`;
+  const ogImage = image.startsWith('http') ? image : `https://soniceai.com${image}`;
+
+  // 结构化数据
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": type === 'article' ? 'Article' : 'WebPage',
+    "name": title,
+    "description": description,
+    "url": canonicalUrl,
+    "image": ogImage,
+    "mainEntity": type === 'article' ? {
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "image": ogImage,
+      "author": {
+        "@type": "Organization",
+        "name": "SoniceAI"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "SoniceAI",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://soniceai.com/favicon.svg"
+        }
+      },
+      "datePublished": publishedTime,
+      "dateModified": modifiedTime,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": canonicalUrl
+      }
+    } : undefined,
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://soniceai.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": section || "AI工具",
+          "item": canonicalUrl
+        }
+      ]
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://soniceai.com/tools?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
 
   return (
     <Head>
+      {/* 基本Meta标签 */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      <link rel="canonical" href={canonicalUrl} />
+      {keywords && <meta name="keywords" content={keywords} />}
+      <meta name="author" content="SoniceAI" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       
-      {/* Favicon */}
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      {/* Canonical URL */}
+      <link rel="canonical" href={canonicalUrl} />
       
       {/* Open Graph */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:type" content={ogType} />
+      <meta property="og:type" content={type} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="SoniceAI" />
-      <meta property="og:locale" content={router.locale || 'en'} />
+      <meta property="og:locale" content="zh_CN" />
       
-      {/* Twitter */}
-      <meta name="twitter:card" content={twitterCard} />
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:site" content="@soniceai" />
+      <meta name="twitter:site" content="@SoniceAI" />
       
-      {/* Robots */}
-      <meta name="robots" content={noindex ? 'noindex,nofollow' : 'index,follow'} />
-      
-      {/* Language */}
-      <meta httpEquiv="content-language" content={router.locale || 'en'} />
-      
-      {/* Viewport */}
+      {/* 额外的SEO标签 */}
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="theme-color" content="#8B5CF6" />
+      <meta name="msapplication-TileColor" content="#8B5CF6" />
       
-      {/* Additional SEO */}
-      <meta name="author" content="SoniceAI" />
-      <meta name="theme-color" content="#6366f1" />
+      {/* 语言和地区 */}
+      <meta name="language" content="zh-CN" />
+      <meta name="geo.region" content="CN" />
+      <meta name="geo.placename" content="China" />
       
-      {/* AI-Friendly Meta Tags */}
-      <meta name="generator" content="Next.js" />
-      <meta name="application-name" content="SoniceAI" />
-      <meta name="msapplication-TileColor" content="#6366f1" />
-      <meta name="msapplication-config" content="/browserconfig.xml" />
+      {/* 内容分类 */}
+      <meta name="category" content="AI Tools" />
+      <meta name="classification" content="Technology, Artificial Intelligence" />
       
-      {/* Structured Data for AI Crawlers */}
+      {/* 时间相关 */}
+      {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+      {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+      
+      {/* 标签 */}
+      {tags && tags.map((tag, index) => (
+        <meta key={index} property="article:tag" content={tag} />
+      ))}
+      
+      {/* 结构化数据 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "SoniceAI",
-            "url": "https://soniceai.com",
-            "description": "Discover and explore the best AI tools for various tasks",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://soniceai.com/search?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          })
+          __html: JSON.stringify(structuredData)
         }}
       />
       
-      {/* Additional Structured Data for AI Tools */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "AI Tools Directory",
-            "description": "A comprehensive directory of AI tools and applications",
-            "url": "https://soniceai.com/tools",
-            "numberOfItems": 100,
-            "itemListElement": [
-              {
-                "@type": "SoftwareApplication",
-                "name": "ChatGPT",
-                "description": "AI-powered chatbot for conversation and assistance",
-                "applicationCategory": "Chatbot",
-                "operatingSystem": "Web"
-              },
-              {
-                "@type": "SoftwareApplication", 
-                "name": "Midjourney",
-                "description": "AI image generation tool",
-                "applicationCategory": "Image Generation",
-                "operatingSystem": "Web"
-              }
-            ]
-          })
-        }}
-      />
+      {/* 预连接优化 */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      
+      {/* DNS预取 */}
+      <link rel="dns-prefetch" href="//www.google-analytics.com" />
+      <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+      
+      {/* 额外的SEO优化 */}
+      <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      
+      {/* 移动端优化 */}
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      <meta name="apple-mobile-web-app-title" content="SoniceAI" />
+      
+      {/* 图标 */}
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      
+      {/* 验证标签 */}
+      <meta name="google-site-verification" content="your-verification-code" />
+      <meta name="baidu-site-verification" content="your-verification-code" />
     </Head>
   );
-};
-
-export default SEO; 
+} 
