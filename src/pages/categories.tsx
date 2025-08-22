@@ -4,6 +4,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import SEO from '@/components/SEO';
 
 const categories = [
@@ -33,25 +34,56 @@ export default function CategoriesPage() {
         title="AI 工具分类 - SoniceAI"
         description="按分类浏览AI 工具，包括聊天机器人、图像生成、编程助手、生产力工具、设计工具、写作工具等。找到最适合您需求的AI解决方案。"
         keywords="AI 工具分类, 聊天机器人, 图像生成, 编程助手, 生产力工具, 设计工具, 写作工具, 媒体工具, 营销工具"
-        ogImage="/og-image.jpg"
-        ogType="website"
+        image="/og-image.jpg"
+        type="website"
       />
     <div className="max-w-7xl mx-auto w-full px-4">
       <h1 className="text-3xl font-bold mb-6 mt-8">{t('ai_tool_categories')}</h1>
+      
+      {/* 分类导航 */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        {categories.map(cat => {
+          const tools = aiTools.filter(t => t.type === cat.type);
+          return (
+            <Link
+              key={cat.type}
+              href={`/categories/${cat.type}`}
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:scale-105"
+            >
+              <div className="text-4xl mb-3">{cat.icon}</div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                {t(`category_${cat.type}`)}
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {tools.length} 个工具
+              </p>
+            </Link>
+          );
+        })}
+      </div>
+
       <div className="space-y-16">
         {categories.map(cat => {
           const tools = aiTools.filter(t => t.type === cat.type);
           return (
             <section key={cat.type} id={cat.type} className="mb-12">
-              <h2 className="text-2xl font-bold flex items-center gap-2 mb-4 text-purple-700 dark:text-purple-300">
-                <span className="text-xl">{cat.icon}</span>
-                {t(`category_${cat.type}`)}
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold flex items-center gap-2 text-purple-700 dark:text-purple-300">
+                  <span className="text-xl">{cat.icon}</span>
+                  {t(`category_${cat.type}`)}
+                </h2>
+                <Link
+                  href={`/categories/${cat.type}`}
+                  className="text-purple-600 hover:text-purple-700 text-sm font-medium hover:underline"
+                >
+                  查看全部 →
+                </Link>
+              </div>
               {tools.length === 0 ? (
                 <div className="col-span-4 text-center text-gray-400">{t('no_category_tools')}</div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
-                  {tools.map(tool => (
+                  {tools.slice(0, 5).map(tool => (
                     <div key={tool.id} className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 flex flex-col items-start border border-gray-100 dark:border-gray-800">
                       <span className="text-3xl mb-2">{tool.icon}</span>
                       <div className="font-bold text-lg mb-1 text-gray-900 dark:text-white">{tool.name[langKey]}</div>

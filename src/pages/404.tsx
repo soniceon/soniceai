@@ -1,136 +1,180 @@
-import { NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { aiTools } from '@/data/aiTools';
+import SEO from '@/components/SEO';
 
-const Custom404: NextPage = () => {
+export default function Custom404() {
   const router = useRouter();
-  const [suggestedPaths, setSuggestedPaths] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // 根据当前路径提供建议
+    // 从URL路径中提取可能的搜索词
     const path = router.asPath;
-    const suggestions = [];
+    const pathParts = path.split('/').filter(Boolean);
     
-    if (path.includes('tool') || path.includes('ai')) {
-      suggestions.push('/tools', '/categories', '/featured');
-    } else if (path.includes('categor') || path.includes('type')) {
-      suggestions.push('/categories', '/tools', '/rankings');
-    } else if (path.includes('rank') || path.includes('top')) {
-      suggestions.push('/rankings', '/tools', '/featured');
-    } else {
-      suggestions.push('/tools', '/categories', '/rankings', '/featured');
+    if (pathParts.length > 0) {
+      const lastPart = pathParts[pathParts.length - 1];
+      setSearchTerm(lastPart);
+      
+      // 查找相似的工具
+      const similarTools = aiTools.filter(tool => {
+        const toolName = tool.name.zh || tool.name.en;
+        const toolDesc = tool.desc.zh || tool.desc.en;
+        const toolTags = tool.tags.join(' ');
+        
+        const searchLower = lastPart.toLowerCase();
+        return toolName.toLowerCase().includes(searchLower) ||
+               toolDesc.toLowerCase().includes(searchLower) ||
+               toolTags.toLowerCase().includes(searchLower) ||
+               tool.type.toLowerCase().includes(searchLower);
+      }).slice(0, 6);
+      
+      setSuggestions(similarTools);
     }
-    
-    setSuggestedPaths(suggestions);
   }, [router.asPath]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      router.push(`/tools?search=${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
 
   return (
     <>
-      <Head>
-        <title>页面未找到 - 404 | SonicAI</title>
-        <meta name="description" content="抱歉，您访问的页面不存在。浏览我们的AI工具库，发现最佳的人工智能工具。" />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="canonical" href="https://soniceai.com/404" />
-      </Head>
+      <SEO
+        title="页面未找到 - SoniceAI"
+        description="抱歉，您访问的页面不存在。请使用搜索功能或浏览我们的AI工具分类。"
+        type="website"
+        section="404页面"
+      />
       
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          {/* 404 图标 */}
+      <div className="min-h-screen bg-gray-50 dark:bg-[#181825] flex items-center justify-center py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* 404图标 */}
           <div className="mb-8">
-            <div className="text-9xl font-bold text-gray-300 dark:text-gray-600">404</div>
-            <div className="text-2xl font-semibold text-gray-600 dark:text-gray-300">页面未找到</div>
-          </div>
-          
-          {/* 错误描述 */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
-              抱歉，页面不存在
+            <div className="text-9xl font-bold text-purple-600 dark:text-purple-400 mb-4">
+              404
+            </div>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              页面未找到
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              您访问的页面可能已被移动、删除或从未存在过。
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+              抱歉，您访问的页面不存在或已被移动
             </p>
           </div>
-          
-          {/* 建议路径 */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-              您可能想要访问：
-            </h2>
-            <div className="flex flex-wrap justify-center gap-3">
-              {suggestedPaths.map((path) => (
-                <Link
-                  key={path}
-                  href={path}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium"
-                >
-                  {path === '/tools' && 'AI工具库'}
-                  {path === '/categories' && '工具分类'}
-                  {path === '/rankings' && '工具排行'}
-                  {path === '/featured' && '精选工具'}
-                </Link>
-              ))}
-            </div>
-          </div>
-          
+
           {/* 搜索框 */}
-          <div className="mb-8">
-            <div className="max-w-md mx-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="搜索AI工具..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      const query = (e.target as HTMLInputElement).value.trim();
-                      if (query) {
-                        router.push(`/tools?search=${encodeURIComponent(query)}`);
-                      }
-                    }
-                  }}
-                />
-                <button
-                  onClick={() => {
-                    const input = document.querySelector('input[placeholder="搜索AI工具..."]') as HTMLInputElement;
-                    const query = input?.value.trim();
-                    if (query) {
-                      router.push(`/tools?search=${encodeURIComponent(query)}`);
-                    }
-                  }}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
-                >
-                  搜索
-                </button>
-              </div>
-            </div>
+          <div className="max-w-md mx-auto mb-8">
+            <form onSubmit={handleSearch} className="flex gap-2">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="搜索AI工具..."
+                className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-colors"
+              >
+                搜索
+              </button>
+            </form>
           </div>
-          
-          {/* 返回首页 */}
-          <div className="mb-8">
+
+          {/* 快速导航 */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <Link
               href="/"
-              className="inline-flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors duration-200 font-medium"
+              className="p-4 bg-white dark:bg-gray-800 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              返回首页
+              <div className="text-2xl mb-2">🏠</div>
+              <div className="font-semibold text-gray-900 dark:text-white">首页</div>
+            </Link>
+            <Link
+              href="/tools"
+              className="p-4 bg-white dark:bg-gray-800 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
+            >
+              <div className="text-2xl mb-2">🔧</div>
+              <div className="font-semibold text-gray-900 dark:text-white">工具</div>
+            </Link>
+            <Link
+              href="/categories"
+              className="p-4 bg-white dark:bg-gray-800 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
+            >
+              <div className="text-2xl mb-2">📁</div>
+              <div className="font-semibold text-gray-900 dark:text-white">分类</div>
+            </Link>
+            <Link
+              href="/rankings"
+              className="p-4 bg-white dark:bg-gray-800 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
+            >
+              <div className="text-2xl mb-2">🏆</div>
+              <div className="font-semibold text-gray-900 dark:text-white">排行榜</div>
             </Link>
           </div>
-          
-          {/* 帮助信息 */}
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            <p>如果您认为这是一个错误，请联系我们的支持团队。</p>
-            <p className="mt-2">
-              当前路径: <code className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">{router.asPath}</code>
+
+          {/* 相关建议 */}
+          {suggestions.length > 0 && (
+            <div className="text-left">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                您可能在寻找：
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {suggestions.map((tool) => (
+                  <Link
+                    key={tool.id}
+                    href={`/tools/${tool.id}`}
+                    className="block p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 flex items-center justify-center text-2xl">
+                        {tool.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                          {tool.name.zh || tool.name.en}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                          {tool.desc.zh || tool.desc.en}
+                        </p>
+                        <span className="inline-block px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs mt-2">
+                          {tool.type}
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 联系信息 */}
+          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              如果您认为这是一个错误，请联系我们
             </p>
+            <div className="flex justify-center gap-4">
+              <Link
+                href="/"
+                className="text-purple-600 hover:text-purple-700 font-medium"
+              >
+                返回首页
+              </Link>
+              <span className="text-gray-400">|</span>
+              <Link
+                href="/tools"
+                className="text-purple-600 hover:text-purple-700 font-medium"
+              >
+                浏览工具
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </>
   );
-};
-
-export default Custom404; 
+} 

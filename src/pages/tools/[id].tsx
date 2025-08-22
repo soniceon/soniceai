@@ -1,454 +1,206 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { aiTools } from '@/data/aiTools';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { QRCodeCanvas } from 'qrcode.react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import ToolSEO from '@/components/ToolSEO';
-import { useLanguage } from '@/context/LanguageContext';
-import { useAuth } from '@/context/AuthContext';
+import SEO from '@/components/SEO';
+import { aiTools } from '@/data/aiTools';
+import Link from 'next/link';
 
-const chatgptDetail = {
-  launchDate: 'November 2022',
-  company: 'OpenAI',
-  website: 'https://chat.openai.com',
-  users: '100M+',
-  responseTime: '<1s',
-  features: {
-    zh: [
-      '自然语言理解',
-      '上下文感知对话',
-      '多语言支持',
-      '可定制的人格和语气',
-      '与消息平台集成',
-      '从历史交互中学习'
-    ],
-    en: [
-      'Natural language understanding',
-      'Context-aware conversations',
-      'Multilingual support',
-      'Customizable personality and tone',
-      'Integration with messaging platforms',
-      'Learning from historical interactions'
-    ],
-    ja: ['自然言語理解', 'コンテキスト認識会話', '多言語対応', 'カスタマイズ可能な人格とトーン', 'メッセージングプラットフォームとの統合', '履歴からの学習'],
-    ko: ['자연어 이해', '상황 인식 대화', '다국어 지원', '맞춤형 성격 및 어조', '메시징 플랫폼과 통합', '이력에서 학습'],
-    de: ['Verständnis natürlicher Sprache', 'Kontextbewusste Gespräche', 'Mehrsprachige Unterstützung', 'Anpassbare Persönlichkeit und Tonalität', 'Integration mit Messaging-Plattformen', 'Lernen aus historischen Interaktionen'],
-    fr: ['Compréhension du langage naturel', 'Conversations contextuelles', 'Support multilingue', 'Personnalité et ton personnalisables', 'Intégration avec les plateformes de messagerie', 'Apprentissage à partir des interactions passées'],
-    es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe', 'Personalidad y tono personalizables', 'Integración con plataformas de mensajería', 'Aprendizaje de interacciones históricas'],
-    ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка', 'Настраиваемая личность и тон', 'Интеграция с мессенджерами', 'Обучение на основе истории взаимодействий']
-  },
-  pricing: [
-    {
-      name: 'Free',
-      price: '$0',
-      features: {
-        zh: ['自然语言理解', '上下文感知对话', '多语言支持'],
-        en: ['Natural language understanding', 'Context-aware conversations', 'Multilingual support'],
-        ja: ['自然言語理解', 'コンテキスト認識会話', '多言語対応'],
-        ko: ['자연어 이해', '상황 인식 대화', '다국어 지원'],
-        de: ['Verständnis natürlicher Sprache', 'Kontextbewusste Gespräche', 'Mehrsprachige Unterstützung'],
-        fr: ['Compréhension du langage naturel', 'Conversations contextuelles', 'Support multilingue'],
-        es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe'],
-        ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка']
-      },
-      cta: 'get_started',
-      ctaUrl: 'https://chat.openai.com/'
-    },
-    {
-      name: 'Pro',
-      price: '$29',
-      features: {
-        zh: ['自然语言理解', '上下文感知对话', '多语言支持', '可定制的人格和语气'],
-        en: ['Natural language understanding', 'Context-aware conversations', 'Multilingual support', 'Customizable personality and tone'],
-        ja: ['自然言語理解', 'コンテキスト認識会話', '多言語対応', 'カスタマイズ可能な人格とトーン'],
-        ko: ['자연어 이해', '상황 인식 대화', '다국어 지원', '맞춤형 성격 및 어조'],
-        de: ['Verständnis natürlicher Sprache', 'Kontextbewusste Gespräche', 'Mehrsprachige Unterstützung', 'Anpassbare Persönlichkeit und Tonalität'],
-        fr: ['Compréhension du langage naturel', 'Conversations contextuelles', 'Support multilingue', 'Personnalité et ton personnalisables'],
-        es: ['Comprensión del lenguaje natural', 'Conversaciones con conciencia de contexto', 'Soporte multilingüe', 'Personalidad y tono personalizables'],
-        ru: ['Понимание естественного языка', 'Контекстно-осознанные беседы', 'Многоязычная поддержка', 'Настраиваемая личность и тон']
-      },
-      cta: 'upgrade',
-      ctaUrl: 'https://chat.openai.com/pro'
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      features: {
-        zh: ['全部功能', '高级支持', '定制集成'],
-        en: ['All features', 'Premium support', 'Custom integration'],
-        ja: ['全機能', 'プレミアムサポート', 'カスタム統合'],
-        ko: ['모든 기능', '프리미엄 지원', '맞춤형 통합'],
-        de: ['Alle Funktionen', 'Premium-Support', 'Individuelle Integration'],
-        fr: ['Toutes les fonctionnalités', 'Support premium', 'Intégration personnalisée'],
-        es: ['Todas las funciones', 'Soporte premium', 'Integración personalizada'],
-        ru: ['Все функции', 'Премиум поддержка', 'Индивидуальная интеграция']
-      },
-      cta: 'contact_sales',
-      ctaUrl: 'mailto:sales@openai.com'
-    }
-  ]
-};
-
-export default function ToolDetail() {
+export default function ToolDetailPage() {
+  const { t, i18n } = useTranslation('common');
   const router = useRouter();
   const { id } = router.query;
-  const { lang } = useLanguage();
-  const { t } = useTranslation('common');
-  const { user, isLoggedIn } = useAuth();
-  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const [showQR, setShowQR] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState('');
-  const [isClient, setIsClient] = useState(false);
-  const [userRating, setUserRating] = useState(0);
-  const [review, setReview] = useState('');
-  const [reviews, setReviews] = useState<any[]>([]);
-  const [loadingReviews, setLoadingReviews] = useState(true);
-  const [reviewError, setReviewError] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [formattedReviews, setFormattedReviews] = useState<Array<{
-    id: string;
-    username: string;
-    rating: number;
-    comment: string;
-    userEmail: string;
-    createdAt: string;
-    formattedDate: string;
-  }>>([]);
+  const lang = i18n.language as 'zh' | 'en' | 'ja' | 'ko' | 'de' | 'fr' | 'es' | 'ru';
+  
+  const tool = aiTools.find(t => t.id === id);
 
-  // 确保只在客户端获取URL
-  useEffect(() => {
-    setIsClient(true);
-    setCurrentUrl(window.location.href);
-  }, []);
+  if (!tool) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-[#181825] py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            工具不存在
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-400">
+            请返回 <Link href="/tools" className="text-purple-600 hover:text-purple-700">工具页面</Link>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
-  // 确保只在客户端获取localStorage数据
-  useEffect(() => {
-    if (isClient) {
-      setUserEmail(localStorage.getItem('userEmail') || '');
-      setUsername(localStorage.getItem('username') || '');
-    }
-  }, [isClient]);
+  // 获取分类信息
+  const getCategoryInfo = (type: string) => {
+    const icons: { [key: string]: string } = {
+      chatbot: '💬',
+      image: '🖼️',
+      coding: '💻',
+      productivity: '📝',
+      design: '🎨',
+      writing: '✍️',
+      media: '🎬',
+      marketing: '📢'
+    };
+    
+    const names: { [key: string]: { [lang: string]: string } } = {
+      chatbot: { zh: '聊天机器人', en: 'Chatbot', ja: 'チャットボット', ko: '챗봇', de: 'Chatbot', fr: 'Chatbot', es: 'Chatbot', ru: 'Чат-бот' },
+      image: { zh: '图像生成', en: 'Image Generation', ja: '画像生成', ko: '이미지 생성', de: 'Bildgenerierung', fr: 'Génération d\'images', es: 'Generación de imágenes', ru: 'Генерация изображений' },
+      coding: { zh: '编程助手', en: 'Coding Assistant', ja: 'コーディングアシスタント', ko: '코딩 어시스턴트', de: 'Programmierassistent', fr: 'Assistant de programmation', es: 'Asistente de programación', ru: 'Помощник по программированию' },
+      productivity: { zh: '生产力工具', en: 'Productivity Tools', ja: '生産性ツール', ko: '생산성 도구', de: 'Produktivitätstools', fr: 'Outils de productivité', es: 'Herramientas de productividad', ru: 'Инструменты продуктивности' },
+      design: { zh: '设计工具', en: 'Design Tools', ja: 'デザインツール', ko: '디자인 도구', de: 'Designtools', fr: 'Outils de design', es: 'Herramientas de diseño', ru: 'Инструменты дизайна' },
+      writing: { zh: '写作工具', en: 'Writing Tools', ja: '執筆ツール', ko: '작성 도구', de: 'Schreibwerkzeuge', fr: 'Outils d\'écriture', es: 'Herramientas de escritura', ru: 'Инструменты для письма' },
+      media: { zh: '媒体工具', en: 'Media Tools', ja: 'メディアツール', ko: '미디어 도구', de: 'Medientools', fr: 'Outils média', es: 'Herramientas de medios', ru: 'Медиа-инструменты' },
+      marketing: { zh: '营销工具', en: 'Marketing Tools', ja: 'マーケティングツール', ko: '마케팅 도구', de: 'Marketing-Tools', fr: 'Outils de marketing', es: 'Herramientas de marketing', ru: 'Маркетинговые инструменты' }
+    };
 
-  // 格式化评论时间
-  useEffect(() => {
-    if (reviews.length > 0 && isClient) {
-      const formatted = reviews.map(review => ({
-        ...review,
-        formattedDate: new Date(review.createdAt).toLocaleString()
-      }));
-      setFormattedReviews(formatted);
-    }
-  }, [reviews, isClient]);
-
-  // 拉取评论
-  useEffect(() => {
-    if (!id) return;
-    setLoadingReviews(true);
-    fetch(`/api/reviews?toolId=${id}`)
-      .then(res => res.json())
-      .then(data => { setReviews(data); setLoadingReviews(false); })
-      .catch(() => setLoadingReviews(false));
-  }, [id]);
-
-  const handleReviewSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!userRating || !review.trim()) return;
-
-    try {
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ toolId: id, userEmail, username, rating: userRating, comment: review })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setUserRating(0);
-        setReview('');
-        // 重新拉取评论
-        fetch(`/api/reviews?toolId=${id}`)
-          .then(res => res.json())
-          .then(data => setReviews(data));
-      } else {
-        setReviewError(data.message);
-      }
-    } catch (error) {
-      setReviewError('提交评论失败');
-    }
+    return {
+      icon: icons[type] || '🔧',
+      name: names[type] || { en: type }
+    };
   };
 
-  const handleDeleteReview = async (id: string) => {
-    if (!userEmail) return;
-    if (!isClient || !window.confirm('确定要删除这条评论吗？')) return;
-    const res = await fetch('/api/reviews', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, userEmail })
-    });
-    if (res.ok) {
-      setReviews(reviews.filter(r => r.id !== id));
-    }
-  };
-
-  const tool = aiTools.find(tl => tl.id === id) || aiTools[0];
-  const langTyped = lang as keyof typeof chatgptDetail.features;
+  const categoryInfo = getCategoryInfo(tool.type);
 
   return (
     <>
-      <ToolSEO tool={tool} lang={lang} />
-      <div className="flex justify-center w-full">
-        <main className="max-w-7xl w-full px-4 py-8">
-        {/* 顶部卡片 */}
-        <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col md:flex-row gap-6 mb-8">
-          <div className="flex items-center gap-4 flex-1">
-            <div className="w-16 h-16 rounded-xl bg-purple-200 flex items-center justify-center text-3xl font-bold text-purple-700 overflow-hidden relative">
-              <img
-                src={`https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(tool.website ?? '')}`}
-                alt={tool.name && tool.name[lang] ? tool.name[lang] : ''}
-                className="w-12 h-12"
-                onError={e => { e.currentTarget.style.display = 'none'; }}
-              />
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                {tool.icon || tool.name[lang][0]}
-              </span>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{tool.name[lang]}</div>
-              <div className="text-gray-500 dark:text-gray-300 text-sm mt-1">{t('tool_category_chatbot')}</div>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-yellow-500">★</span>
-                <span className="font-bold">{tool.rating}</span>
-                <span className="text-gray-400 text-xs">{tool.users}</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 justify-center">
-            {tool.website ? (
-              <Link href={tool.website} target="_blank" className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-center">{t('visit_website')}</Link>
-            ) : (
-              <button className="px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed" disabled>{t('no_official_website')}</button>
-            )}
-          </div>
-        </div>
+      <SEO
+        title={`${tool.name[lang] || tool.name.en} - SoniceAI`}
+        description={tool.desc[lang] || tool.desc.en}
+        keywords={`${tool.name[lang] || tool.name.en}, ${categoryInfo.name[lang] || categoryInfo.name.en}, AI工具, 人工智能`}
+        type="website"
+        section={`${categoryInfo.name[lang] || categoryInfo.name.en}`}
+        tags={tool.tags}
+        publishedTime={new Date().toISOString()}
+        modifiedTime={new Date().toISOString()}
+      />
+      
+      <div className="min-h-screen bg-gray-50 dark:bg-[#181825] py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* 面包屑导航 */}
+          <nav className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
+            <Link href="/" className="hover:text-purple-600">首页</Link>
+            <span>/</span>
+            <Link href="/categories" className="hover:text-purple-600">分类</Link>
+            <span>/</span>
+            <Link href={`/categories/${tool.type}`} className="hover:text-purple-600">
+              {categoryInfo.name[lang] || categoryInfo.name.en}
+            </Link>
+            <span>/</span>
+            <span className="text-gray-900 dark:text-white">{tool.name[lang] || tool.name.en}</span>
+          </nav>
 
-        {/* 概览和侧栏 */}
-        <div className="flex gap-6 mb-8 w-full">
-          <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
-            <div className="font-bold text-lg mb-2">{t('overview')}</div>
-            <div className="text-gray-700 dark:text-gray-200 mb-2">{tool.desc[lang]}</div>
-            <ul className="list-disc pl-6 text-gray-600 dark:text-gray-300 text-sm space-y-1">
-              {chatgptDetail.features[langTyped]?.map((f: string, i: number) => <li key={i}>{f}</li>)}
-            </ul>
-          </div>
-          <div className="w-64 flex-shrink-0 flex flex-col gap-4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
-              <div className="font-bold mb-2">{t('quick_info')}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{t('launched')}: {chatgptDetail.launchDate}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{t('company')}: {chatgptDetail.company}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{t('website')}: <a href={chatgptDetail.website} className="underline" target="_blank">{chatgptDetail.website}</a></div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{t('users')}: {chatgptDetail.users}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{t('response_time')}: {chatgptDetail.responseTime}</div>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
-              <div className="font-bold mb-2">{t('share')}</div>
-              <div className="flex gap-2 flex-wrap">
-                {/* Twitter */}
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}&url=${encodeURIComponent(currentUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 bg-black text-white rounded"
-                >
-                  Twitter
-                </a>
-                {/* Facebook */}
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 bg-black text-white rounded"
-                >
-                  Facebook
-                </a>
-                {/* 复制链接 */}
-                <button
-                  className="px-3 py-1 bg-gray-700 text-white rounded"
-                  onClick={() => {
-                    if (isClient && navigator.clipboard) {
-                      navigator.clipboard.writeText(currentUrl);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 1500);
-                    }
-                  }}
-                >
-                  {t('copy_link')}
-                </button>
-                {copied && <span className="text-green-500 ml-2">{t('copied')}</span>}
-                {/* 微信二维码 */}
-                <button
-                  className="px-3 py-1 bg-green-500 text-white rounded"
-                  onClick={() => setShowQR(!showQR)}
-                >
-                  {t('wechat')}
-                </button>
-                {showQR && (
-                  <div className="absolute z-50 bg-white p-2 rounded shadow">
-                    <QRCodeCanvas value={currentUrl} size={120} />
-                    <div className="text-xs text-center mt-1">微信扫码分享</div>
+          {/* 工具详情 */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
+            <div className="flex items-start gap-6 mb-8">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 flex items-center justify-center text-4xl">
+                {tool.icon}
+              </div>
+              <div className="flex-1">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  {tool.name[lang] || tool.name.en}
+                </h1>
+                <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
+                  {tool.desc[lang] || tool.desc.en}
+                </p>
+                <div className="flex items-center gap-6">
+                  <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
+                    {categoryInfo.name[lang] || categoryInfo.name.en}
+                  </span>
+                  <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
+                    <span className="flex items-center gap-2">
+                      <span className="text-yellow-500 text-lg">⭐</span>
+                      <span className="font-semibold">{tool.rating}</span>
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span className="text-blue-500 text-lg">👥</span>
+                      <span className="font-semibold">{tool.users}</span>
+                    </span>
                   </div>
-                )}
-                {/* QQ分享 */}
-                <a
-                  href={`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI!')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 bg-blue-500 text-white rounded"
-                >
-                  {t('qq')}
-                </a>
-                {/* WhatsApp */}
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent('Check out ' + (tool.name?.[lang] || 'this AI tool') + ' on SoniceAI! ' + currentUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 bg-green-600 text-white rounded"
-                >
-                  {t('whatsapp')}
-                </a>
-                {/* Instagram（引导复制链接） */}
-                <button
-                  className="px-3 py-1 bg-pink-500 text-white rounded"
-                  onClick={() => {
-                    if (isClient && navigator.clipboard) {
-                      navigator.clipboard.writeText(currentUrl);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 1500);
-                    }
-                  }}
-                >
-                  {t('instagram')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 定价计划 */}
-        <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-8">
-          <div className="font-bold text-lg mb-4">{t('pricing_plans')}</div>
-          <div className="flex flex-col md:flex-row gap-4 w-full">
-            {chatgptDetail.pricing.map((plan, idx) => (
-              <div key={idx} className="flex-1 bg-gray-50 dark:bg-gray-900 rounded-xl p-4 flex flex-col items-start border border-gray-200 dark:border-gray-700">
-                <div className="font-bold text-lg mb-2">{t('plan_' + plan.name.toLowerCase())}</div>
-                <div className="text-purple-700 dark:text-purple-300 font-bold mb-2">{plan.price}{plan.name !== 'Free' && plan.name !== 'Enterprise' ? ' ' + t('per_month') : ''}</div>
-                <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                  {plan.features[langTyped]?.map((f: string, i: number) => <li key={i}>{f}</li>)}
-                </ul>
-                {plan.ctaUrl ? (
-                  <a
-                    href={plan.ctaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto px-4 py-2 bg-black text-white rounded"
-                  >
-                    {t(plan.cta)}
-                  </a>
-                ) : (
-                  <button className="mt-auto px-4 py-2 bg-black text-white rounded" disabled>
-                    {t(plan.cta)}
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 评分与评论 */}
-        <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-8">
-          <div className="font-bold text-lg mb-4">{t('ratings_reviews')}</div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-yellow-500 text-2xl">★</span>
-            <span className="text-xl font-bold">{tool.rating}</span>
-            <span className="text-gray-400 text-sm">({tool.users} {t('users')})</span>
-          </div>
-          <div className="mb-2">{t('rate_this_tool')}</div>
-          <div className="flex gap-1 mb-2">
-            {[1,2,3,4,5].map(star => (
-              <span
-                key={star}
-                className={`cursor-pointer text-2xl ${userRating >= star ? 'text-yellow-400' : 'text-gray-300'}`}
-                onClick={() => setUserRating(star)}
-              >★</span>
-            ))}
-          </div>
-          <textarea
-            className="w-full border rounded p-2 mb-2 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-            placeholder={t('share_your_experience_with_this_tool_optional')}
-            value={review}
-            onChange={e => setReview(e.target.value)}
-          />
-          <button className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">{t('submit_review')}</button>
-        </div>
-
-        {/* 评论区展示 */}
-        <div className="mt-6">
-          {loadingReviews ? <div>{t('loading')}</div> : (
-            reviews.length === 0 ? <div className="text-gray-400">{t('no_comments')}</div> :
-            <div className="space-y-4">
-              {formattedReviews.map(r => (
-                <div key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-purple-700">{r.username}</span>
-                    <span className="text-yellow-500">{'★'.repeat(r.rating)}</span>
-                    <span className="text-xs text-gray-400 ml-auto">{r.formattedDate}</span>
-                    {r.userEmail === userEmail && (
-                      <button className="ml-2 text-red-500 hover:underline text-xs" onClick={() => handleDeleteReview(r.id)}>{t('delete')}</button>
-                    )}
-                  </div>
-                  <div className="text-gray-800 dark:text-gray-100 text-sm">{r.comment}</div>
                 </div>
-              ))}
+              </div>
             </div>
-          )}
-        </div>
 
-        {/* 未登录弹窗 */}
-        {showLoginPrompt && (
-          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded shadow text-center">
-              <div className="mb-4">{t('please_login_before_comment')}</div>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded" onClick={() => { setShowLoginPrompt(false); if (isClient) window.location.href = '/login'; }}>{t('go_to_login')}</button>
+            {/* 标签 */}
+            {tool.tags && tool.tags.length > 0 && (
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">标签</h3>
+                <div className="flex flex-wrap gap-2">
+                  {tool.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 访问按钮 */}
+            <div className="text-center">
+              <a
+                href={tool.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-lg font-semibold transition-colors hover:scale-105"
+              >
+                {t('visit_website', '访问网站')}
+              </a>
             </div>
           </div>
-        )}
-      </main>
-    </div>
+
+          {/* 相关工具推荐 */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">相关工具</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {aiTools
+                .filter(t => t.type === tool.type && t.id !== tool.id)
+                .slice(0, 4)
+                .map(relatedTool => (
+                  <Link
+                    key={relatedTool.id}
+                    href={`/tools/${relatedTool.id}`}
+                    className="block p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 flex items-center justify-center text-2xl">
+                        {relatedTool.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                          {relatedTool.name[lang] || relatedTool.name.en}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                          {relatedTool.desc[lang] || relatedTool.desc.en}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
 
-export async function getStaticPaths() {
-  const paths = aiTools.map((tool) => ({ params: { id: tool.id } }));
-  const locales = ['en', 'zh', 'ja', 'ko', 'de', 'fr', 'es', 'ru'];
-  const localizedPaths: any[] = [];
-  for (const locale of locales) {
-    for (const path of paths) {
-      localizedPaths.push({ params: path.params, locale });
-    }
-  }
-  return {
-    paths: localizedPaths,
-    fallback: false
-  };
-}
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = aiTools.map((tool) => ({
+    params: { id: tool.id },
+  }));
 
-export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
-} 
+}; 

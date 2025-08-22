@@ -4,9 +4,12 @@ import { aiTools } from '@/data/aiTools';
 const EXTERNAL_DATA_URL = 'https://soniceai.com';
 
 function generateSiteMap() {
+  // 获取所有唯一的工具类型
+  const toolTypes = Array.from(new Set(aiTools.map(tool => tool.type)));
+  
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     <!-- Add the static URLs -->
+     <!-- 静态页面 -->
      <url>
        <loc>${EXTERNAL_DATA_URL}</loc>
        <lastmod>${new Date().toISOString()}</lastmod>
@@ -31,7 +34,24 @@ function generateSiteMap() {
        <changefreq>weekly</changefreq>
        <priority>0.8</priority>
      </url>
-     <!-- Add the dynamic URLs -->
+     <url>
+       <loc>${EXTERNAL_DATA_URL}/featured</loc>
+       <lastmod>${new Date().toISOString()}</lastmod>
+       <changefreq>weekly</changefreq>
+       <priority>0.8</priority>
+     </url>
+     
+     <!-- 分类页面 -->
+     ${toolTypes.map((type) => `
+       <url>
+         <loc>${`${EXTERNAL_DATA_URL}/categories/${type}`}</loc>
+         <lastmod>${new Date().toISOString()}</lastmod>
+         <changefreq>weekly</changefreq>
+         <priority>0.7</priority>
+       </url>
+     `).join('')}
+     
+     <!-- 工具详情页面 -->
      ${aiTools
        .map((tool) => {
          return `

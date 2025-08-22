@@ -5,6 +5,7 @@ Allow: /
 # Sitemap locations
 Sitemap: https://soniceai.com/api/sitemap-index.xml
 Sitemap: https://soniceai.com/api/sitemap.xml
+Sitemap: https://soniceai.com/api/sitemap-categories.xml
 
 # Disallow sensitive routes only
 Disallow: /admin-panel/
@@ -20,40 +21,13 @@ Disallow: /listening/
 Disallow: /ads/
 Disallow: /gpts/
 
-# Allow important pages
+# Allow important pages explicitly
 Allow: /tools/
 Allow: /categories/
 Allow: /rankings/
 Allow: /featured/
-
-# 减少重复内容屏蔽规则，只保留必要的
-Disallow: /pages/
-Disallow: /sites/
-Disallow: /admin-panel/
-Disallow: /api/
-Disallow: /auth/
-Disallow: /user/
-Disallow: /dashboard/
-Disallow: /profile/
-Disallow: /invoice/
-Disallow: /favorites/
-Disallow: /posts/
-Disallow: /listening/
-Disallow: /ads/
-Disallow: /gpts/
-
-# 移除可能导致重要页面被屏蔽的规则
-# Disallow: /*?q=*
-# Disallow: /*search*
-# Disallow: /*.html$
-# Disallow: /Tools
-# Disallow: /Categories
-# Disallow: /Rankings
-# Disallow: /old-tools/
-# Disallow: /ai-tools/
-# Disallow: /tools/tools/
-# Disallow: /categories/categories/
-# Disallow: /rankings/rankings/
+Allow: /tools/*/
+Allow: /categories/*/
 
 # AI Crawler Specific Rules
 User-agent: ChatGPT-User
@@ -178,4 +152,4 @@ Disallow: /ads/
 Disallow: /gpts/
 
 # Crawl-delay
-Crawl-delay: 3 
+Crawl-delay: 1 
